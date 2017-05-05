@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  catalog_number: MyString
+  alt_catalog_number: MyString
+
+two:
+  catalog_number: MyString
+  alt_catalog_number: MyString

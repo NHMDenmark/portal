@@ -1,0 +1,23 @@
+<h1>Collection Objects</h1>
+<table>
+	<thead>
+		<tr>
+			<th>Catalog Number</th>
+			<th>Alt Catalog Number</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% if @collection_objects.size == 0 %>
+			<tr>
+				<td colspan="2">No records uploaded</td>
+			</tr>
+		<% else %>
+			<% @collection_objects.each do |co| %>
+				<tr>
+					<td><%= co.catalog_number %></td>
+					<td><%= co.alt_catalog_number %></td>
+				</tr>
+			<% end %>
+		<% end %>
+	</tbody>
+</table>
