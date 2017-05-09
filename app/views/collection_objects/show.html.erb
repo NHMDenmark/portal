@@ -1,2 +1,11 @@
 <h1><%= @collection_object.catalog_number %></h1>
-<%= @collection_object.alt_catalog_number %>
+<table>
+	<tbody>
+		<% @collection_object.attributes.each do |field| %>
+			<tr>
+				<td><%= field.first %></td>
+				<td><%= field.last %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

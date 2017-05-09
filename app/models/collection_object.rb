@@ -11,7 +11,7 @@ class CollectionObject
   field :basis_of_record, type: String                  # basisOfRecord
   field :catalog_number, type: String                   # catalogNumber
   field :other_catalog_numbers, type: String            # otherCatalogNumbers
-  field :fieldNumber, type: String                      # fieldNumber
+  field :field_number, type: String                     # fieldNumber
   field :order, type: String                            # order
   field :family, type: String                           # family
   field :genus, type: String                            # genus
