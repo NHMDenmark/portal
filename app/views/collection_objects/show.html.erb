@@ -1,4 +1,6 @@
 <h1><%= @collection_object.catalog_number %></h1>
+<h2><%= @collection_object.source_collection.institution_id %> (<%= @collection_object.source_collection.institution_code %>)</h2>
+<h3><%= @collection_object.source_collection.collection_id %> (<%= @collection_object.source_collection.collection_code %>)</h3>
 <table>
 	<tbody>
 		<% @collection_object.attributes.each do |field| %>

@@ -1,13 +1,10 @@
 class CollectionObject
   include Mongoid::Document
-
+  belongs_to :source_collection
   field :mapping_id, type: Integer                      # mappingId
   field :dataset_name, type: String                     # datasetName
   field :access_rights, type: String                    # accessRights
   field :license, type: String                          # license
-  field :institution_id, type: String                   # institutionID
-  field :institution_code, type: String                 # institutionCode
-  field :collection_code, type: String                  # collectionCode
   field :basis_of_record, type: String                  # basisOfRecord
   field :catalog_number, type: String                   # catalogNumber
   field :other_catalog_numbers, type: String            # otherCatalogNumbers
