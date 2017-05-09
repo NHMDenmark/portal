@@ -1,2 +1,29 @@
-<h1>SourceCollections#index</h1>
-<p>Find me in app/views/source_collections/index.html.erb</p>
+<h1>Collections</h1>
+<table>
+	<thead>
+		<tr>
+			<th>Institution</th>
+			<th>Code</th>
+			<th>Collection</th>
+		 	<th>Code</th>
+		 	<th>Records</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% if @collections.size == 0 %>
+			<tr>
+				<td colspan="5">No records uploaded</td>
+			</tr>
+		<% else %>
+			<% @collections.each do |coll| %>
+				<tr>
+					<td><%= coll.institution_id %></td>
+					<td><%= coll.institution_code %></td>
+					<td><%= coll.collection_id %></td>
+					<td><%= coll.collection_code %></td>
+					<td><%= coll.collection_objects.size %></td>
+				</tr>
+			<% end %>
+		<% end %>
+	</tbody>
+</table>
