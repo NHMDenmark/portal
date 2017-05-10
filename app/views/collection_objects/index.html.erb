@@ -14,7 +14,7 @@
 		<% else %>
 			<% @collection_objects.each do |co| %>
 				<tr>
-					<td><%= co.catalog_number %></td>
+					<td><%= link_to co.catalog_number, co %></td>
 					<td><%= co.other_catalog_numbers %></td>
 				</tr>
 			<% end %>

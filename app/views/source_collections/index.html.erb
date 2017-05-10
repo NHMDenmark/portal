@@ -19,7 +19,7 @@
 				<tr>
 					<td><%= coll.institution_id %></td>
 					<td><%= coll.institution_code %></td>
-					<td><%= coll.collection_id %></td>
+					<td><%= link_to coll.collection_id, coll %></td>
 					<td><%= coll.collection_code %></td>
 					<td><%= coll.collection_objects.size %></td>
 				</tr>

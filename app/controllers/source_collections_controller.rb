@@ -4,5 +4,6 @@ class SourceCollectionsController < ApplicationController
   end
 
   def show
+    @collection = SourceCollection.find params[:id]
   end
 end
