@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'source_institutions/index'
+  get 'source_institutions/show'
+  resources :source_institutions, only: [:index, :show]
   get 'source_collections/index'
   get 'source_collections/show'
   resources :source_collections#, only: [:index, :show]

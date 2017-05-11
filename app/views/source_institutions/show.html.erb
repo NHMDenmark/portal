@@ -1,24 +1,21 @@
-<h1>Collections</h1>
+<h1><%= @institution.institution_name %> (<%= @institution.institution_code %>)</h1>
+<h2>Collections</h2>
 <table>
 	<thead>
 		<tr>
-			<th>Institution</th>
-			<th>Code</th>
 			<th>Collection</th>
 		 	<th>Code</th>
 		 	<th>Records</th>
 		</tr>
 	</thead>
 	<tbody>
-		<% if @collections.size == 0 %>
+		<% if @institution.source_collections.size == 0 %>
 			<tr>
-				<td colspan="5">No records uploaded</td>
+				<td colspan="3">No collections uploaded for this institution</td>
 			</tr>
 		<% else %>
-			<% @collections.each do |coll| %>
+			<% @institution.source_collections.each do |coll| %>
 				<tr>
-					<td><%= link_to coll.source_institution.institution_name, coll.source_institution %></td>
-					<td><%= coll.source_institution.institution_code %></td>
 					<td><%= link_to coll.collection_id, coll %></td>
 					<td><%= coll.collection_code %></td>
 					<td><%= coll.collection_objects.size %></td>
