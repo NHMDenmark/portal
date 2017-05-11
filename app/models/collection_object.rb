@@ -1,6 +1,7 @@
 class CollectionObject
   include Mongoid::Document
   belongs_to :source_collection
+  belongs_to :taxon_name
   field :mapping_id, type: Integer                      # mappingId
   field :dataset_name, type: String                     # datasetName
   field :access_rights, type: String                    # accessRights
@@ -9,12 +10,6 @@ class CollectionObject
   field :catalog_number, type: String                   # catalogNumber
   field :other_catalog_numbers, type: String            # otherCatalogNumbers
   field :field_number, type: String                     # fieldNumber
-  field :order, type: String                            # order
-  field :family, type: String                           # family
-  field :genus, type: String                            # genus
-  field :specific_epithet, type: String                 # specificEpithet
-  field :infraspecific_epithet, type: String            # infraspecificEpithet
-  field :scientific_name, type: String                  # scientificName
   field :type_status, type: String                      # typeStatus
   field :continent, type: String                        # continent
   field :country, type: String                          # country

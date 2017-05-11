@@ -15,6 +15,14 @@
 					@collection_object.source_collection
 		%> (<%= @collection_object.source_collection.collection_code %>)
 </h3>
+<div>
+  <h3><%= link_to @collection_object.taxon_name.scientific_name, @collection_object.taxon_name %></h3>
+  <ul>
+    <% @taxonomy.each do |rank, name| %>
+    	<li><%= rank %>: <%= name %></li>
+    <% end %>
+  </ul>
+</div>
 <table>
 	<tbody>
 		<% @collection_object.attributes.each do |field| %>
