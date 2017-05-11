@@ -5,19 +5,21 @@
 			<th>Catalog Number</th>
 			<th>Alt Catalog Number</th>
 			<th>Scientific Name</th>
+			<th>Higher Geography</th>
 		</tr>
 	</thead>
 	<tbody>
 		<% if @collection_objects.size == 0 %>
 			<tr>
-				<td colspan="3">No records uploaded</td>
+				<td colspan="4">No records uploaded</td>
 			</tr>
 		<% else %>
 			<% @collection_objects.each do |co| %>
 				<tr>
 					<td><%= link_to co.catalog_number, co %></td>
 					<td><%= co.other_catalog_numbers %></td>
-					<td><%= co.taxon_name.scientific_name %></td>
+					<td><%= link_to co.taxon_name.scientific_name, co.taxon_name %></td>
+					<td><%= link_to co.locality.higher_geography, co.locality %></td>
 				</tr>
 			<% end %>
 		<% end %>

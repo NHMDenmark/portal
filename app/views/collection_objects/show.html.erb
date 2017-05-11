@@ -16,10 +16,18 @@
 		%> (<%= @collection_object.source_collection.collection_code %>)
 </h3>
 <div>
-  <h3><%= link_to @collection_object.taxon_name.scientific_name, @collection_object.taxon_name %></h3>
+  <%= link_to @collection_object.taxon_name.scientific_name, @collection_object.taxon_name %>
   <ul>
     <% @taxonomy.each do |rank, name| %>
     	<li><%= rank %>: <%= name %></li>
+    <% end %>
+  </ul>
+</div>
+<div>
+  <%= link_to "#{@collection_object.locality.locality}, #{@collection_object.locality.higher_geography}", @collection_object.locality %>
+  <ul>
+    <% @collection_object.locality.attributes.each do |field| %>
+      <li><%= field.first %>: <%= field.last %></li>
     <% end %>
   </ul>
 </div>

@@ -1,0 +1,35 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  continent: MyString
+  country: MyString
+  state_province: MyString
+  county: MyString
+  higher_geography: MyString
+  island_group: MyString
+  island: MyString
+  waterbody: MyString
+  locality: MyString
+  location_remarks: MyString
+  decimal_longitude: MyString
+  decimal_latitude: MyString
+  coordinate_uncertainty_in_meters: MyString
+  geodetic_datum: MyString
+  georeferenced_date: MyString
+
+two:
+  continent: MyString
+  country: MyString
+  state_province: MyString
+  county: MyString
+  higher_geography: MyString
+  island_group: MyString
+  island: MyString
+  waterbody: MyString
+  locality: MyString
+  location_remarks: MyString
+  decimal_longitude: MyString
+  decimal_latitude: MyString
+  coordinate_uncertainty_in_meters: MyString
+  geodetic_datum: MyString
+  georeferenced_date: MyString

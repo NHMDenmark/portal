@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'localities/index'
+  get 'localities/show'
+  resources :localities, only: [:index, :show]
   get 'taxon_names/index'
   get 'taxon_names/show'
   resources :taxon_names, only: [:index, :show]
