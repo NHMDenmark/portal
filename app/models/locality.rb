@@ -11,8 +11,8 @@ class Locality
   field :waterbody, type: String
   field :locality, type: String
   field :location_remarks, type: String
-  field :decimal_longitude, type: String
-  field :decimal_latitude, type: String
+  field :decimal_longitude, type: Float
+  field :decimal_latitude, type: Float
   field :coordinate_uncertainty_in_meters, type: String
   field :geodetic_datum, type: String
   field :georeferenced_date, type: String
