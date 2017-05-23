@@ -15,7 +15,7 @@
 					@collection_object.source_collection
 		%> (<%= @collection_object.source_collection.collection_code %>)
 </h3>
-<div>
+<div id="taxonomy">
   <%= link_to @collection_object.taxon_name.scientific_name, @collection_object.taxon_name %>
   <ul>
     <% @taxonomy.each do |rank, name| %>
@@ -23,13 +23,32 @@
     <% end %>
   </ul>
 </div>
-<div>
+<div id="locality">
   <%= link_to "#{@collection_object.locality.locality}, #{@collection_object.locality.higher_geography}", @collection_object.locality %>
-  <ul>
-    <% @collection_object.locality.attributes.each do |field| %>
-      <li><%= field.first %>: <%= field.last %></li>
-    <% end %>
-  </ul>
+  <div id="geography">
+  	<ul>
+  		<% @geography.each do |label, name| %>
+  			<li><%= label %>: <%= name %></li>
+  		<% end %>
+		</ul>
+  </div>
+  <div id="geographic_feature">
+  	<ul>
+  		<% @geo_features.each do |label, feature| %>
+  			<li><%= label %>: <%= feature %></li>
+  		<% end %>
+  	</ul>
+  </div>
+  <div id="coordinates">
+  	<ul>
+  		<% @georef.each do |label, field| %>
+  			<li><%= label %>: <%= field %></li>
+  		<% end %>
+  	</ul>
+  </div>
+  <div>
+    <%= "Remarks: #{@collection_object.locality[:location_remarks]}" if @collection_object.locality[:location_remarks] %>
+  </div>
 </div>
 <table>
 	<tbody>

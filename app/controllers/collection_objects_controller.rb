@@ -16,5 +16,23 @@ class CollectionObjectsController < ApplicationController
       'Specific epithet' => @collection_object.taxon_name[:specific_epithet],
       'Infraspecific epithet' => @collection_object.taxon_name[:infraspecific_epithet]
     }.delete_if { |_k, v| v.nil? }
+    @geography = {
+      'Continent' => @collection_object.locality[:continent],
+      'Country' => @collection_object.locality[:country],
+      'State/Province' => @collection_object.locality[:state_province],
+      'County' => @collection_object.locality[:county]
+    }.delete_if { |_k, v| v.nil? }
+    @geo_features = {
+      'Island Group' => @collection_object.locality[:island_group],
+      'Island' => @collection_object.locality[:island],
+      'Waterbody' => @collection_object.locality[:waterbody]
+    }.delete_if { |_k, v| v.nil? }
+    @georef = {
+      'Longitude' => @collection_object.locality[:decimal_longitude],
+      'Latitude' => @collection_object.locality[:decimal_latitude],
+      'Uncertainty (m)' => @collection_object.locality[:coordinate_uncertainty_in_meters],
+      'Datum' => @collection_object.locality[:geodetic_datum],
+      'Date georeferenced' => @collection_object.locality[:georeferenced_date]
+    }.delete_if { |_k, v| v.nil? }
   end
 end
