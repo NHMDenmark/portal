@@ -17,8 +17,8 @@
 		<% else %>
 			<% @collections.each do |coll| %>
 				<tr>
-					<td><%= link_to coll.source_institution.institution_name, coll.source_institution %></td>
-					<td><%= coll.source_institution.institution_code %></td>
+					<td><%= coll.institution_name %></td>
+					<td><%= coll.institution_code %></td>
 					<td><%= link_to coll.collection_id, coll %></td>
 					<td><%= coll.collection_code %></td>
 					<td><%= coll.collection_objects.size %></td>

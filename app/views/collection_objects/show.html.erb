@@ -1,20 +1,10 @@
 <h1><%= @collection_object.catalog_number %></h1>
 <h2>
 	<%= link_to @collection_object.source_collection
-																	.source_institution
-																	.institution_name,
-					@collection_object.source_collection
-														.source_institution
-		%> (<%= @collection_object.source_collection
-															.source_institution
-															.institution_code %>)
-</h2>
-<h3>
-	<%= link_to @collection_object.source_collection
 																	.collection_id,
 					@collection_object.source_collection
 		%> (<%= @collection_object.source_collection.collection_code %>)
-</h3>
+</h2>
 <div id="taxonomy">
   <%= link_to @collection_object.taxon_name.scientific_name, @collection_object.taxon_name %>
   <ul>
