@@ -25,7 +25,9 @@ class CollectionObjectsController < ApplicationController
     @geo_features = {
       'Island Group' => @collection_object.locality[:island_group],
       'Island' => @collection_object.locality[:island],
-      'Waterbody' => @collection_object.locality[:waterbody]
+      'Waterbody' => @collection_object.locality[:waterbody],
+      'Named Place' => @collection_object.locality[:named_place],
+      'Relation' => @collection_object.locality[:relation_to_named_place]
     }.delete_if { |_k, v| v.nil? }
     @georef = {
       'Longitude' => @collection_object.locality[:decimal_longitude],

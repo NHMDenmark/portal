@@ -10,6 +10,8 @@ class Locality
   field :island, type: String
   field :waterbody, type: String
   field :locality, type: String
+  field :named_place, type: String
+  field :relation_to_named_place, type: String
   field :location_remarks, type: String
   field :decimal_longitude, type: Float
   field :decimal_latitude, type: Float

@@ -3,5 +3,6 @@ class TaxonNamesController < ApplicationController
   end
 
   def show
+    @taxon = TaxonName.find(params[:id])
   end
 end
