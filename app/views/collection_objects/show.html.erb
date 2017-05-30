@@ -39,6 +39,11 @@
   <div>
     <%= "Remarks: #{@collection_object.locality[:location_remarks]}" if @collection_object.locality[:location_remarks] %>
   </div>
+  <div id="map">
+  	<%= map(:center => {
+  					:latlng => [@collection_object.locality[:decimal_latitude], @collection_object.locality[:decimal_longitude]],
+  					:zoom => 16 }) %>
+	</div>
 </div>
 <table>
 	<tbody>
