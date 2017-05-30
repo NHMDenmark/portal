@@ -5,7 +5,7 @@
 					@collection_object.source_collection
 		%> (<%= @collection_object.source_collection.collection_code %>)
 </h2>
-<div id="taxonomy">
+<div class="boxedview">
   <%= link_to @collection_object.taxon_name.scientific_name, @collection_object.taxon_name %>
   <ul>
     <% @taxonomy.each do |rank, name| %>
@@ -13,7 +13,7 @@
     <% end %>
   </ul>
 </div>
-<div id="locality">
+<div class="boxedview">
   <%= link_to "#{@collection_object.locality.locality}, #{@collection_object.locality.higher_geography}", @collection_object.locality %>
   <div id="geography">
   	<ul>
@@ -22,14 +22,14 @@
   		<% end %>
 		</ul>
   </div>
-  <div id="geographic_feature">
+  <div>
   	<ul>
   		<% @geo_features.each do |label, feature| %>
   			<li><%= label %>: <%= feature %></li>
   		<% end %>
   	</ul>
   </div>
-  <div id="coordinates">
+  <div>
   	<ul>
   		<% @georef.each do |label, field| %>
   			<li><%= label %>: <%= field %></li>
