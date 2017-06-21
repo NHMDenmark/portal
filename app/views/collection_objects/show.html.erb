@@ -49,7 +49,7 @@
 	<tbody>
 		<% @collection_object.attributes.each do |field| %>
 			<tr>
-				<td><%= field.first %></td>
+				<td><%= field.first.humanize %></td>
 				<td><%= field.last %></td>
 			</tr>
 		<% end %>
