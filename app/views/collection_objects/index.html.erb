@@ -14,6 +14,7 @@
 				<td colspan="4">No records uploaded</td>
 			</tr>
 		<% else %>
+			<%= paginate @collection_objects %>
 			<% @collection_objects.each do |co| %>
 				<tr>
 					<td><%= link_to co.catalog_number, co %></td>

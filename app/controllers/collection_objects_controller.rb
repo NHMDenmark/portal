@@ -1,6 +1,6 @@
 class CollectionObjectsController < ApplicationController
   def index
-  	@collection_objects = CollectionObject.all[0...20] # bogus paging
+  	@collection_objects = CollectionObject.page(params[:page]).per(10)
   end
 
   def show
