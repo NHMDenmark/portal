@@ -16,8 +16,8 @@ gem 'kaminari-actionview'
 gem 'puma', '~> 3.7'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
-gem 'bourbon', '= 5.0.0.beta.7'
-gem 'neat', '~> 2.0.0'
+gem 'bourbon', '~> 5.0.0.beta.7'
+gem 'neat', '~> 2.1.0'
 gem 'leaflet-rails'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
