@@ -2,9 +2,36 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.boxedview {
-	@include grid-column(8);
-	@include grid-container;
+$detail-layout: (
+  columns: 3,
+  gutter: 40px,
+);
+
+$related-info: (
+  columns: 4,
+  gutter: 40px,
+);
+
+.detail-layout {
+  @include grid-container;
+}
+
+.detail-layout__main {
+  @include grid-column(2, $detail-layout);
+}
+
+.detail-layout__sidebar {
+  @include grid-column(1, $detail-layout);
+}
+
+.info-grid {
+	@include grid-collapse($related-info);
+  @include grid-container;
+}
+
+.info-grid__item {
+// 	@include grid-column(8);
+// 	@include grid-container;
 	border: 1px solid #eaeaea;
 	padding: 1em;
 }

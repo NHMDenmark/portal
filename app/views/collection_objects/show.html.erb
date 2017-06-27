@@ -1,57 +1,70 @@
-<h1><%= @collection_object.catalog_number %></h1>
-<h2>
-	<%= link_to @collection_object.source_collection
-																	.collection_id,
-					@collection_object.source_collection
-		%> (<%= @collection_object.source_collection.collection_code %>)
-</h2>
-<div class="boxedview">
-  <%= link_to @collection_object.taxon_name.scientific_name, @collection_object.taxon_name %>
-  <ul>
-    <% @taxonomy.each do |rank, name| %>
-    	<li><%= rank %>: <%= name %></li>
-    <% end %>
-  </ul>
-</div>
-<div class="boxedview">
-  <%= link_to "#{@collection_object.locality.locality}, #{@collection_object.locality.higher_geography}", @collection_object.locality %>
-  <div id="geography">
-  	<ul>
-  		<% @geography.each do |label, name| %>
-  			<li><%= label %>: <%= name %></li>
-  		<% end %>
-		</ul>
-  </div>
-  <div>
-  	<ul>
-  		<% @geo_features.each do |label, feature| %>
-  			<li><%= label %>: <%= feature %></li>
-  		<% end %>
-  	</ul>
-  </div>
-  <div>
-  	<ul>
-  		<% @georef.each do |label, field| %>
-  			<li><%= label %>: <%= field %></li>
-  		<% end %>
-  	</ul>
-  </div>
-  <div>
-    <%= "Remarks: #{@collection_object.locality[:location_remarks]}" if @collection_object.locality[:location_remarks] %>
-  </div>
-  <div id="map">
-  	<%= map(:center => {
-  					:latlng => [@collection_object.locality[:decimal_latitude], @collection_object.locality[:decimal_longitude]],
-  					:zoom => 16 }) %>
+<div class="detail-layout">
+	<h1><%= @collection_object.catalog_number %></h1>
+	<h2>
+		<%= link_to @collection_object.source_collection
+																		.collection_id,
+						@collection_object.source_collection
+			%> (<%= @collection_object.source_collection.collection_code %>)
+	</h2>
+	
+	<div class="detail-layout__main">
+		<table>
+			<tbody>
+				<% @collection_object.attributes.each do |field| %>
+					<tr>
+						<td><%= field.first %></td>
+						<td><%= field.last %></td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+	</div>
+	
+	<div class="detail-layout__sidebar">
+		<div class="info-grid">
+		
+			<div class="info-grid__item">
+				<%= link_to @collection_object.taxon_name.scientific_name, @collection_object.taxon_name %>
+				<ul>
+					<% @taxonomy.each do |rank, name| %>
+						<li><%= rank %>: <%= name %></li>
+					<% end %>
+				</ul>
+			</div>
+		
+			<div class="info-grid__item">
+				<%= link_to "#{@collection_object.locality.locality}, #{@collection_object.locality.higher_geography}", @collection_object.locality %>
+				<div id="geography">
+					<ul>
+						<% @geography.each do |label, name| %>
+							<li><%= label %>: <%= name %></li>
+						<% end %>
+					</ul>
+				</div>
+				<div>
+					<ul>
+						<% @geo_features.each do |label, feature| %>
+							<li><%= label %>: <%= feature %></li>
+						<% end %>
+					</ul>
+				</div>
+				<div>
+					<ul>
+						<% @georef.each do |label, field| %>
+							<li><%= label %>: <%= field %></li>
+						<% end %>
+					</ul>
+				</div>
+				<div>
+					<%= "Remarks: #{@collection_object.locality[:location_remarks]}" if @collection_object.locality[:location_remarks] %>
+				</div>
+				<div id="map">
+					<%= map(:center => {
+									:latlng => [@collection_object.locality[:decimal_latitude], @collection_object.locality[:decimal_longitude]],
+									:zoom => 16 }) %>
+				</div>
+			</div>
+			
+		</div>
 	</div>
 </div>
-<table>
-	<tbody>
-		<% @collection_object.attributes.each do |field| %>
-			<tr>
-				<td><%= field.first %></td>
-				<td><%= field.last %></td>
-			</tr>
-		<% end %>
-	</tbody>
-</table>
