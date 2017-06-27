@@ -185,7 +185,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bourbon (~> 5.0.0.beta.7)
+  bourbon (= 5.0.0.beta.7)
   byebug
   capybara (~> 2.13.0)
   coffee-rails (~> 4.2)
@@ -206,4 +206,4 @@ DEPENDENCIES
   web-console (>= 3.3.0)
 
 BUNDLED WITH
-   1.15.0
+   1.15.1

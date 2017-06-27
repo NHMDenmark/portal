@@ -3,6 +3,8 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .boxedview {
+	@include grid-column(8);
+	@include grid-container;
 	border: 1px solid #eaeaea;
 	padding: 1em;
 }
