@@ -8,13 +8,16 @@ end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.0'
-gem 'mongoid', '~> 6.1.0'
+gem 'mongoid', '~> 6.2.0'
+gem 'kaminari', '~> 0.17.0'
+gem 'kaminari-mongoid', '~>1.0.1'
+gem 'kaminari-actionview'
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 gem 'bourbon', '~> 5.0.0.beta.7'
-gem 'neat', '~> 2.0.0'
+gem 'neat', '~> 2.1.0'
 gem 'leaflet-rails'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
@@ -42,7 +45,7 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '~> 2.13.0'
+  gem 'capybara', '~> 2.14.0'
   gem 'selenium-webdriver'
 end
 
