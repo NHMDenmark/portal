@@ -9,33 +9,15 @@ class CollectionObjectsController < ApplicationController
     else
       @collection_object = CollectionObject.find(params[:id])
     end
-    @taxonomy = {
-      'Order' => @collection_object.taxon_name[:order],
-      'Family' => @collection_object.taxon_name[:family],
-      'Genus' => @collection_object.taxon_name[:genus],
-      'Specific epithet' => @collection_object.taxon_name[:specific_epithet],
-      'Infraspecific epithet' => @collection_object.taxon_name[:infraspecific_epithet]
-    }.delete_if { |_k, v| v.nil? }
-    @geography = {
-      'Continent' => @collection_object.locality[:continent],
-      'Country' => @collection_object.locality[:country],
-      'State/Province' => @collection_object.locality[:state_province],
-      'County' => @collection_object.locality[:county]
-    }.delete_if { |_k, v| v.nil? }
-    @geo_features = {
-      'Island Group' => @collection_object.locality[:island_group],
-      'Island' => @collection_object.locality[:island],
-      'Waterbody' => @collection_object.locality[:waterbody],
-      'Named Place' => @collection_object.locality[:named_place],
-      'Relation' => @collection_object.locality[:relation_to_named_place]
-    }.delete_if { |_k, v| v.nil? }
-    @georef = {
-      'Longitude' => @collection_object.locality[:decimal_longitude],
-      'Latitude' => @collection_object.locality[:decimal_latitude],
-      'Uncertainty (m)' => @collection_object.locality[:coordinate_uncertainty_in_meters],
-      'Datum' => @collection_object.locality[:geodetic_datum],
-      'Date georeferenced' => @collection_object.locality[:georeferenced_date]
-    }.delete_if { |_k, v| v.nil? }
+    @co_data = @collection_object.attributes.reject { |_k, v| v.is_a? BSON::ObjectId }
+    @taxonomy = @collection_object.taxon_name
+                                  .attributes
+                                  .reject { |_k, v| v.is_a? BSON::ObjectId }
+                                  .delete_if { |_k, v| v.blank? }
+    @geography = @collection_object.locality
+                                  .attributes
+                                  .reject { |_k, v| v.is_a? BSON::ObjectId }
+                                  .delete_if { |_k, v| v.blank? }
   end
 
   def rdf
@@ -43,7 +25,7 @@ class CollectionObjectsController < ApplicationController
     @dwc = RDF::Vocab::DWC
     @geo = RDF::Vocab::GEO
     @dwcc = RDF::Vocabulary.new('http://rs.tdwg.org/dwc/curatorial/')
-    PREFIXES = {
+    @prefixes = {
       rdf: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
       xsi: 'http://www.w3.org/2001/XMLSchema-instance',
       xs: 'http://www.w3.org/2001/XMLSchema',
