@@ -1,4 +1,4 @@
-class TaxonName
+class Taxon
   include Mongoid::Document
   has_many :collection_objects
   field :order, type: String

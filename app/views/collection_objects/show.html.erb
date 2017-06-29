@@ -24,7 +24,7 @@
 		<div class="info-grid">
 		
 			<div class="info-grid__item">
-				<%= link_to @collection_object.taxon_name.scientific_name, @collection_object.taxon_name %>
+				<%= link_to @collection_object.taxon.scientific_name, @collection_object.taxon %>
 				<ul>
 					<% @taxonomy.each do |rank, name| %>
 						<li><%= rank.humanize %>: <%= name %></li>

@@ -1,7 +1,7 @@
 class CollectionObject
   include Mongoid::Document
   belongs_to :source_collection
-  belongs_to :taxon_name
+  belongs_to :taxon
   belongs_to :location
   field :mapping_id, type: Integer                      # mappingId
   field :dataset_name, type: String                     # datasetName
