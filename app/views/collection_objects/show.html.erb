@@ -33,7 +33,7 @@
 			</div>
 		
 			<div class="info-grid__item">
-				<%= link_to "#{@collection_object.locality.locality}, #{@collection_object.locality.higher_geography}", @collection_object.locality %>
+				<%= link_to "#{@collection_object.location.locality}, #{@collection_object.location.higher_geography}", @collection_object.location %>
 				<div id="geography">
 					<ul>
 						<% @geography.each do |label, name| %>
@@ -43,7 +43,7 @@
 				</div>
 				<div id="map">
 					<%= map(:center => {
-									:latlng => [@collection_object.locality[:decimal_latitude], @collection_object.locality[:decimal_longitude]],
+									:latlng => [@collection_object.location[:decimal_latitude], @collection_object.location[:decimal_longitude]],
 									:zoom => 16 }) %>
 				</div>
 			</div>

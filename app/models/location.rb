@@ -1,4 +1,4 @@
-class Locality
+class Location
   include Mongoid::Document
   has_many :collection_objects
   field :continent, type: String

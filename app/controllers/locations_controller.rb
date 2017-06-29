@@ -3,6 +3,6 @@ class LocalitiesController < ApplicationController
   end
 
   def show
-    @locality = Locality.find(params[:id])
+    @location = Location.find(params[:id])
   end
 end

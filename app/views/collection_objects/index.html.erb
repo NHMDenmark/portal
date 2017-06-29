@@ -20,7 +20,7 @@
 					<td><%= link_to co.catalog_number, co %></td>
 					<td><%= co.other_catalog_numbers %></td>
 					<td><%= link_to co.taxon_name.scientific_name, co.taxon_name %></td>
-					<td><%= link_to co.locality.higher_geography, co.locality %></td>
+					<td><%= link_to co.location.higher_geography, co.location %></td>
 				</tr>
 			<% end %>
 		<% end %>

@@ -14,7 +14,7 @@ class CollectionObjectsController < ApplicationController
                                   .attributes
                                   .reject { |_k, v| v.is_a? BSON::ObjectId }
                                   .delete_if { |_k, v| v.blank? }
-    @geography = @collection_object.locality
+    @geography = @collection_object.location
                                   .attributes
                                   .reject { |_k, v| v.is_a? BSON::ObjectId }
                                   .delete_if { |_k, v| v.blank? }
