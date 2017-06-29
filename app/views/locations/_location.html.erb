@@ -1,0 +1,15 @@
+<div id="location">
+	<ul>
+		<% @location.attributes
+                .reject { |_k, v| v.is_a? BSON::ObjectId }
+                .delete_if { |_k, v| v.blank? }
+                .each do |label, name| %>
+			<li><%= label.humanize %>: <%= name %></li>
+		<% end %>
+	</ul>
+</div>
+<div id="map">
+	<%= map(:center => {
+					:latlng => [@location[:decimal_latitude], @location[:decimal_longitude]],
+					:zoom => 16 }) %>
+</div>

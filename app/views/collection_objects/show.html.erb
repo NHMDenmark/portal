@@ -33,19 +33,9 @@
 			</div>
 		
 			<div class="info-grid__item">
-				<%= link_to "#{@collection_object.location.locality}, #{@collection_object.location.higher_geography}", @collection_object.location %>
-				<div id="geography">
-					<ul>
-						<% @geography.each do |label, name| %>
-							<li><%= label.humanize %>: <%= name %></li>
-						<% end %>
-					</ul>
-				</div>
-				<div id="map">
-					<%= map(:center => {
-									:latlng => [@collection_object.location[:decimal_latitude], @collection_object.location[:decimal_longitude]],
-									:zoom => 16 }) %>
-				</div>
+				<%= link_to "#{@location.locality}, #{@location.higher_geography}",
+						@collection_object.location %>
+				<%= render partial: 'locations/location' %>
 			</div>
 			
 		</div>

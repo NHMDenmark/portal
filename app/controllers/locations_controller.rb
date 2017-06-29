@@ -1,4 +1,4 @@
-class LocalitiesController < ApplicationController
+class LocationsController < ApplicationController
   def index
   end
 
