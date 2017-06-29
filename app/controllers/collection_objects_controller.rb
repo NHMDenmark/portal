@@ -9,7 +9,6 @@ class CollectionObjectsController < ApplicationController
     else
       @collection_object = CollectionObject.find(params[:id])
     end
-    @co_data = @collection_object.attributes.reject { |_k, v| v.is_a? BSON::ObjectId }
     @taxon = @collection_object.taxon
     @location = @collection_object.location
   end
