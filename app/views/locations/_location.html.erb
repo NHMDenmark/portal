@@ -1,10 +1,7 @@
 <div id="location-details">
 	<ul>
-		<% @location.attributes
-                .reject { |_k, v| v.is_a? BSON::ObjectId }
-                .delete_if { |_k, v| v.blank? }
-                .each do |label, name| %>
-			<li><%= label.humanize %>: <%= name %></li>
+		<% tidy_up(@location.attributes).each do |label, name| %>
+			<li><%= label %>: <%= name %></li>
 		<% end %>
 	</ul>
 </div>

@@ -10,10 +10,7 @@
 	<div class="detail-layout__main">
 		<table>
 			<tbody>
-				<% @collection_object.attributes
-														 .reject { |_k, v| v.is_a? BSON::ObjectId }
-														 .delete_if { |_k, v| v.blank? }
-														 .each do |field| %>
+				<% tidy_up(@collection_object.attributes).each do |field| %>
 					<tr>
 						<td><%= field.first.humanize %></td>
 						<td><%= field.last %></td>
