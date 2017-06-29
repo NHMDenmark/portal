@@ -1,0 +1,10 @@
+<div id="taxon-details">
+	<ul>
+		<% @taxon.attributes
+						 .reject { |_k, v| v.is_a? BSON::ObjectId }
+						 .delete_if { |_k, v| v.blank? }
+						 .each do |rank, name| %>
+			<li><%= rank.humanize %>: <%= name %></li>
+		<% end %>
+	</ul>
+</div>

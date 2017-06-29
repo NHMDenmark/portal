@@ -10,10 +10,7 @@ class CollectionObjectsController < ApplicationController
       @collection_object = CollectionObject.find(params[:id])
     end
     @co_data = @collection_object.attributes.reject { |_k, v| v.is_a? BSON::ObjectId }
-    @taxonomy = @collection_object.taxon
-                                  .attributes
-                                  .reject { |_k, v| v.is_a? BSON::ObjectId }
-                                  .delete_if { |_k, v| v.blank? }
+    @taxon = @collection_object.taxon
     @location = @collection_object.location
   end
 
