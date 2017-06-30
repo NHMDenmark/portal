@@ -6,7 +6,10 @@
 	</ul>
 </div>
 <div id="map">
-	<%= map(:center => {
-					:latlng => [@location[:decimal_latitude], @location[:decimal_longitude]],
-					:zoom => 16 }) %>
+	<%= map(center: {
+						latlng: [@location[:decimal_latitude], @location[:decimal_longitude]],
+						zoom: 16 },
+					markers: [
+						{ latlng: [@location[:decimal_latitude], @location[:decimal_longitude]] }
+					]) %>
 </div>

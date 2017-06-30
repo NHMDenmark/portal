@@ -24,6 +24,9 @@ gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
+# temp workaround for fs-event error
+gem 'rb-fsevent', '~> 0.9.8'
+
 # RDF library
 gem 'linkeddata', '~> 2.2.0'
 
