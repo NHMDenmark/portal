@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class TaxonNameTest < ActiveSupport::TestCase
+class TaxonTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

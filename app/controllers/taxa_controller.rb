@@ -1,4 +1,4 @@
-class TaxonsController < ApplicationController
+class TaxaController < ApplicationController
   def index
   end
 

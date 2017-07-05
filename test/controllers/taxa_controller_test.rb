@@ -1,13 +1,13 @@
 require 'test_helper'
 
-class TaxonNamesControllerTest < ActionDispatch::IntegrationTest
+class TaxaControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
-    get taxons_index_url
+    get taxa_index_url
     assert_response :success
   end
 
   test "should get show" do
-    get taxons_show_url
+    get taxa_show_url
     assert_response :success
   end
 

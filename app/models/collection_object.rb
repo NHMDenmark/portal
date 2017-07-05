@@ -7,7 +7,7 @@ class CollectionObject
   embeds_many :associated_media
   embeds_many :associated_references
   embeds_many :associated_sequences
-  embeds_many :associated_taxons
+  embeds_many :associated_taxa
   embeds_many :other_catalog_numbers
   embeds_one :record_metadata
 #   has_one :dynamic_properties
