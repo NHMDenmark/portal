@@ -3,7 +3,6 @@
 	<thead>
 		<tr>
 			<th>Catalog Number</th>
-			<th>Alt Catalog Number</th>
 			<th>Scientific Name</th>
 			<th>Higher Geography</th>
 		</tr>
@@ -18,7 +17,6 @@
 			<% @collection_objects.each do |co| %>
 				<tr>
 					<td><%= link_to co.catalog_number, co %></td>
-					<td><%= co.other_catalog_numbers %></td>
 					<td><%= link_to co.taxon.scientific_name, co.taxon %></td>
 					<td><%= link_to co.location.higher_geography, co.location %></td>
 				</tr>
