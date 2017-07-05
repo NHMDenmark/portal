@@ -7,8 +7,9 @@ class CollectionObject
   embeds_many :associated_media
   embeds_many :associated_references
   embeds_many :associated_sequences
-  embeds_many :associated_taxa
-  embeds_many :other_catalog_numbers                       # was field of type String
+  embeds_many :associated_taxons
+  embeds_many :other_catalog_numbers
+  embeds_one :record_metadata
 #   has_one :dynamic_properties
 
   field :occurrence_id, type: String                    # persistent identifier
@@ -33,8 +34,8 @@ class CollectionObject
   field :event_date, type: Date                         # belongs to model event
   field :field_number, type: String                     # belongs to model event
 
-  field :modified, type: DateTime                       # modified
   field :mapping_id, type: Integer                      # mappingId
+  field :modified, type: DateTime                       # modified
   field :dataset_name, type: String                     # datasetName
   field :access_rights, type: String                    # accessRights
   field :license, type: String                          # license

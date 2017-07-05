@@ -1,0 +1,33 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  type,: MyString
+  modified,: MyString
+  language,: MyString
+  license,: MyString
+  rights_holder,: MyString
+  access_rights,: MyString
+  bibliographic_citation,: MyString
+  references,: MyString
+  owner_institution_code: MyString
+  dataset_id: MyString
+  dataset_name: MyString
+  basis_of_record: MyString
+  information_withheld: MyString
+  data_generalizations: MyString
+
+two:
+  type,: MyString
+  modified,: MyString
+  language,: MyString
+  license,: MyString
+  rights_holder,: MyString
+  access_rights,: MyString
+  bibliographic_citation,: MyString
+  references,: MyString
+  owner_institution_code: MyString
+  dataset_id: MyString
+  dataset_name: MyString
+  basis_of_record: MyString
+  information_withheld: MyString
+  data_generalizations: MyString
