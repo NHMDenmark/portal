@@ -10,7 +10,7 @@ class CollectionObject
   embeds_many :associated_taxa
   embeds_many :other_catalog_numbers
   embeds_one :record_metadata
-#   has_one :dynamic_properties
+#   embeds_one :dynamic_properties
 
   field :occurrence_id, type: String                    # persistent identifier
   field :catalog_number, type: String
@@ -33,11 +33,4 @@ class CollectionObject
 
   field :event_date, type: Date                         # belongs to model event
   field :field_number, type: String                     # belongs to model event
-
-  field :mapping_id, type: Integer                      # mappingId
-  field :modified, type: DateTime                       # modified
-  field :dataset_name, type: String                     # datasetName
-  field :access_rights, type: String                    # accessRights
-  field :license, type: String                          # license
-  field :basis_of_record, type: String                  # basisOfRecord
 end
