@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class AssociatedMediumTest < ActiveSupport::TestCase
+class AssociatedMediaTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

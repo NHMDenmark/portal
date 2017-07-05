@@ -1,4 +1,4 @@
-class AssociatedMedium
+class AssociatedMedia
   include Mongoid::Document
 
   embedded_in :collection_object
