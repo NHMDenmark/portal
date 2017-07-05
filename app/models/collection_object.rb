@@ -1,14 +1,15 @@
 class CollectionObject
   include Mongoid::Document
+
   belongs_to :source_collection
   belongs_to :taxon
   belongs_to :location
-#   embeds_many :associated_media
-#   embeds_many :associated_references
-#   embeds_many :associated_sequences
-#   embeds_many :associated_taxa
+  embeds_many :associated_media
+  embeds_many :associated_references
+  embeds_many :associated_sequences
+  embeds_many :associated_taxa
   embeds_many :other_catalog_numbers                       # was field of type String
-  has_one :dynamic_properties
+#   has_one :dynamic_properties
 
   field :occurrence_id, type: String                    # persistent identifier
   field :catalog_number, type: String
