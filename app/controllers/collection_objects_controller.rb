@@ -11,6 +11,7 @@ class CollectionObjectsController < ApplicationController
     end
     @taxon = @collection_object.taxon
     @location = @collection_object.location
+    @record_metadata = @collection_object.record_metadata
   end
 
   def rdf
