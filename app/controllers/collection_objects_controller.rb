@@ -1,7 +1,7 @@
 class CollectionObjectsController < ApplicationController
   def index
     if params[:query].present?
-      @collection_objects = CollectionObject.search(params[:query], page: params[:page])
+      @collection_objects = CollectionObject.search(params[:query], page: params[:page], per_page: 10)
     else
   	  @collection_objects = CollectionObject.page(params[:page]).per(10)
   	end
@@ -39,5 +39,9 @@ class CollectionObjectsController < ApplicationController
     @collection_object.attributes.map do |field|
 			[@dwc[field.first.camelize(:lower)], field.last]
 		end
+  end
+
+  def autocomplete
+    render json: CollectionObject.search(params[:query], autocomplete: true, limit: 10).map(&:recorded_by)
   end
 end
