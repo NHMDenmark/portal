@@ -1,11 +1,14 @@
 <div class="detail-layout">
-	<h1><%= @collection_object.catalog_number %></h1>
-	<h2>
+  <h2>
 		<%= link_to @collection_object.source_collection
 																		.collection_id,
 						@collection_object.source_collection
 			%> (<%= @collection_object.source_collection.collection_code %>)
 	</h2>
+	<h1><%= @collection_object.catalog_number %></h1>
+	<div id="other_catalog_numbers">
+	  <%= render partial: 'other_catalog_number', collection: @collection_object.other_catalog_numbers %>
+	</div>
 	
 	<div class="detail-layout__main">
 		<table>
