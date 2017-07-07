@@ -1,6 +1,10 @@
 class CollectionObjectsController < ApplicationController
   def index
-  	@collection_objects = CollectionObject.page(params[:page]).per(10)
+    if params[:query].present?
+      @collection_objects = CollectionObject.search(params[:query], page: params[:page])
+    else
+  	  @collection_objects = CollectionObject.page(params[:page]).per(10)
+  	end
   end
 
   def show

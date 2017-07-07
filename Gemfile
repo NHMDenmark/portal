@@ -9,9 +9,10 @@ end
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.0'
 gem 'mongoid', '~> 6.2.0'
-gem 'kaminari', '~> 0.17.0'
+gem 'searchkick', '~> 2.3'
+gem 'kaminari', '~> 1.0.1'
 gem 'kaminari-mongoid', '~>1.0.1'
-gem 'kaminari-actionview'
+gem 'kaminari-actionview', '~>1.0.1'
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
 # Use SCSS for stylesheets
