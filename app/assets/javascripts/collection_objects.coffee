@@ -12,5 +12,5 @@ engine = new Bloodhound(
 engine.initialize
 
 $(document).ready ->
-  $(".collection_object_search").typeahead null,
-    source: engine.ttAdapter()
+  $(".collection_object_search").typeahead { highlight: true },
+    { name: 'engine', source: engine.ttAdapter() }
