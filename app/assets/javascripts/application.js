@@ -12,5 +12,7 @@
 //
 //= require rails-ujs
 //= require turbolinks
+//= require jquery
 //= require leaflet
+//= require typeahead.bundle
 //= require_tree .

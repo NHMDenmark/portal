@@ -2,7 +2,15 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-# $ ->
-# 	$('#collection_object_search').typeahead
-# 		name: "collection_object"
-# 		remote: "/collection_objects/autocomplete?query=%QUERY"
+engine = new Bloodhound(
+  datumTokenizer: Bloodhound.tokenizers.obj.whitespace,
+  queryTokenizer: Bloodhound.tokenizers.whitespace,
+  remote:
+    url: '/collection_objects/autocomplete?query=%QUERY',
+    wildcard: '%QUERY'
+)
+engine.initialize
+
+$(document).ready ->
+  $(".collection_object_search").typeahead null,
+    source: engine.ttAdapter()
