@@ -42,6 +42,12 @@ class CollectionObjectsController < ApplicationController
   end
 
   def autocomplete
-    render json: CollectionObject.search(params[:query], autocomplete: true, limit: 10).map(&:recorded_by)
+    render json: CollectionObject.search(params[:query], {
+      fields: ['recorded_by'],
+      match: :word_start,
+      limit: 10,
+      load: false,
+      misspellings: {below: 5}
+    }).map(&:recorded_by)
   end
 end

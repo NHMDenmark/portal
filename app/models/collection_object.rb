@@ -34,5 +34,5 @@ class CollectionObject
   field :event_date, type: Date                         # belongs to model event
   field :field_number, type: String                     # belongs to model event
 
-  searchkick
+  searchkick word_start: [:recorded_by]
 end
