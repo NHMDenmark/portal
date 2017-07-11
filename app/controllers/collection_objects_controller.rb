@@ -13,7 +13,6 @@ class CollectionObjectsController < ApplicationController
     else
       @collection_object = CollectionObject.find(params[:id])
     end
-    @taxon = @collection_object.taxon
     @location = @collection_object.location
     @record_metadata = @collection_object.record_metadata
   end

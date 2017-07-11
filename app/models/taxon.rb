@@ -1,6 +1,5 @@
 class Taxon
   include Mongoid::Document
-  has_many :collection_objects
   field :order, type: String
   field :family, type: String
   field :genus, type: String

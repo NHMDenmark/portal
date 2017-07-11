@@ -2,7 +2,6 @@ class CollectionObject
   include Mongoid::Document
 
   belongs_to :source_collection
-  belongs_to :taxon
   belongs_to :location
   embeds_many :associated_media
   embeds_many :associated_references
@@ -25,14 +24,82 @@ class CollectionObject
   field :behavior, type: String
   field :establishment_means, type: String
   field :occurrence_status, type: String
-  field :preparations, type: String                     # preparations
+  field :preparations, type: String                     # should be embeds_many
   field :disposition, type: String
   field :occurrence_remarks, type: String               # was eventRemarks
 
-  field :type_status, type: String                      # not included in DwC
+  # Organism class terms
 
-  field :event_date, type: Date                         # belongs to model event
-  field :field_number, type: String                     # belongs to model event
+  # MaterialSample/LivingSpecimen/PreservedSpecimen/FossilSpecimen class terms
+
+  # Event/HumanObservation/MachineObservation class terms
+  field :event_id, type: String
+  field :parent_event_id, type: String
+  field :field_number, type: String
+  field :event_date, type: Date
+  field :event_time, type: Time
+  field :start_day_of_year, type: Integer
+  field :end_day_of_year, type: Integer
+  field :year, type: Integer
+  field :month, type: Integer
+  field :day, type: Integer
+  field :verbatim_event_date, type: String
+  field :habitat, type: String
+  field :sampling_protocol, type: String
+  field :sampling_effort, type: String
+  field :sample_size_value, type: Float
+  field :sample_size_unit, type: String
+  field :field_notes, type: String
+  field :event_remarks, type: String
+
+  # Location class terms
+
+  # GeologicalContext class terms
+
+  # Identification class terms
+  field :identification_id, type: String
+  field :identification_qualifier, type: String
+  field :type_status, type: String
+  field :identified_by, type: String
+  field :date_identified, type: Date
+  field :identification_references, type: String        # should be embeds_many
+  field :identification_verification_status, type: String
+  field :identification_remarks, type: String
+
+  # Taxon class terms
+  field :taxon_id, type: String
+  field :scientific_name_id, type: String
+  field :accepted_name_usage_id, type: String
+  field :parent_name_usage_id, type: String
+  field :original_name_usage_id, type: String
+  field :name_according_to_id, type: String
+  field :name_published_in_id, type: String
+  field :taxon_concept_id, type: String
+  field :scientific_name, type: String
+  field :accepted_name_usage, type: String
+  field :parent_name_usage, type: String
+  field :original_name_usage, type: String
+  field :name_according_to, type: String
+  field :name_published_in, type: String
+  field :name_published_in_year, type: Integer
+  field :higher_classification, type: String
+  field :kingdom, type: String
+  field :phylum, type: String
+#   field :class, type: String
+  field :order, type: String
+  field :family, type: String
+  field :genus, type: String
+  field :subgenus, type: String
+  field :specific_epithet, type: String
+  field :infraspecific_epithet, type: String
+  field :taxon_rank, type: String
+  field :verbatim_taxon_rank, type: String
+  field :scientific_name_authorship, type: String
+  field :vernacular_name, type: String
+  field :nomenclatural_code, type: String
+  field :taxonomic_status, type: String
+  field :nomenclatural_status, type: String
+  field :taxon_remarks
 
   searchkick word_start: [:recorded_by]
 end

@@ -21,7 +21,7 @@
 			<% @collection_objects.each do |co| %>
 				<tr>
 					<td><%= link_to co.catalog_number, co %></td>
-					<td><%= link_to co.taxon.scientific_name, co.taxon %></td>
+					<td><%= co.scientific_name %></td>
 					<td><%= link_to co.location.higher_geography, co.location %></td>
 				</tr>
 			<% end %>
