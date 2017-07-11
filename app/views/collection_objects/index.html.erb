@@ -22,7 +22,7 @@
 				<tr>
 					<td><%= link_to co.catalog_number, co %></td>
 					<td><%= co.scientific_name %></td>
-					<td><%= link_to co.location.higher_geography, co.location %></td>
+					<td><%= co.locality + ", " + co.higher_geography %></td>
 				</tr>
 			<% end %>
 		<% end %>

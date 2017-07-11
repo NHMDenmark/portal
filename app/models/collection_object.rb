@@ -2,7 +2,6 @@ class CollectionObject
   include Mongoid::Document
 
   belongs_to :source_collection
-  belongs_to :location
   embeds_many :associated_media
   embeds_many :associated_references
   embeds_many :associated_sequences
@@ -53,6 +52,50 @@ class CollectionObject
   field :event_remarks, type: String
 
   # Location class terms
+  field :location_id, type: String
+  field :higher_geography_id, type: String
+  field :higher_geography, type: String
+  field :continent, type: String
+  field :water_body, type: String
+  field :island_group, type: String
+  field :island, type: String
+  field :country, type: String
+  field :country_code, type: String
+  field :state_province, type: String
+  field :county, type: String
+  field :municipality, type: String
+  field :locality, type: String
+  field :verbatim_locality, type: String
+  field :minimum_elevation_in_meters, type: Float
+  field :maximum_elevation_in_meters, type: Float
+  field :verbatim_elevation, type: String
+  field :minimum_depth_in_meters, type: Float
+  field :maximum_depth_in_meters, type: Float
+  field :verbatim_depth, type: String
+  field :minimum_distance_above_surface_in_meters, type: Float
+  field :maximum_distance_above_surface_in_meters, type: Float
+  field :location_according_to, type: String
+  field :location_remarks, type: String
+  field :decimal_latitude, type: Float
+  field :decimal_longitude, type: Float
+  field :geodetic_datum, type: String
+  field :coordinate_uncertainty_in_meters, type: Float
+  field :coordinate_precision, type: Float
+  field :point_radius_spatial_fit, type: Float
+  field :verbatim_coordinates, type: String
+  field :verbatim_latitude, type: String
+  field :verbatim_longitude, type: String
+  field :verbatim_coordinate_system, type: String
+  field :verbatim_srs, type: String
+  field :footprint_wkt, type: String
+  field :footprint_srs, type: String
+  field :footprint_spatial_fit, type: Float
+  field :georeferenced_by, type: String
+  field :georeferenced_date, type: String
+  field :georeference_protocol, type: String
+  field :georeference_sources, type: String
+  field :georeference_verification_status, type: String
+  field :georeference_remarks, type: String
 
   # GeologicalContext class terms
 
