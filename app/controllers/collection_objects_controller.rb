@@ -40,12 +40,18 @@ class CollectionObjectsController < ApplicationController
   end
 
   def autocomplete
+    fields = [:recorded_by, :family, :scientific_name, :country, :locality]
     render json: CollectionObject.search(params[:query], {
-      fields: ['recorded_by'],
+      fields: fields,
       match: :word_start,
       limit: 10,
       load: false,
       misspellings: {below: 5}
-    }).map(&:recorded_by)
+    }).map { |r| r.values_at(*fields).select { |v| v =~ Regexp.new(params[:query], true) }.first }.uniq # filter for best match!
   end
 end
+
+
+#.map(&:recorded_by).uniq
+# .map { |r| r.values_at(*fields).compact.join(', ') }.uniq
+# .map { |r| fields.map(&:to_s).map(&:humanize).zip(r.values_at(*fields)).select { |e| e[1] =~ Regexp.new(params[:query], true) }.join(': ') }

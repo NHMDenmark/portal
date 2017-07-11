@@ -144,5 +144,5 @@ class CollectionObject
   field :nomenclatural_status, type: String
   field :taxon_remarks
 
-  searchkick word_start: [:recorded_by]
+  searchkick word_start: [:recorded_by, :family, :scientific_name, :country, :locality]
 end
