@@ -3,13 +3,8 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 $detail-layout: (
-  columns: 3,
-  gutter: 40px,
-);
-
-$related-info: (
-  columns: 4,
-  gutter: 40px,
+  columns: 12,
+  gutter: 20px,
 );
 
 .detail-layout {
@@ -17,23 +12,8 @@ $related-info: (
 }
 
 .detail-layout__main {
-  @include grid-column(2, $detail-layout);
-}
-
-.detail-layout__sidebar {
-  @include grid-column(1, $detail-layout);
-}
-
-.info-grid {
-	@include grid-collapse($related-info);
-  @include grid-container;
-}
-
-.info-grid__item {
-// 	@include grid-column(8);
-// 	@include grid-container;
-	border: 1px solid #eaeaea;
-	padding: 1em;
+  @include grid-column(10, $detail-layout);
+  @include grid-push(1);
 }
 
 #map { height: 320px; }
