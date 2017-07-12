@@ -40,18 +40,20 @@ class CollectionObjectsController < ApplicationController
   end
 
   def autocomplete
+    white = Text::WhiteSimilarity.new
     fields = [:recorded_by, :family, :scientific_name, :country, :locality]
-    render json: CollectionObject.search(params[:query], {
+    results = CollectionObject.search(params[:query], {
       fields: fields,
       match: :word_start,
       limit: 10,
       load: false,
       misspellings: {below: 5}
-    }).map { |r| r.values_at(*fields).select { |v| v =~ Regexp.new(params[:query], true) }.first }.uniq # filter for best match!
+    }).map do |rs|
+      rs.values_at(*fields)
+        .compact
+        .sort { |a, b| white.similarity(a, params[:query]) <=> white.similarity(b, params[:query]) }
+        .last
+    end
+    render json: results.uniq
   end
 end
-
-
-#.map(&:recorded_by).uniq
-# .map { |r| r.values_at(*fields).compact.join(', ') }.uniq
-# .map { |r| fields.map(&:to_s).map(&:humanize).zip(r.values_at(*fields)).select { |e| e[1] =~ Regexp.new(params[:query], true) }.join(': ') }

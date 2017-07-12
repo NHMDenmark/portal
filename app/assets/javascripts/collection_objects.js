@@ -1,5 +1,5 @@
 var engine = new Bloodhound({
-  datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+  datumTokenizer: Bloodhound.tokenizers.obj.whitespace,
   queryTokenizer: Bloodhound.tokenizers.whitespace,
   remote: {
     url: '/collection_objects/autocomplete?query=%QUERY',
@@ -16,7 +16,6 @@ $(document).ready(function() {
     {
       name: 'engine',
       limit: 10,
-//       display: 'value',
       source: engine.ttAdapter()
     }
   )
