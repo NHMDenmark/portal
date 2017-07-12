@@ -142,7 +142,7 @@ class CollectionObject
   field :nomenclatural_code, type: String
   field :taxonomic_status, type: String
   field :nomenclatural_status, type: String
-  field :taxon_remarks
+  field :taxon_remarks, type: String
 
   searchkick word_start: [:recorded_by, :family, :scientific_name, :country, :locality]
 end
