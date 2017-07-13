@@ -41,7 +41,11 @@ class CollectionObjectsController < ApplicationController
 
   def autocomplete
     white = Text::WhiteSimilarity.new
-    fields = ['recorded_by', 'dwc_taxon.family', 'dwc_taxon.scientific_name', 'country', 'locality']
+    fields = ['recorded_by',
+              'dwc_taxon.dwc_family',
+              'dwc_taxon.dwc_scientific_name',
+              'country',
+              'locality']
     results = CollectionObject.search(params[:query], {
       fields: fields,
       match: :word_start,

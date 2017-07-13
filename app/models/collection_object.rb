@@ -110,5 +110,5 @@ class CollectionObject
   field :identification_verification_status, type: String
   field :identification_remarks, type: String
 
-  searchkick word_start: [:recorded_by, 'dwc_taxon.family', 'dwc_taxon.scientific_name', :country, :locality]
+  searchkick word_start: [:recorded_by, 'dwc_taxon.dwc_family', 'dwc_taxon.dwc_scientific_name', :country, :locality]
 end

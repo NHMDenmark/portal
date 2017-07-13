@@ -21,7 +21,7 @@
 			<% @collection_objects.each do |co| %>
 				<tr>
 					<td><%= link_to co.catalog_number, co %></td>
-					<td><%= co.dwc_taxon.scientific_name %></td>
+					<td><%= co.dwc_taxon.dwc_scientific_name %></td>
 					<td>
 					  <%= co.locality %>
 					  <%= ", " if co.locality && co.higher_geography %>
