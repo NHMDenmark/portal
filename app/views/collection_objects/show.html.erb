@@ -25,7 +25,11 @@
 		<div id="taxon">
 		  <%= render partial: 'dwc_taxon', locals: { dwc_taxon: @collection_object.dwc_taxon } %>
 		</div>
-
+		
+		<div id="identification">
+		  <%= render partial: 'dwc_identification', locals: { dwc_identification: @collection_object.dwc_identification } %>
+    </div>
+    
 		<div id="location">
 		  <%= render partial: 'dwc_location', locals: { dwc_location: @collection_object.dwc_location } %>
 		</div>

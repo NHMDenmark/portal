@@ -7,6 +7,7 @@ class CollectionObject
   embeds_many :associated_sequences
   embeds_many :associated_taxa
   embeds_many :other_catalog_numbers
+  embeds_one :dwc_identification
   embeds_one :dwc_location
   embeds_one :dwc_taxon
   embeds_one :record_metadata
@@ -55,17 +56,8 @@ class CollectionObject
 
   # GeologicalContext class terms
 
-  # Identification class terms
-  field :identification_id, type: String
-  field :identification_qualifier, type: String
-  field :type_status, type: String
-  field :identified_by, type: String
-  field :date_identified, type: Date
-  field :identification_references, type: String        # should be embeds_many
-  field :identification_verification_status, type: String
-  field :identification_remarks, type: String
-
   searchkick word_start: [:recorded_by,
+                          'dwc_identification.dwc_type_status',
                           'dwc_taxon.dwc_family',
                           'dwc_taxon.dwc_scientific_name',
                           'dwc_location.dwc_country',

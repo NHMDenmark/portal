@@ -7,6 +7,7 @@
 	<thead>
 		<tr>
 			<th>Catalog Number</th>
+			<th>Type Status</th>
 			<th>Scientific Name</th>
 			<th>Higher Geography</th>
 		</tr>
@@ -21,6 +22,7 @@
 			<% @collection_objects.each do |co| %>
 				<tr>
 					<td><%= link_to co.catalog_number, co %></td>
+					<td><%= co.dwc_identification&.dwc_type_status %></td>
 					<td><%= co.dwc_taxon.dwc_scientific_name %></td>
 					<td>
 					  <%= co.dwc_location.dwc_locality %>
