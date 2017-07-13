@@ -7,13 +7,14 @@ class CollectionObject
   embeds_many :associated_sequences
   embeds_many :associated_taxa
   embeds_many :other_catalog_numbers
+  embeds_one :dwc_taxon
   embeds_one :record_metadata
 #   embeds_one :dynamic_properties
 
   field :occurrence_id, type: String                    # persistent identifier
   field :catalog_number, type: String
-  field :record_number, type: String                    # field number
-  field :recorded_by, type: String                      # collectors
+  field :record_number, type: String
+  field :recorded_by, type: String
   field :individual_count, type: Integer
   field :organism_quantity, type: Float
   field :organism_quantity_type, type: String
@@ -25,7 +26,7 @@ class CollectionObject
   field :occurrence_status, type: String
   field :preparations, type: String                     # should be embeds_many
   field :disposition, type: String
-  field :occurrence_remarks, type: String               # was eventRemarks
+  field :occurrence_remarks, type: String
 
   # Organism class terms
 
@@ -109,40 +110,5 @@ class CollectionObject
   field :identification_verification_status, type: String
   field :identification_remarks, type: String
 
-  # Taxon class terms
-  field :taxon_id, type: String
-  field :scientific_name_id, type: String
-  field :accepted_name_usage_id, type: String
-  field :parent_name_usage_id, type: String
-  field :original_name_usage_id, type: String
-  field :name_according_to_id, type: String
-  field :name_published_in_id, type: String
-  field :taxon_concept_id, type: String
-  field :scientific_name, type: String
-  field :accepted_name_usage, type: String
-  field :parent_name_usage, type: String
-  field :original_name_usage, type: String
-  field :name_according_to, type: String
-  field :name_published_in, type: String
-  field :name_published_in_year, type: Integer
-  field :higher_classification, type: String
-  field :kingdom, type: String
-  field :phylum, type: String
-#   field :class, type: String
-  field :order, type: String
-  field :family, type: String
-  field :genus, type: String
-  field :subgenus, type: String
-  field :specific_epithet, type: String
-  field :infraspecific_epithet, type: String
-  field :taxon_rank, type: String
-  field :verbatim_taxon_rank, type: String
-  field :scientific_name_authorship, type: String
-  field :vernacular_name, type: String
-  field :nomenclatural_code, type: String
-  field :taxonomic_status, type: String
-  field :nomenclatural_status, type: String
-  field :taxon_remarks, type: String
-
-  searchkick word_start: [:recorded_by, :family, :scientific_name, :country, :locality]
+  searchkick word_start: [:recorded_by, 'dwc_taxon.family', 'dwc_taxon.scientific_name', :country, :locality]
 end

@@ -54,6 +54,9 @@ group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.14.0'
   gem 'selenium-webdriver'
+  # Add full stack trace, source code inspection,local and instance variable inspection, REPL to error pages
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 group :development do

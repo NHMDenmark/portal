@@ -41,7 +41,7 @@ class CollectionObjectsController < ApplicationController
 
   def autocomplete
     white = Text::WhiteSimilarity.new
-    fields = [:recorded_by, :family, :scientific_name, :country, :locality]
+    fields = ['recorded_by', 'dwc_taxon.family', 'dwc_taxon.scientific_name', 'country', 'locality']
     results = CollectionObject.search(params[:query], {
       fields: fields,
       match: :word_start,
@@ -49,10 +49,10 @@ class CollectionObjectsController < ApplicationController
       load: false,
       misspellings: {below: 5}
     }).map do |rs|
-      rs.values_at(*fields)
+      fields.map { |f| eval("rs.#{f}") }
         .compact
-        .sort { |a, b| white.similarity(a, params[:query]) <=> white.similarity(b, params[:query]) }
-        .last
+        .sort { |a, b| white.similarity(b, params[:query]) <=> white.similarity(a, params[:query]) }
+        .first
     end
     render json: results.uniq
   end
