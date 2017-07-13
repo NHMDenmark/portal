@@ -25,17 +25,11 @@
 		<div id="taxon">
 		  <%= render partial: 'dwc_taxon', locals: { dwc_taxon: @collection_object.dwc_taxon } %>
 		</div>
-		
-		<% if @collection_object[:decimal_latitude] && @collection_object[:decimal_longitude] %>
-	    <div id="map">
-		    <%= map(center: {
-							latlng: [@collection_object[:decimal_latitude], @collection_object[:decimal_longitude]],
-							zoom: 12 },
-						markers: [
-							{ latlng: [@collection_object[:decimal_latitude], @collection_object[:decimal_longitude]] }
-						]) %>
-	    </div>
-    <% end %>
+
+		<div id="location">
+		  <%= render partial: 'dwc_location', locals: { dwc_location: @collection_object.dwc_location } %>
+		</div>
+
 		<%= render partial: 'record_metadata' %>
 	</div>
 </div>

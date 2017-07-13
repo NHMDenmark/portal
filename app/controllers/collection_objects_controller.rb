@@ -44,8 +44,8 @@ class CollectionObjectsController < ApplicationController
     fields = ['recorded_by',
               'dwc_taxon.dwc_family',
               'dwc_taxon.dwc_scientific_name',
-              'country',
-              'locality']
+              'dwc_location.dwc_country',
+              'dwc_location.dwc_locality']
     results = CollectionObject.search(params[:query], {
       fields: fields,
       match: :word_start,
