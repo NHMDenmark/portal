@@ -13,6 +13,10 @@ class CollectionObjectsController < ApplicationController
     else
       @collection_object = CollectionObject.find(params[:id])
     end
+    @dwc_event = @collection_object.dwc_event
+    @dwc_identification = @collection_object.dwc_identification
+    @dwc_location = @collection_object.dwc_location
+    @dwc_taxon = @collection_object.dwc_taxon
     @record_metadata = @collection_object.record_metadata
   end
 

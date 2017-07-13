@@ -1,5 +1,5 @@
 <ul>
-	<% tidy_up(dwc_identification.attributes).each do |label, name| %>
+	<% tidy_up(@dwc_identification.attributes).each do |label, name| %>
 		<li><%= term(label).humanize %>: <%= name %></li>
 	<% end %>
 </ul>
