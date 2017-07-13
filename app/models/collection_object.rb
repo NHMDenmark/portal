@@ -7,6 +7,7 @@ class CollectionObject
   embeds_many :associated_sequences
   embeds_many :associated_taxa
   embeds_many :other_catalog_numbers
+  embeds_one :dwc_event
   embeds_one :dwc_identification
   embeds_one :dwc_location
   embeds_one :dwc_taxon
@@ -33,26 +34,6 @@ class CollectionObject
   # Organism class terms
 
   # MaterialSample/LivingSpecimen/PreservedSpecimen/FossilSpecimen class terms
-
-  # Event/HumanObservation/MachineObservation class terms
-  field :event_id, type: String
-  field :parent_event_id, type: String
-  field :field_number, type: String
-  field :event_date, type: Date
-  field :event_time, type: Time
-  field :start_day_of_year, type: Integer
-  field :end_day_of_year, type: Integer
-  field :year, type: Integer
-  field :month, type: Integer
-  field :day, type: Integer
-  field :verbatim_event_date, type: String
-  field :habitat, type: String
-  field :sampling_protocol, type: String
-  field :sampling_effort, type: String
-  field :sample_size_value, type: Float
-  field :sample_size_unit, type: String
-  field :field_notes, type: String
-  field :event_remarks, type: String
 
   # GeologicalContext class terms
 

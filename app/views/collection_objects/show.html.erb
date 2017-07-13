@@ -34,6 +34,10 @@
 		  <%= render partial: 'dwc_location', locals: { dwc_location: @collection_object.dwc_location } %>
 		</div>
 
+    <div id="event">
+		  <%= render partial: 'dwc_event', locals: { dwc_event: @collection_object.dwc_event } %>
+		</div>
+		
 		<%= render partial: 'record_metadata' %>
 	</div>
 </div>
