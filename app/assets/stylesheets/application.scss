@@ -28,9 +28,23 @@ $master-grid: (
 
 .master-layout {
   @include grid-container;
+  background-color: #f8f8f8;
 }
 
 .master-layout__main {
   @include grid-column(10, $master-grid);
   @include grid-push(1);
+  background-color: white;
+}
+
+header {
+	@include grid-column(12, $master-grid);
+	@include grid-collapse;
+	border-bottom: solid lightgray 1px;
+	background-color: white;
+}
+
+header nav {
+	@include grid-column(10, $master-grid);
+	@include grid-push(1);
 }

@@ -9,10 +9,12 @@
   </head>
 
   <body>
-		<%= render 'layouts/header' %>
-		<div class="master-layout master-layout__main">
-      <%= yield %>
+    <div class="master-layout">
+      <%= render 'layouts/header' %>
+      <div class="master-layout__main">
+        <%= yield %>
+      </div>
+      <%= render 'layouts/footer' %>
     </div>
-    <%= render 'layouts/footer' %>
   </body>
 </html>
