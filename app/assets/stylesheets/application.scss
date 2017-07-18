@@ -20,3 +20,17 @@
 
 @import "collection_objects";
 @import "typeahead";
+
+$master-grid: (
+  columns: 12,
+  gutter: 20px,
+);
+
+.master-layout {
+  @include grid-container;
+}
+
+.master-layout__main {
+  @include grid-column(10, $master-grid);
+  @include grid-push(1);
+}

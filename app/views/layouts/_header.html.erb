@@ -1,8 +1,14 @@
 <header>
-	<h1>Natural History Museum of Denmark</h1>
 	<nav>
 		<ul>
+		  <li><%= link_to 'Natural History Museum of Denmark', 'http://snm.ku.dk' %></li>
 			<li><%= link_to 'collections', source_collections_path %></li>
+			<li>
+	      <%= form_tag collection_objects_path, method: :get do %>
+          <%= text_field_tag :query, params[:query], class: 'form-control collection_object_search', autocomplete: :off %>
+          <%= submit_tag 'Search' %>
+        <% end %>
+			</li>
 		</ul>
 	</nav>
 </header>

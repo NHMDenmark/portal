@@ -2,18 +2,4 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-$detail-layout: (
-  columns: 12,
-  gutter: 20px,
-);
-
-.detail-layout {
-  @include grid-container;
-}
-
-.detail-layout__main {
-  @include grid-column(10, $detail-layout);
-  @include grid-push(1);
-}
-
 #map { height: 320px; }

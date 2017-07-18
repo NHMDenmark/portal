@@ -1,4 +1,4 @@
-<div class="detail-layout">
+<div>
   <h2>
 		<%= link_to @collection_object.source_collection
 																		.collection_id,
@@ -10,7 +10,7 @@
 	  <%= render partial: 'other_catalog_number', collection: @collection_object.other_catalog_numbers %>
 	</div>
 	
-	<div class="detail-layout__main">
+	<div>
 		<table>
 			<tbody>
 				<% tidy_up(@collection_object.attributes).each do |field| %>
