@@ -1,10 +1,10 @@
 <header>
 	<nav>
 		<ul>
-		  <li><%= link_to 'Natural History Museum of Denmark', 'http://snm.ku.dk' %></li>
-			<li><%= link_to 'collections', source_collections_path %></li>
+		  <li class="header__navbar"><%= link_to 'Natural History Museum of Denmark', 'http://snm.ku.dk' %></li>
+			<li class="header__navbar"><%= link_to 'collections', source_collections_path %></li>
 		</ul>
-	  <%= form_tag collection_objects_path, method: :get do %>
+	  <%= form_tag collection_objects_path, method: :get, class: 'header__quicksearch' do %>
       <%= text_field_tag :query, params[:query], class: 'form-control quicksearch', autocomplete: :off %>
       <%= submit_tag 'Search' %>
     <% end %>

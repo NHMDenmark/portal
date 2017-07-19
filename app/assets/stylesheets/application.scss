@@ -23,7 +23,12 @@
 
 $master-grid: (
   columns: 12,
-  gutter: 20px,
+  gutter: 20px
+);
+
+$header-grid: (
+  columns: 4,
+  gutter: 40px
 );
 
 .master-layout {
@@ -38,13 +43,23 @@ $master-grid: (
 }
 
 header {
-	@include grid-column(12, $master-grid);
-	@include grid-collapse;
+  @include grid-column(12, $master-grid);
+  @include grid-push(1);
 	border-bottom: solid lightgray 1px;
 	background-color: white;
 }
 
 header nav {
-	@include grid-column(10, $master-grid);
-	@include grid-push(1);
+  @include grid-collapse($header-grid);
+	@include grid-container;
+}
+
+.header__navbar {
+  @include grid-column(1, $header-grid);
+  @include grid-shift;
+}
+
+.header__quicksearch {
+  @include grid-column(1, $header-grid);
+  @include grid-shift(1);
 }
