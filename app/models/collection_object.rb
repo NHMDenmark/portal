@@ -8,13 +8,16 @@ class CollectionObject
   embeds_many :associated_taxa
   embeds_many :other_catalog_numbers
   embeds_one :dwc_event
+  embeds_one :dwc_geological_context
   embeds_one :dwc_identification
   embeds_one :dwc_location
+  embeds_one :dwc_organism
   embeds_one :dwc_taxon
   embeds_one :record_metadata
-#   embeds_one :dynamic_properties
+#   embeds_many :dynamic_properties
 
   field :occurrence_id, type: String                    # persistent identifier
+  field :material_sample_id, type: String               # is normally part of DwC class of its own
   field :catalog_number, type: String
   field :record_number, type: String
   field :recorded_by, type: String
@@ -34,8 +37,6 @@ class CollectionObject
   # Organism class terms
 
   # MaterialSample/LivingSpecimen/PreservedSpecimen/FossilSpecimen class terms
-
-  # GeologicalContext class terms
 
   searchkick word_start: [:recorded_by,
                           'dwc_identification.dwc_type_status',

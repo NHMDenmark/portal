@@ -1,0 +1,5 @@
+<ul>
+	<% tidy_up(@dwc_geological_context.attributes).each do |label, name| %>
+		<li><%= term(label).humanize %>: <%= name %></li>
+	<% end %>
+</ul>
