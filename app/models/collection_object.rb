@@ -17,23 +17,23 @@ class CollectionObject
 
   field :mapping_id, type: Integer # created by the Specify Exporter
 
-  field :occurrence_id, type: String                    # persistent identifier
-  field :material_sample_id, type: String               # is normally part of DwC class of its own
-  field :catalog_number, type: String
-  field :record_number, type: String
-  field :recorded_by, type: String
-  field :individual_count, type: Integer
-  field :organism_quantity, type: Float
-  field :organism_quantity_type, type: String
-  field :sex, type: String
-  field :life_stage, type: String
-  field :reproductive_condition, type: String
-  field :behavior, type: String
-  field :establishment_means, type: String
-  field :occurrence_status, type: String
-  field :preparations, type: String                     # should be embeds_many
-  field :disposition, type: String
-  field :occurrence_remarks, type: String
+  field :dwc_occurrence_id, type: String                    # persistent identifier
+  field :dwc_material_sample_id, type: String               # is normally part of DwC class of its own
+  field :dwc_catalog_number, type: String
+  field :dwc_record_number, type: String
+  field :dwc_recorded_by, type: String
+  field :dwc_individual_count, type: Integer
+  field :dwc_organism_quantity, type: Float
+  field :dwc_organism_quantity_type, type: String
+  field :dwc_sex, type: String
+  field :dwc_life_stage, type: String
+  field :dwc_reproductive_condition, type: String
+  field :dwc_behavior, type: String
+  field :dwc_establishment_means, type: String
+  field :dwc_occurrence_status, type: String
+  field :dwc_preparations, type: String                     # should be embeds_many
+  field :dwc_disposition, type: String
+  field :dwc_occurrence_remarks, type: String
 
   # Organism class terms
 

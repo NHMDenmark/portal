@@ -17,7 +17,7 @@
 			<%= paginate @collection_objects %>
 			<% @collection_objects.each do |co| %>
 				<tr>
-					<td><%= link_to co.catalog_number, co %></td>
+					<td><%= link_to co.dwc_catalog_number, co %></td>
 					<td><%= co.dwc_identification&.dwc_type_status %></td>
 					<td><%= co.dwc_taxon.dwc_scientific_name %></td>
 					<td>

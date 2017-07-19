@@ -1,7 +1,7 @@
 <div id="record_metadata">
 	<ul>
 		<% tidy_up(@record_metadata.attributes).each do |label, name| %>
-			<li><%= label %>: <%= name %></li>
+			<li><%= term(label).humanize %>: <%= name %></li>
 		<% end %>
 	</ul>
 </div>

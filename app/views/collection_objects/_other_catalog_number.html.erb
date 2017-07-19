@@ -1,5 +1,5 @@
 <ul>
 	<% tidy_up(other_catalog_number.attributes).each do |label, name| %>
-		<li><%= label %>: <%= name %></li>
+		<li><%= term(label).humanize %>: <%= name %></li>
 	<% end %>
 </ul>

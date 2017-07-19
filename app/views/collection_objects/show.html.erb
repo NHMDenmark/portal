@@ -5,35 +5,30 @@
 						@collection_object.source_collection
 			%> (<%= @collection_object.source_collection.dwc_collection_code %>)
 	</h2>
-	<h1><%= @collection_object.catalog_number %></h1>
+	<h1><%= @collection_object.dwc_catalog_number %></h1>
 	<div id="other_catalog_numbers">
 	  <%= render partial: 'other_catalog_number', collection: @collection_object.other_catalog_numbers %>
 	</div>
-	
+
 	<div>
-		<table>
-			<tbody>
-				<% tidy_up(@collection_object.attributes).each do |field| %>
-					<tr>
-						<td><%= field.first.humanize %></td>
-						<td><%= field.last %></td>
-					</tr>
-				<% end %>
-			</tbody>
-		</table>
-		
+	  <ul>
+	    <% tidy_up(@collection_object.attributes).each do |label, name| %>
+		    <li><%= term(label).humanize %>: <%= name %></li>
+	    <% end %>
+    </ul>
+
 		<div id="taxon" class="record_details">
 		  <%= render partial: 'dwc_taxon' if @dwc_taxon %>
 		</div>
-		
+
 		<div id="identification" class="record_details">
 		  <%= render partial: 'dwc_identification'if @dwc_identification %>
     </div>
-    
+
     <div id="geological_context" class="record_details">
       <%= render partial: 'dwc_geological_context' if @dwc_geological_context %>
     </div>
-    
+
 		<div id="location" class="record_details">
 		  <%= render partial: 'dwc_location' if @dwc_location %>
 		</div>
@@ -41,7 +36,7 @@
     <div id="event" class="record_details">
 		  <%= render partial: 'dwc_event' if @dwc_event %>
 		</div>
-		
+
 		<div id="organism" class="record_details">
 		  <%= render partial: 'dwc_organism' if @dwc_organism %>
 		</div>
