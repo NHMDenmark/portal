@@ -14,7 +14,8 @@ class CollectionObject
   embeds_one :dwc_organism
   embeds_one :dwc_taxon
   embeds_one :record_metadata
-#   embeds_many :dynamic_properties
+
+  field :mapping_id, type: Integer # created by the Specify Exporter
 
   field :occurrence_id, type: String                    # persistent identifier
   field :material_sample_id, type: String               # is normally part of DwC class of its own
