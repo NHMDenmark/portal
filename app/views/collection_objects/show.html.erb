@@ -1,9 +1,9 @@
 <div>
   <h2>
 		<%= link_to @collection_object.source_collection
-																		.collection_id,
+																		.dwc_collection_id,
 						@collection_object.source_collection
-			%> (<%= @collection_object.source_collection.collection_code %>)
+			%> (<%= @collection_object.source_collection.dwc_collection_code %>)
 	</h2>
 	<h1><%= @collection_object.catalog_number %></h1>
 	<div id="other_catalog_numbers">
