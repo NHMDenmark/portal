@@ -47,7 +47,7 @@ class CollectionObjectsController < ApplicationController
 
   def autocomplete
     white = Text::WhiteSimilarity.new
-    fields = ['recorded_by',
+    fields = ['dwc_recorded_by',
               'dwc_identification.dwc_type_status',
               'dwc_taxon.dwc_family',
               'dwc_taxon.dwc_scientific_name',
@@ -60,10 +60,11 @@ class CollectionObjectsController < ApplicationController
       load: false,
       misspellings: {below: 5}
     }).map do |rs|
-      fields.map { |f| eval("rs&.#{f.split('.').join('&.')}") }
-        .compact
-        .sort { |a, b| white.similarity(b, params[:query]) <=> white.similarity(a, params[:query]) }
-        .first
+      fields.map { |f| f.split('.').last.gsub(/^[a-z0-9]+_/, '').humanize }
+            .zip( fields.map { |f| eval("rs&.#{f.split('.').join('&.')}") } )
+            .select { |e| e[1]}
+            .sort { |a, b| white.similarity(b[1], params[:query]) <=> white.similarity(a[1], params[:query]) }
+            .take(1).to_h
     end
     render json: results.uniq
   end
