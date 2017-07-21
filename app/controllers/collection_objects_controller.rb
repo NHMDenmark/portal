@@ -8,11 +8,11 @@ class CollectionObjectsController < ApplicationController
   end
 
   def show
-    if params[:id] =~ /^NHMD-/
-  	  @collection_object = CollectionObject.find_by(catalog_number: params[:id])
-    else
-      @collection_object = CollectionObject.find(params[:id])
-    end
+    @collection_object = CollectionObject.find(params[:id])
+    embedded_data
+  end
+
+  def embedded_data
     @dwc_event = @collection_object.dwc_event
     @dwc_geological_context = @collection_object.dwc_geological_context
     @dwc_identification = @collection_object.dwc_identification
@@ -20,6 +20,12 @@ class CollectionObjectsController < ApplicationController
     @dwc_organism = @collection_object.dwc_organism
     @dwc_taxon = @collection_object.dwc_taxon
     @record_metadata = @collection_object.record_metadata
+  end
+
+  def object
+    @collection_object = CollectionObject.find_by(dwc_catalog_number: params[:dwc_catalog_number])
+    embedded_data
+    render :show
   end
 
   def rdf
@@ -35,11 +41,7 @@ class CollectionObjectsController < ApplicationController
       dc: 'http://purl.org/dc/terms/',
       geo: 'http://www.w3.org/2003/01/geo/wgs84_pos#'
     }
-    if params[:id] =~ /^NHMD-/
-  	  @collection_object = CollectionObject.find_by(catalog_number: params[:id])
-    else
-      @collection_object = CollectionObject.find(params[:id])
-    end
+  	@collection_object = CollectionObject.find_by(dwc_catalog_number: params[:dwc_catalog_number])
     @collection_object.attributes.map do |field|
 			[@dwc[field.first.camelize(:lower)], field.last]
 		end
