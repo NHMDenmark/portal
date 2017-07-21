@@ -31,7 +31,7 @@ class CollectionObjectsController < ApplicationController
   def namespace(ns)
     case ns
     when 'dc'
-      RDF::Vocab::DC11
+      RDF::Vocab::DC
     when 'dwc'
     	RDF::Vocab::DWC
     when 'geo'
@@ -85,13 +85,13 @@ class CollectionObjectsController < ApplicationController
 			@co_graph << [@subj, namespace(field[:ns])[field[:term]], field[:value]]
     end
 
-    #@collection_object.record_metadata
   	embedded = [@collection_object.dwc_event,
                 @collection_object.dwc_geological_context,
                 @collection_object.dwc_identification,
                 @collection_object.dwc_location,
                 @collection_object.dwc_organism,
                 @collection_object.dwc_taxon,
+                @collection_object.record_metadata
   	           ].compact
   	            .map { |ea| prepare_terms(trim(ea.attributes)) }
   	            .flatten
