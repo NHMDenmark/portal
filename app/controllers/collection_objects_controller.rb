@@ -47,7 +47,7 @@ class CollectionObjectsController < ApplicationController
 
   def autocomplete
     white = Text::WhiteSimilarity.new
-    fields = ['recorded_by',
+    fields = ['dwc_recorded_by',
               'dwc_identification.dwc_type_status',
               'dwc_taxon.dwc_family',
               'dwc_taxon.dwc_scientific_name',
