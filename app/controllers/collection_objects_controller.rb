@@ -52,10 +52,9 @@ class CollectionObjectsController < ApplicationController
   def prepare_terms(hash)
 		hash.keys
 			  .map { |k| k.split('_') }
-			  .map { |k| [k.shift, k.join('_')] }
+			  .map { |k| namespace(k.shift)[k.join('_').camelize(:lower)] } # generate the predicate
         .zip(hash.values)
-			  .map(&:flatten)
-			  .map { |a| { ns: a[0], term: a[1].camelize(:lower), value: a[2] } }
+        .map { |a| RDF::Statement.new(@subj, a[0], a[1]) }
   end
 
   def rdf
@@ -71,40 +70,46 @@ class CollectionObjectsController < ApplicationController
   	@collection_object = CollectionObject.find_by(dwc_catalog_number: params[:dwc_catalog_number])
     @co_graph = RDF::Graph.new
 
-  	occ = prepare_terms(trim(@collection_object.attributes))
-  	occ_oids = @collection_object.other_catalog_numbers
-  	                             .map { |oid| prepare_terms(trim(oid.attributes)) }
-  	                             .flatten
-  	                             .each { |oid| oid[:term] = oid[:term].pluralize }  # refactor
+#   	occ_oids = @collection_object.other_catalog_numbers
+#   	                             .map { |oid| prepare_terms(trim(oid.attributes)) }
+#   	                             .flatten
+#   	                             .each { |oid| oid[:term] = oid[:term].pluralize }  # refactor
 
-    occ.each do |field|
-			@co_graph << [@subj, namespace(field[:ns])[field[:term]], field[:value]]
-		end
 
-    occ_oids.each do |field|
-			@co_graph << [@subj, namespace(field[:ns])[field[:term]], field[:value]]
-    end
+#     occ_oids.each do |field|
+# 			@co_graph << [@subj, namespace(field[:ns])[field[:term]], field[:value]]
+#     end
 
-  	embedded = [@collection_object.dwc_event,
-                @collection_object.dwc_geological_context,
-                @collection_object.dwc_identification,
-                @collection_object.dwc_location,
-                @collection_object.dwc_organism,
-                @collection_object.dwc_taxon,
-                @collection_object.record_metadata
-  	           ].compact
-  	            .map { |ea| prepare_terms(trim(ea.attributes)) }
-  	            .flatten
-  	            .each { |f| @co_graph << [@subj, namespace(f[:ns])[f[:term]], f[:value]] }
+  	all_terms = [@collection_object.attributes,
+  	             @collection_object.dwc_event&.attributes,
+                 @collection_object.dwc_geological_context&.attributes,
+                 @collection_object.dwc_identification&.attributes,
+                 @collection_object.dwc_location&.attributes,
+                 @collection_object.dwc_organism&.attributes,
+                 @collection_object.dwc_taxon&.attributes,
+                 @collection_object.record_metadata&.attributes
+  	            ].compact
+  	             .reduce({}, :merge)
 
-    xml = RDF::RDFXML::Writer.buffer(prefixes: @prefixes) do |writer|
-		  @co_graph.each_statement do |statement|
-			  writer << statement
+    attrs = prepare_terms(trim(all_terms)).each { |f| @co_graph << f }
+
+    case params[:format]
+    when 'json'
+    	json = RDF::JSON::Writer.buffer(prefixes: @prefixes) do |writer|
+		    @co_graph.each_statement { |statement| writer << statement }
 		  end
-	  end
-
-    render xml: xml
-
+		  render json: json
+		when 'ttl'
+		  ttl = RDF::Turtle::Writer.buffer(prefixes: @prefixes) do |writer|
+		    @co_graph.each_statement { |statement| writer << statement }
+		  end
+		  render plain: ttl
+    else
+      xml = RDF::RDFXML::Writer.buffer(prefixes: @prefixes) do |writer|
+		    @co_graph.each_statement { |statement| writer << statement }
+	    end
+      render xml: xml
+    end
   end
 
   def autocomplete

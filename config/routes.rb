@@ -8,6 +8,6 @@ Rails.application.routes.draw do
     end
   end
   get 'object/:dwc_catalog_number', to: 'collection_objects#object'
-  get 'data/rdf/:dwc_catalog_number', to: 'collection_objects#rdf'
+  get 'data/rdf/:dwc_catalog_number', to: 'collection_objects#rdf', defaults: { format: 'xml' }
   root 'collection_objects#index'
 end
