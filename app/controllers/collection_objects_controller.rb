@@ -8,11 +8,11 @@ class CollectionObjectsController < ApplicationController
   end
 
   def show
-    if params[:id] =~ /^NHMD-/
-  	  @collection_object = CollectionObject.find_by(catalog_number: params[:id])
-    else
-      @collection_object = CollectionObject.find(params[:id])
-    end
+    @collection_object = CollectionObject.find(params[:id])
+    embedded_data
+  end
+
+  def embedded_data
     @dwc_event = @collection_object.dwc_event
     @dwc_geological_context = @collection_object.dwc_geological_context
     @dwc_identification = @collection_object.dwc_identification
@@ -22,11 +22,43 @@ class CollectionObjectsController < ApplicationController
     @record_metadata = @collection_object.record_metadata
   end
 
+  def object
+    @collection_object = CollectionObject.find_by(dwc_catalog_number: params[:dwc_catalog_number])
+    embedded_data
+    render :show
+  end
+
+  def namespace(ns)
+    case ns
+    when 'dc'
+      RDF::Vocab::DC
+    when 'dwc'
+    	RDF::Vocab::DWC
+    when 'geo'
+      RDF::Vocab::GEO
+    when 'dwcc'
+      RDF::Vocabulary.new('http://rs.tdwg.org/dwc/curatorial/')
+    else
+      raise 'unknown namespace'
+    end
+  end
+
+  def trim(attributes)
+    attributes.reject { |_k, v| v.is_a?(BSON::ObjectId) || v.is_a?(Hash) || v.is_a?(Array) }
+			        .delete_if { |_k, v| v.blank? }
+			        .to_h
+  end
+
+  def prepare_terms(hash)
+		hash.keys
+			  .map { |k| k.split('_') }
+			  .map { |k| namespace(k.shift)[k.join('_').camelize(:lower)] } # generate the predicate
+        .zip(hash.values)
+        .map { |a| RDF::Statement.new(@subj, a[0], a[1]) }
+  end
+
   def rdf
-    @dc = RDF::Vocab::DC11
-    @dwc = RDF::Vocab::DWC
-    @geo = RDF::Vocab::GEO
-    @dwcc = RDF::Vocabulary.new('http://rs.tdwg.org/dwc/curatorial/')
+    @subj = RDF::URI.new("http://localhost:3000/data/rdf/#{params[:dwc_catalog_number]}")
     @prefixes = {
       rdf: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
       xsi: 'http://www.w3.org/2001/XMLSchema-instance',
@@ -35,14 +67,49 @@ class CollectionObjectsController < ApplicationController
       dc: 'http://purl.org/dc/terms/',
       geo: 'http://www.w3.org/2003/01/geo/wgs84_pos#'
     }
-    if params[:id] =~ /^NHMD-/
-  	  @collection_object = CollectionObject.find_by(catalog_number: params[:id])
+  	@collection_object = CollectionObject.find_by(dwc_catalog_number: params[:dwc_catalog_number])
+    @co_graph = RDF::Graph.new
+
+#   	occ_oids = @collection_object.other_catalog_numbers
+#   	                             .map { |oid| prepare_terms(trim(oid.attributes)) }
+#   	                             .flatten
+#   	                             .each { |oid| oid[:term] = oid[:term].pluralize }  # refactor
+
+
+#     occ_oids.each do |field|
+# 			@co_graph << [@subj, namespace(field[:ns])[field[:term]], field[:value]]
+#     end
+
+  	all_terms = [@collection_object.attributes,
+  	             @collection_object.dwc_event&.attributes,
+                 @collection_object.dwc_geological_context&.attributes,
+                 @collection_object.dwc_identification&.attributes,
+                 @collection_object.dwc_location&.attributes,
+                 @collection_object.dwc_organism&.attributes,
+                 @collection_object.dwc_taxon&.attributes,
+                 @collection_object.record_metadata&.attributes
+  	            ].compact
+  	             .reduce({}, :merge)
+
+    attrs = prepare_terms(trim(all_terms)).each { |f| @co_graph << f }
+
+    case params[:format]
+    when 'json'
+    	json = RDF::JSON::Writer.buffer(prefixes: @prefixes) do |writer|
+		    @co_graph.each_statement { |statement| writer << statement }
+		  end
+		  render json: json
+		when 'ttl'
+		  ttl = RDF::Turtle::Writer.buffer(prefixes: @prefixes) do |writer|
+		    @co_graph.each_statement { |statement| writer << statement }
+		  end
+		  render plain: ttl
     else
-      @collection_object = CollectionObject.find(params[:id])
+      xml = RDF::RDFXML::Writer.buffer(prefixes: @prefixes) do |writer|
+		    @co_graph.each_statement { |statement| writer << statement }
+	    end
+      render xml: xml
     end
-    @collection_object.attributes.map do |field|
-			[@dwc[field.first.camelize(:lower)], field.last]
-		end
   end
 
   def autocomplete

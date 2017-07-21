@@ -39,7 +39,7 @@ class CollectionObject
 
   # MaterialSample/LivingSpecimen/PreservedSpecimen/FossilSpecimen class terms
 
-  searchkick word_start: [:recorded_by,
+  searchkick word_start: [:dwc_recorded_by,
                           'dwc_identification.dwc_type_status',
                           'dwc_taxon.dwc_family',
                           'dwc_taxon.dwc_scientific_name',
