@@ -69,14 +69,33 @@ class CollectionObjectsController < ApplicationController
       geo: 'http://www.w3.org/2003/01/geo/wgs84_pos#'
     }
   	@collection_object = CollectionObject.find_by(dwc_catalog_number: params[:dwc_catalog_number])
-
-  	co = prepare_terms(trim(@collection_object.attributes))
-
     @co_graph = RDF::Graph.new
 
-    co.each do |field|
+  	occ = prepare_terms(trim(@collection_object.attributes))
+  	occ_oids = @collection_object.other_catalog_numbers
+  	                             .map { |oid| prepare_terms(trim(oid.attributes)) }
+  	                             .flatten
+  	                             .each { |oid| oid[:term] = oid[:term].pluralize }  # refactor
+
+    occ.each do |field|
 			@co_graph << [@subj, namespace(field[:ns])[field[:term]], field[:value]]
 		end
+
+    occ_oids.each do |field|
+			@co_graph << [@subj, namespace(field[:ns])[field[:term]], field[:value]]
+    end
+
+    #@collection_object.record_metadata
+  	embedded = [@collection_object.dwc_event,
+                @collection_object.dwc_geological_context,
+                @collection_object.dwc_identification,
+                @collection_object.dwc_location,
+                @collection_object.dwc_organism,
+                @collection_object.dwc_taxon,
+  	           ].compact
+  	            .map { |ea| prepare_terms(trim(ea.attributes)) }
+  	            .flatten
+  	            .each { |f| @co_graph << [@subj, namespace(f[:ns])[f[:term]], f[:value]] }
 
     xml = RDF::RDFXML::Writer.buffer(prefixes: @prefixes) do |writer|
 		  @co_graph.each_statement do |statement|
