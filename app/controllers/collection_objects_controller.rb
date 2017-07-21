@@ -28,11 +28,38 @@ class CollectionObjectsController < ApplicationController
     render :show
   end
 
+  def namespace(ns)
+    case ns
+    when 'dc'
+      RDF::Vocab::DC11
+    when 'dwc'
+    	RDF::Vocab::DWC
+    when 'geo'
+      RDF::Vocab::GEO
+    when 'dwcc'
+      RDF::Vocabulary.new('http://rs.tdwg.org/dwc/curatorial/')
+    else
+      raise 'unknown namespace'
+    end
+  end
+
+  def trim(attributes)
+    attributes.reject { |_k, v| v.is_a?(BSON::ObjectId) || v.is_a?(Hash) || v.is_a?(Array) }
+			        .delete_if { |_k, v| v.blank? }
+			        .to_h
+  end
+
+  def prepare_terms(hash)
+		hash.keys
+			  .map { |k| k.split('_') }
+			  .map { |k| [k.shift, k.join('_')] }
+        .zip(hash.values)
+			  .map(&:flatten)
+			  .map { |a| { ns: a[0], term: a[1].camelize(:lower), value: a[2] } }
+  end
+
   def rdf
-    @dc = RDF::Vocab::DC11
-    @dwc = RDF::Vocab::DWC
-    @geo = RDF::Vocab::GEO
-    @dwcc = RDF::Vocabulary.new('http://rs.tdwg.org/dwc/curatorial/')
+    @subj = RDF::URI.new("http://localhost:3000/data/rdf/#{params[:dwc_catalog_number]}")
     @prefixes = {
       rdf: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
       xsi: 'http://www.w3.org/2001/XMLSchema-instance',
@@ -42,9 +69,23 @@ class CollectionObjectsController < ApplicationController
       geo: 'http://www.w3.org/2003/01/geo/wgs84_pos#'
     }
   	@collection_object = CollectionObject.find_by(dwc_catalog_number: params[:dwc_catalog_number])
-    @collection_object.attributes.map do |field|
-			[@dwc[field.first.camelize(:lower)], field.last]
+
+  	co = prepare_terms(trim(@collection_object.attributes))
+
+    @co_graph = RDF::Graph.new
+
+    co.each do |field|
+			@co_graph << [@subj, namespace(field[:ns])[field[:term]], field[:value]]
 		end
+
+    xml = RDF::RDFXML::Writer.buffer(prefixes: @prefixes) do |writer|
+		  @co_graph.each_statement do |statement|
+			  writer << statement
+		  end
+	  end
+
+    render xml: xml
+
   end
 
   def autocomplete
