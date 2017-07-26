@@ -1,8 +1,9 @@
-<ul>
+<dl>
 	<% tidy_up(@dwc_location.attributes).each do |label, name| %>
-		<li><%= term(label).humanize %>: <%= name %></li>
+		<dt><%= term(label).humanize %></dt><dd><%= name %></dd>
+		<p/>
 	<% end %>
-</ul>
+</dl>
 
 <% if @dwc_location.dwc_decimal_latitude && @dwc_location.dwc_decimal_longitude %>
   <div id="map">

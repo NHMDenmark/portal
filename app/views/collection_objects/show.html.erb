@@ -11,11 +11,12 @@
 	</div>
 
 	<div>
-	  <ul>
+	  <dl>
 	    <% tidy_up(@collection_object.attributes).each do |label, name| %>
-		    <li><%= term(label).humanize %>: <%= name %></li>
+		    <dt><%= term(label).humanize %></dt><dd><%= name %></dd>
+		    <p/>
 	    <% end %>
-    </ul>
+    </dl>
 
 		<div id="taxon" class="record_details">
 		  <%= render partial: 'dwc_taxon' if @dwc_taxon %>

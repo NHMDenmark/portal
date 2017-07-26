@@ -3,3 +3,14 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 #map { height: 320px; }
+
+dl {}
+
+dl dt {
+	display: inline-block;
+	width: 12rem;
+}
+
+dl dd {
+	display: inline-block;
+}
