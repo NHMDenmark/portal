@@ -1,6 +1,13 @@
-<dl>
+<dl id="taxon" class="record_details">
 	<% tidy_up(@dwc_taxon.attributes).each do |label, name| %>
-		<dt><%= term(label).humanize %></dt><dd><%= name %></dd>
+		<dt><%= term(label).humanize %></dt>
+		<dd>
+		<% if ['dwc_genus', 'dwc_subgenus', 'dwc_specific_epithet', 'dwc_infraspecific_epithet'].include?(label) %>
+			<i><%= name %></i>
+		<% else %>
+			<%= name %>
+		<% end %>
+		</dd>
 		<p/>
 	<% end %>
 </dl>

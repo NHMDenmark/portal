@@ -1,4 +1,4 @@
-<dl>
+<dl id="identification" class="record_details">
 	<% tidy_up(@dwc_identification.attributes).each do |label, name| %>
 		<dt><%= term(label).humanize %></dt><dd><%= name %></dd>
 		<p/>

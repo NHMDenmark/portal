@@ -11,6 +11,14 @@ dl dt {
 	width: 12rem;
 }
 
+dt::after {
+  content: ": ";
+}
+
 dl dd {
 	display: inline-block;
+}
+
+.record_details {
+	background-color: lightgray;
 }
