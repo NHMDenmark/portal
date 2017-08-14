@@ -3,11 +3,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
   var awe = new Awesomplete(document.querySelector("#query"),{})
   var req = new XMLHttpRequest();
   var qry = document.getElementById("query");
-  qry.addEventListener("keyup", function showResult(){
-    str = this.value;
+  qry.addEventListener("input", function showResult(){
+    var str = this.value;
     req.onreadystatechange = function() {
-      console.log(this.response);
-      awe.list = this.response;
+      var rsp = JSON.parse(this.response);
+      console.log(rsp);
+      var list = rsp.map(function(item) {
+        return item['Locality'];
+      });
+      awe.list = list;
     };
     req.open("GET", "/collection_objects/autocomplete?query=" + str, true);
     req.send();
