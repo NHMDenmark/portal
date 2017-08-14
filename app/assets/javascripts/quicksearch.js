@@ -1,5 +1,5 @@
 
-document.addEventListener("DOMContentLoaded", function(event) { 
+document.addEventListener("turbolinks:load", function(event) { 
   var awe = new Awesomplete(document.querySelector("#query"),{})
   var req = new XMLHttpRequest();
   var qry = document.getElementById("query");
