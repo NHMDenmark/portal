@@ -131,7 +131,7 @@ class CollectionObjectsController < ApplicationController
             .zip( fields.map { |f| eval("rs&.#{f.split('.').join('&.')}") } )
             .select { |e| e[1]}
             .sort { |a, b| white.similarity(b[1], params[:query]) <=> white.similarity(a[1], params[:query]) }
-            .take(1).to_h
+            .take(1).flatten#.to_h
     end
     render json: results.uniq
   end
