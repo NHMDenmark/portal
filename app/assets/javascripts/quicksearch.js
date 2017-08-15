@@ -12,8 +12,6 @@ document.addEventListener("turbolinks:load", function(event) {
       var list = rsp.map(function(item) {
         return [item.join(": "), item[1]];
       });
-      console.log(list)
-
       awe.list = list;
       };
     };
