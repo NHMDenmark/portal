@@ -6,7 +6,7 @@
   $base-line-height: 1.5em !default;
   $dark-gray: #333 !default;
   $base-background-color: white !default;
-
+//  $large-screen: 53.75em !default;
   $base-font-color: $dark-gray !default;
   $dropdown-color: $base-font-color;
   $dropdown-description-color: lighten($dropdown-color, 40%);
@@ -128,6 +128,10 @@
 
   .search_btn {
     background: $dropdown-background;
+    background-image: url('search_icn');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
     border-bottom: $dropdown-border;
     border-bottom-right-radius: $base-border-radius;
     border-right: $dropdown-border;

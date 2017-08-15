@@ -6,7 +6,7 @@
 		</ul>
 	  <%= form_tag collection_objects_path, method: :get, class: 'header__quicksearch' do %>
       <%= text_field_tag :query, params[:query], class: 'form-control', placeholder: 'search', autocomplete: :off  %>
-      <%= submit_tag 'Search', class: 'search_btn'  %>
+      <%= submit_tag '', class: 'search_btn'  %>
     <% end %>
 	</nav>
 </header>
