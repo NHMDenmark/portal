@@ -18,12 +18,10 @@
 	    <% end %>
     </dl>
 
-	  <%= render partial: 'dwc_taxon' if @dwc_taxon %>
-		<%= render partial: 'dwc_identification'if @dwc_identification %>
-    <%= render partial: 'dwc_geological_context' if @dwc_geological_context %>
-		<%= render partial: 'dwc_location' if @dwc_location %>
-		<%= render partial: 'dwc_event' if @dwc_event %>
-		<%= render partial: 'dwc_organism' if @dwc_organism %>
-		<%= render partial: 'record_metadata' %>
+    <% footer = @record_details.pop %>
+    <% display_order(@record_details).each do |rd| %>
+      <%= render partial: 'record_details', locals: rd %>
+    <% end %>
+    <%= render partial: 'footer', locals: footer %>
 	</div>
 </article>

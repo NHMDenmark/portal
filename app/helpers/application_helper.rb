@@ -1,5 +1,4 @@
 module ApplicationHelper
-
   def de_namespace(field_name)
     namespace, *term = field_name.split('_')
     [namespace, term.join('_')]

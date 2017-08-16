@@ -1,6 +1,6 @@
 <footer>
 	<dl id="record_metadata">
-		<% tidy_up(@record_metadata.attributes).each do |label, name| %>
+		<% tidy_up(record_details).each do |label, name| %>
 			<dt><%= term(label).humanize %></dt><dd><%= name %></dd>
 			<p/>
 		<% end %>

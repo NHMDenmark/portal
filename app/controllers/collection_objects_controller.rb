@@ -9,22 +9,23 @@ class CollectionObjectsController < ApplicationController
 
   def show
     @collection_object = CollectionObject.find(params[:id])
-    embedded_data
+    record_details
   end
 
-  def embedded_data
-    @dwc_event = @collection_object.dwc_event
-    @dwc_geological_context = @collection_object.dwc_geological_context
-    @dwc_identification = @collection_object.dwc_identification
-    @dwc_location = @collection_object.dwc_location
-    @dwc_organism = @collection_object.dwc_organism
-    @dwc_taxon = @collection_object.dwc_taxon
-    @record_metadata = @collection_object.record_metadata
+  def record_details
+    @record_details = []
+    @collection_object.attributes.each do |key, value|
+      if value.is_a?(BSON::Document)
+        section = key.split('_')[1..-1].join('_')
+        leaflet = value[:dwc_decimal_latitude] && value[:dwc_decimal_longitude] ? true : false
+        @record_details << { section: section, record_details: value, leaflet: leaflet }
+      end
+    end
   end
 
   def object
     @collection_object = CollectionObject.find_by(dwc_catalog_number: params[:dwc_catalog_number])
-    embedded_data
+    record_details
     render :show
   end
 

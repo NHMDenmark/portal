@@ -19,7 +19,14 @@
 				<tr>
 					<td><%= link_to co.dwc_catalog_number, co %></td>
 					<td><%= co.dwc_identification&.dwc_type_status %></td>
-					<td><%= co.dwc_taxon.dwc_scientific_name %></td>
+					<td>
+					  <% if co.dwc_taxon.dwc_genus %>
+					    <%= tag.i co.dwc_taxon.dwc_scientific_name %>
+					  <% else %>
+    					<%= co.dwc_taxon.dwc_scientific_name %>
+					  <% end %>
+		      <%= '</i>'.html_safe if co.dwc_taxon.dwc_genus %>
+					</td>
 					<td>
 					  <%= co.dwc_location.dwc_locality %>
 					  <%= ", " if co.dwc_location.dwc_locality && co.dwc_location.dwc_higher_geography %>

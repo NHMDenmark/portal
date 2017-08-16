@@ -1,0 +1,28 @@
+<%= tag.section id: section, class: 'record_details' do %>
+  <p><%= section.humanize %></p>
+  <dl>
+    <% tidy_up(record_details).each do |label, name| %>
+      <dt><%= term(label).humanize %></dt>
+      <dd>
+        <% if italicize?(label, record_details[:dwc_genus]) %>
+          <%= tag.i name %>
+        <% else %>
+          <%= name %>
+        <% end %>
+      </dd>
+      <p/>
+    <% end %>
+  </dl>
+
+  <% if leaflet == true %>
+    <div id="map">
+      <%= map(center: {
+        latlng: [record_details[:dwc_decimal_latitude], record_details[:dwc_decimal_longitude]],
+        zoom: 12 },
+        markers: [
+        { latlng: [record_details[:dwc_decimal_latitude], record_details[:dwc_decimal_longitude]] }
+      ]) %>
+    </div>
+    </p>
+  <% end %>
+<% end %>
