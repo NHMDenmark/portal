@@ -24,6 +24,7 @@
   position: relative;
 
   .awesomplete {
+    width: 90%;
     display: block;
     float: left;
     > input {
@@ -147,6 +148,7 @@
     margin: 0;
     padding: 0 ($dropdown-padding * 2.5) 0 ($dropdown-padding / 2);
     position: absolute;
+    width: 10%;
 
 //     @include media($large-screen) {
 //       font-size: 1em;
