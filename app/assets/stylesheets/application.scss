@@ -18,48 +18,6 @@
 @import "neat";
 @import "base/base";
 
+@import "master_layout";
 @import "collection_objects";
 @import "awesomplete";
-
-$master-grid: (
-  columns: 12,
-  gutter: 20px
-);
-
-$header-grid: (
-  columns: 4,
-  gutter: 40px
-);
-
-.master-layout {
-  @include grid-container;
-  background-color: #f8f8f8;
-}
-
-.master-layout__main {
-  @include grid-column(10, $master-grid);
-  @include grid-push(1);
-  background-color: white;
-}
-
-header {
-  @include grid-column(12, $master-grid);
-  @include grid-push(1);
-	border-bottom: solid lightgray 1px;
-	background-color: white;
-}
-
-header nav {
-  @include grid-collapse($header-grid);
-	@include grid-container;
-}
-
-.header__navbar {
-  @include grid-column(1, $header-grid);
-  @include grid-shift;
-}
-
-.header__quicksearch {
-  @include grid-column(1, $header-grid);
-  @include grid-shift(1);
-}

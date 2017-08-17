@@ -1,12 +1,21 @@
-<%= tag.section id: section, class: 'record_details' do %>
-  <h3>
-    <% if record_details[:dwc_genus] %>
-      <%= tag.i section_header(section, record_details) %>
-    <% else %>
-      <%= section_header(section, record_details) %>
-    <% end %>
-  </h3>
-  <dl>
+<%= tag.section id: section, class: 'detail-section' do %>
+  <% if record_details.length > 2 %>
+    <a href="javascript:void(0)" class="section-expander section-hidden">
+      <dl>
+        <dt>
+          <%= section.humanize %>
+        </dt>
+        <dd>
+          <% if record_details[:dwc_genus] %>
+            <%= tag.i section_header(section, record_details) %>
+          <% else %>
+            <%= section_header(section, record_details) %>
+          <% end %>
+        </dd>
+      </dl>
+    </a>
+  <% end %>
+  <dl class="section-content">
     <% tidy_up(record_details).each do |label, name| %>
       <dt><%= term(label).humanize %></dt>
       <dd>

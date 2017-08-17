@@ -1,4 +1,3 @@
-
 document.addEventListener("turbolinks:load", function(event) { 
   var awe = new Awesomplete(document.querySelector("#query"),{})
   var req = new XMLHttpRequest();
