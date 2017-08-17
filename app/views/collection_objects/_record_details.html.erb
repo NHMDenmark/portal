@@ -1,5 +1,11 @@
 <%= tag.section id: section, class: 'record_details' do %>
-  <p><%= section.humanize %></p>
+  <h3>
+    <% if record_details[:dwc_genus] %>
+      <%= tag.i section_header(section, record_details) %>
+    <% else %>
+      <%= section_header(section, record_details) %>
+    <% end %>
+  </h3>
   <dl>
     <% tidy_up(record_details).each do |label, name| %>
       <dt><%= term(label).humanize %></dt>
