@@ -1,9 +1,6 @@
 module CollectionObjectsHelper
   def display_order(record_details)
-    order = %w(identification taxon geological_context location event organism)
-
-    # insert 'metadata' as the last element
-    order << 'metadata'
+    order = %w(identification taxon geological_context location event organism metadata)
     record_details.sort do |a, b|
       order.index(a[:section]) <=> order.index(b[:section])
     end
@@ -24,7 +21,8 @@ module CollectionObjectsHelper
       'geological_context' => "Geological Context",
       'location' => "#{record_details[:dwc_locality]}, #{record_details[:dwc_higher_geography]}",
       'event' => "#{record_details[:dwc_event_date]}",
-      'organism' => "Organism"
+      'organism' => "Organism",
+      'metdata' => "Record Metadata"
     }
     header_strings[section]
   end

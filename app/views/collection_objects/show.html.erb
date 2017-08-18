@@ -18,10 +18,8 @@
 	    <% end %>
     </dl>
 
-    <% footer = @record_details.pop %>
     <% display_order(@record_details).each do |rd| %>
       <%= render partial: 'record_details', locals: rd %>
     <% end %>
-    <%= render partial: 'footer', locals: footer %>
 	</div>
 </article>

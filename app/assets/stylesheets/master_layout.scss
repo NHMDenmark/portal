@@ -3,6 +3,11 @@ $master-grid: (
   gutter: 20px
 );
 
+$footer-grid: (
+  columns: 4,
+  gutter: 40px
+);
+
 $header-grid: (
   columns: 4,
   gutter: 40px
@@ -11,32 +16,57 @@ $header-grid: (
 .master-layout {
   @include grid-container;
   background-color: #f8f8f8;
+  position: relative;     // required to keep footer at the bottom
+  min-height:100%;        // required to keep footer at the bottom
 }
 
 .master-layout__main {
   @include grid-column(10, $master-grid);
   @include grid-push(1);
   background-color: white;
+  padding-bottom: 246px;  // required to keep footer at the bottom
 }
 
 header {
   @include grid-column(12, $master-grid);
-  @include grid-push(1);
+  @include grid-collapse;
 	border-bottom: solid lightgray 1px;
 	background-color: white;
+
+  .container {
+    @include grid-column(10, $master-grid);
+    @include grid-push(1);
+    @include grid-container;
+
+    nav {
+
+      .nav-column {
+        @include grid-column(1, $header-grid);
+      }
+    }
+
+    .quicksearch {
+      @include grid-column(1, $header-grid);
+      @include grid-push(3);
+    }
+  }
 }
 
-header nav {
-  @include grid-collapse($header-grid);
-	@include grid-container;
-}
+footer {
+  position: absolute;     // required to keep footer at the bottom
+  bottom: 0;              // required to keep footer at the bottom
+  @include grid-column(12, $master-grid);
+  @include grid-collapse;
+  @include grid-container;
+  height: 246px;
+  color: white;
+  background: linear-gradient(to bottom, #777 0%, #868686 25%, #8e8d8d 50%, #888 80%, #808080 100%);
 
-.header__navbar {
-  @include grid-column(1, $header-grid);
-  @include grid-shift;
-}
-
-.header__quicksearch {
-  @include grid-column(1, $header-grid);
-  @include grid-shift(1);
+  .container {
+    @include grid-column(4, $footer-grid);
+    height: 100%;
+    background-image: url('ku_logo_footer');
+    background-repeat: no-repeat;
+    background-position: left bottom;
+  }
 }
