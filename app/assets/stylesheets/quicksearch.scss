@@ -1,6 +1,4 @@
 .quicksearch {
-
-
   $base-border-color: gainsboro !default;
   $base-border-radius: 3px !default;
   $base-line-height: 1.5em !default;
@@ -14,7 +12,7 @@
   $dropdown-background: $base-background-color;
   $dropdown-background-hover: darken($dropdown-background, 3%);
   $dropdown-inner-border: 1px solid silver;
-  $dropdown-height: 40px;
+  $dropdown-height: 25px;
   $dropdown-padding: 1em;
   $dropdown-distance-from-menu: 50px;
 

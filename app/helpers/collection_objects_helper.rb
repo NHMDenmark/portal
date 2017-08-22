@@ -1,6 +1,11 @@
 module CollectionObjectsHelper
+  def background_image(name)
+    path = name.tr(' ', '_').downcase
+    Rails.application.assets.find_asset(path) ? path : 'nhmd_generic'
+  end
+
   def display_order(record_details)
-    order = %w(identification taxon geological_context location event organism metadata)
+    order = %w(identification taxon geological_context location event organism)
     record_details.sort do |a, b|
       order.index(a[:section]) <=> order.index(b[:section])
     end
@@ -22,7 +27,6 @@ module CollectionObjectsHelper
       'location' => "#{record_details[:dwc_locality]}, #{record_details[:dwc_higher_geography]}",
       'event' => "#{record_details[:dwc_event_date]}",
       'organism' => "Organism",
-      'metdata' => "Record Metadata"
     }
     header_strings[section]
   end

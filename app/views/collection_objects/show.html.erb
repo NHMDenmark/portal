@@ -1,18 +1,25 @@
 <article>
-  <h2>
-		<%= link_to @collection_object.source_collection
-																		.dwc_collection_id,
-						@collection_object.source_collection
-			%> (<%= @collection_object.source_collection.dwc_collection_code %>)
-	</h2>
-	<h1><%= @collection_object.dwc_catalog_number %></h1>
-	<div id="other_catalog_numbers">
-	  <%= render partial: 'other_catalog_number', collection: @collection_object.other_catalog_numbers %>
-	</div>
+  <header class="content-header">
+    <div class="header-container">
+      <%= tag.style do %>
+        .header-container { background-image: url(<%= asset_path background_image(@source_collection.dwc_collection_id) %>); }
+      <% end %>
+
+      <div class="header-content">
+        <h1><%= @catalog_number %></h1>
+
+        <%= link_to @source_collection.dwc_collection_id, @source_collection %>
+      </div>
+    </div>
+  </header>
 
 	<div>
+    <div id="other_catalog_numbers">
+      <%= render partial: 'other_catalog_number', collection: @other_catalog_numbers %>
+    </div>
+
 	  <dl>
-	    <% tidy_up(@collection_object.attributes).each do |label, name| %>
+	    <% tidy_up(@co).each do |label, name| %>
 		    <dt><%= term(label).humanize %></dt><dd><%= name %></dd>
 		    <p/>
 	    <% end %>
@@ -22,4 +29,15 @@
       <%= render partial: 'record_details', locals: rd %>
     <% end %>
 	</div>
+
+  <footer class="content-footer">
+    <dl class="footer-content">
+      <% tidy_up(@metadata).each do |label, name| %>
+        <dt><%= term(label).humanize %></dt>
+        <dd><%= name %></dd>
+        <p/>
+      <% end %>
+    </dl>
+  </footer>
+
 </article>

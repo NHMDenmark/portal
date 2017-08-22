@@ -1,4 +1,16 @@
-<h1>Collection Objects</h1>
+<header class="content-header">
+  <div class="header-container">
+    <%= tag.style do %>
+      .header-container { background-image: url(<%= asset_path 'nhmd_generic' %>); }
+    <% end %>
+
+    <div class="header-content">
+      <h1>Collection Objects</h1>
+			<%= paginate @collection_objects %>
+    </div>
+  </div>
+</header>
+
 <table>
 	<thead>
 		<tr>
@@ -9,31 +21,28 @@
 		</tr>
 	</thead>
 	<tbody>
-		<% if @collection_objects.size == 0 %>
-			<tr>
-				<td colspan="4">No records uploaded</td>
-			</tr>
-		<% else %>
-			<%= paginate @collection_objects %>
-			<% @collection_objects.each do |co| %>
-				<tr>
-					<td><%= link_to co.dwc_catalog_number, co %></td>
-					<td><%= co.dwc_identification&.dwc_type_status %></td>
-					<td>
-					  <% if co.dwc_taxon.dwc_genus %>
-					    <%= tag.i co.dwc_taxon.dwc_scientific_name %>
-					  <% else %>
-    					<%= co.dwc_taxon.dwc_scientific_name %>
-					  <% end %>
-		      <%= '</i>'.html_safe if co.dwc_taxon.dwc_genus %>
-					</td>
-					<td>
-					  <%= co.dwc_location.dwc_locality %>
-					  <%= ", " if co.dwc_location.dwc_locality && co.dwc_location.dwc_higher_geography %>
-					  <%= co.dwc_location.dwc_higher_geography %>
-					</td>
-				</tr>
-			<% end %>
-		<% end %>
+    <% @collection_objects.each do |co| %>
+      <tr>
+        <td><%= link_to co.dwc_catalog_number, co %></td>
+        <td><%= co.dwc_identification&.dwc_type_status %></td>
+        <td>
+          <% if co.dwc_taxon.dwc_genus %>
+            <%= tag.i co.dwc_taxon.dwc_scientific_name %>
+          <% else %>
+            <%= co.dwc_taxon.dwc_scientific_name %>
+          <% end %>
+        <%= '</i>'.html_safe if co.dwc_taxon.dwc_genus %>
+        </td>
+        <td>
+          <%= co.dwc_location.dwc_locality %>
+          <%= ", " if co.dwc_location.dwc_locality && co.dwc_location.dwc_higher_geography %>
+          <%= co.dwc_location.dwc_higher_geography %>
+        </td>
+      </tr>
+    <% end %>
 	</tbody>
 </table>
+
+<footer class="content-footer">
+  <%= paginate @collection_objects %>
+</footer>

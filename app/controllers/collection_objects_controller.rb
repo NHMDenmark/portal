@@ -13,10 +13,17 @@ class CollectionObjectsController < ApplicationController
   end
 
   def record_details
+    @co = @collection_object.attributes
+    @source_collection = @collection_object.source_collection
+    @co.delete_if { |_k, v| v.is_a?(BSON::ObjectId) }
+    @catalog_number = @co.delete :dwc_catalog_number
+    @other_catalog_numbers = @co.delete :other_catalog_numbers
+    @metadata = @co.delete :record_metadata
     @record_details = []
-    @collection_object.attributes.each do |key, value|
-      if value.is_a?(BSON::Document)
+    @co.keys.each do |key|
+      if @co[key].is_a?(BSON::Document)
         section = key.split('_')[1..-1].join('_')
+        value = @co.delete(key)
         leaflet = value[:dwc_decimal_latitude] && value[:dwc_decimal_longitude] ? true : false
         @record_details << { section: section, record_details: value, leaflet: leaflet }
       end
