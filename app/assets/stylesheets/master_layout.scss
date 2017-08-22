@@ -97,8 +97,16 @@ header.content-header {
 }
 
 footer.content-footer {
+  @include grid-column(12, $master-grid);
   $light-gray: #DDD !default;
 
   border-top: 1px solid $light-gray;
-  font-size: .8em;
+
+  .metadata {
+    font-size: .8em;
+  }
+
+  .pagination {
+
+  }
 }

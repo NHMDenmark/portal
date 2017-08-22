@@ -75,6 +75,15 @@ dl {
       font-size: $expander-arrow-width;
       margin-right: 0.5em;
     }
+
+    span.section-name {
+      display: inline-block;
+      width: 10.5em; // calculate me based on the expander width
+    }
+
+    span.section-value {
+
+    }
   }
 
   .section-content {

@@ -1,18 +1,16 @@
 <%= tag.section id: section, class: 'detail-section' do %>
   <% if record_details.length > 2 %>
     <a href="javascript:void(0)" class="section-expander section-hidden">
-      <dl>
-        <dt>
-          <%= section.humanize %>
-        </dt>
-        <dd>
-          <% if record_details[:dwc_genus] %>
-            <%= tag.i section_header(section, record_details) %>
-          <% else %>
-            <%= section_header(section, record_details) %>
-          <% end %>
-        </dd>
-      </dl>
+      <span class="section-name">
+        <%= section.humanize %>
+      </span>
+      <span class="section-value">
+        <% if record_details[:dwc_genus] %>
+          <%= tag.i section_header(section, record_details) %>
+        <% else %>
+          <%= section_header(section, record_details) %>
+        <% end %>
+      </span>
     </a>
   <% end %>
   <dl class="section-content">
