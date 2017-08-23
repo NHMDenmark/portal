@@ -1,16 +1,23 @@
+$base-gutter: 26px;
+
 $master-grid: (
   columns: 12,
-  gutter: 20px
+  gutter: $base-gutter
+);
+
+$header-grid: (
+  columns: 3,
+  gutter: $base-gutter
+);
+
+$content-grid: (
+  columns: 3,
+  gutter:$base-gutter
 );
 
 $footer-grid: (
   columns: 4,
-  gutter: 40px
-);
-
-$header-grid: (
-  columns: 4,
-  gutter: 40px
+  gutter: $base-gutter
 );
 
 .master-layout {
@@ -19,94 +26,89 @@ $header-grid: (
   position: relative;     // required to keep footer at the bottom
   min-height:100%;        // required to keep footer at the bottom
 
-}
+  header.page-header{
+    height: 40px;
+    padding: 7px 0 7px 0;
+    border-bottom: solid lightgray 1px;
+    background-color: white;
 
-.master-layout__main {
-  @include grid-column(10, $master-grid);
-  @include grid-push(1);
-  background-color: white;
-  padding-bottom: 246px;  // required to keep footer at the bottom
-}
+    .container {
+      @include grid-column(10, $master-grid);
+      @include grid-shift(1);
 
-header.page-header{
-  @include grid-column(12, $master-grid);
-  @include grid-collapse;
-  height: 40px;
-  padding: 7px 0 7px 0;
-	border-bottom: solid lightgray 1px;
-	background-color: white;
-
-  .container {
-    @include grid-column(10, $master-grid);
-    @include grid-push(1);
-    @include grid-container;
-
-    nav {
-
-      .nav-column {
+      .header-column {
         @include grid-column(1, $header-grid);
       }
     }
+  }
 
-    .quicksearch {
-      @include grid-column(1, $header-grid);
-      @include grid-push(3);
+  .content-box {
+    @include grid-column(10, $master-grid);
+    @include grid-push(1);
+
+    background-color: white;
+    padding-bottom: 246px;  // required to keep footer at the bottom
+
+    header.content-header {
+      @include grid-column(3, $content-grid);
+      height: 94px;
+      background-image: url('ku_logo');
+      background-repeat: no-repeat;
+      background-position: left bottom;
+      margin-bottom: 1em;
+
+      .header-container {
+        background-repeat: no-repeat;
+        background-position: right;
+        height: 89px;
+        border-bottom: solid #901A1E 1px;
+
+        .header-content {
+          padding: 12px 0 12px 90px;
+        }
+      }
+    }
+
+    .main-content {
+      @include grid-column(3, $content-grid);
+    }
+
+    footer.content-footer {
+      @include grid-column(3, $content-grid);
+      $light-gray: #DDD !default;
+
+      border-top: 1px solid $light-gray;
+
+      .metadata {
+        font-size: .8em;
+      }
+    }
+
+    .pagination-container {
+
+      .pagination {
+        font-size: 0.8em;
+      }
+    }
+  }
+
+  footer.page-footer {
+    position: absolute;     // required to keep footer at the bottom
+    bottom: 0;              // required to keep footer at the bottom
+    @include grid-column(12, $master-grid);
+    @include grid-collapse;
+    @include grid-container;
+    height: 246px;
+    color: white;
+    background: linear-gradient(to bottom, #777 0%, #868686 25%, #8e8d8d 50%, #888 80%, #808080 100%);
+
+    .container {
+      @include grid-column(4, $footer-grid);
+      height: 100%;
+      background-image: url('ku_logo_footer');
+      background-repeat: no-repeat;
+      background-position: left bottom;
     }
   }
 }
 
-footer.page-footer {
-  position: absolute;     // required to keep footer at the bottom
-  bottom: 0;              // required to keep footer at the bottom
-  @include grid-column(12, $master-grid);
-  @include grid-collapse;
-  @include grid-container;
-  height: 246px;
-  color: white;
-  background: linear-gradient(to bottom, #777 0%, #868686 25%, #8e8d8d 50%, #888 80%, #808080 100%);
-
-  .container {
-    @include grid-column(4, $footer-grid);
-    height: 100%;
-    background-image: url('ku_logo_footer');
-    background-repeat: no-repeat;
-    background-position: left bottom;
-  }
-}
-
-header.content-header {
-  @include grid-column(12, $master-grid);
-  height: 94px;
-  background-image: url('ku_logo');
-  background-repeat: no-repeat;
-  background-position: left bottom;
-  margin-bottom: 1em;
-
-  .header-container {
-    background-repeat: no-repeat;
-    background-position: right;
-    height: 89px;
-    border-bottom: solid #901A1E 1px;
-
-    .header-content {
-      @include grid-column(10, $master-grid);
-      @include grid-push(1);
-      padding: 12px 0 12px 0;
-    }
-  }
-}
-
-footer.content-footer {
-  @include grid-column(12, $master-grid);
-  $light-gray: #DDD !default;
-
-  border-top: 1px solid $light-gray;
-
-  .metadata {
-    font-size: .8em;
-  }
-
-  .pagination {
-
-  }
-}

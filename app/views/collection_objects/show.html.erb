@@ -1,4 +1,4 @@
-<article>
+<article class="content-box">
   <header class="content-header">
     <div class="header-container">
       <%= tag.style do %>
@@ -13,7 +13,7 @@
     </div>
   </header>
 
-	<div>
+	<div class="main-content">
     <div id="other_catalog_numbers">
       <%= render partial: 'other_catalog_number', collection: @other_catalog_numbers %>
     </div>
@@ -39,5 +39,4 @@
       <% end %>
     </dl>
   </footer>
-
 </article>

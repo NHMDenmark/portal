@@ -15,16 +15,16 @@
   $dropdown-height: 25px;
   $dropdown-padding: 1em;
   $dropdown-distance-from-menu: 50px;
-
   line-height: $base-line-height;
 
   display: inline-block;
   position: relative;
+  width: 100%;
 
   .awesomplete {
-    width: 90%;
     display: block;
     float: left;
+    width: 90%;
     > input {
       background: $dropdown-background;
       border-bottom: $dropdown-border;
