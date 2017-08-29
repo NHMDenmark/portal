@@ -1,4 +1,7 @@
-document.addEventListener("turbolinks:load", function(event) { 
+document.addEventListener("turbolinks:load", function(event) {
+
+  var more = document.getElementById("js-navigation-more");
+
   var awe = new Awesomplete(document.querySelector("#query"),{})
   var req = new XMLHttpRequest();
   var qry = document.getElementById("query");

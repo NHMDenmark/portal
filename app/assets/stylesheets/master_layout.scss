@@ -26,22 +26,6 @@ $footer-grid: (
   position: relative;     // required to keep footer at the bottom
   min-height:100%;        // required to keep footer at the bottom
 
-  header.page-header{
-    height: 40px;
-    padding: 7px 0 7px 0;
-    border-bottom: solid lightgray 1px;
-    background-color: white;
-
-    .container {
-      @include grid-column(10, $master-grid);
-      @include grid-shift(1);
-
-      .header-column {
-        @include grid-column(1, $header-grid);
-      }
-    }
-  }
-
   .content-box {
     @include grid-column(10, $master-grid);
     @include grid-push(1);
@@ -111,4 +95,3 @@ $footer-grid: (
     }
   }
 }
-

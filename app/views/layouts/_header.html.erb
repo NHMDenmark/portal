@@ -1,13 +1,19 @@
 <header class="page-header">
   <div class="container">
-    <nav>
-      <ul>
-        <li class="header-column"><%= link_to 'Natural History Museum of Denmark', 'http://snm.ku.dk' %></li>
-        <li class="header-column"><%= link_to 'collections', source_collections_path %></li>
+    <nav role="navigation">
+      <ul class="navigation-menu show">
+        <li class="header-column nav-link"><%= link_to 'Natural History Museum of Denmark', 'http://snm.ku.dk' %></li>
+        <li class="header-column nav-link more"><%= link_to 'Collections', source_collections_path %>
+          <ul class="submenu">
+            <% all_collections.each do |coll| %>
+              <%= tag.li(link_to(coll.dwc_collection_id, coll)) %>
+            <% end %>
+          </ul>
+        </li>
         <li class="header-column">
           <%= form_tag collection_objects_path, method: :get, class: 'quicksearch' do %>
-            <%= text_field_tag :query, params[:query], class: 'form-control', placeholder: 'search', autocomplete: :off  %>
-            <%= submit_tag '', class: 'search_btn'  %>
+            <%= search_field_tag :query, params[:query], placeholder: 'search', autocomplete: :off  %>
+            <%= image_submit_tag('search') %>
           <% end %>
         </li>
       </ul>
