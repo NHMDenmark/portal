@@ -88,7 +88,6 @@ header.page-header{
       }
 
       .quicksearch {
-        $base-line-height: 1.5em !default;
         $dropdown-inner-border: 1px solid silver;                               // change me, maybe $navigation-search-border
         $dropdown-height: $navigation-height - 2px;
         $dropdown-padding: 1em;
@@ -97,7 +96,7 @@ header.page-header{
         $search-bar-border: 1px solid $search-bar-border-color;
         $search-bar-background: lighten($search-bar-border-color, 10%);
 
-        line-height: $base-line-height;
+        line-height: $navigation-height;
         display: inline-block;
         position: relative;
         width: 100%;
