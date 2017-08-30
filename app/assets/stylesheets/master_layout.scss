@@ -1,3 +1,5 @@
+$ku-red: #901A1E;
+
 $base-gutter: 26px;
 
 $master-grid: (
@@ -45,9 +47,11 @@ $footer-grid: (
         background-repeat: no-repeat;
         background-position: right;
         height: 89px;
-        border-bottom: solid #901A1E 1px;
+        border-top: 0;
+        border-bottom: solid $ku-red 1px;
 
         .header-content {
+          border-top: 0;
           padding: 12px 0 12px 90px;
         }
       }
@@ -55,6 +59,7 @@ $footer-grid: (
 
     .main-content {
       @include grid-column(3, $content-grid);
+      margin-top: 0;
     }
 
     footer.content-footer {

@@ -97,7 +97,7 @@ header.page-header{
         $search-bar-background: lighten($search-bar-border-color, 10%);
 
         line-height: $navigation-height;
-        display: inline-block;
+        display: block;
         position: relative;
         width: 100%;
 
