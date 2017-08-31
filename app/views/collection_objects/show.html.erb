@@ -19,7 +19,7 @@
     </div>
 
 	  <dl>
-	    <% tidy_up(@co).each do |label, name| %>
+	    <% strip(@co).each do |label, name| %>
 		    <dt><%= term(label).humanize %></dt><dd><%= name %></dd>
 		    <p/>
 	    <% end %>
@@ -32,7 +32,7 @@
 
   <footer class="content-footer">
     <dl class="footer-content metadata">
-      <% tidy_up(@metadata).each do |label, name| %>
+      <% strip(@metadata).each do |label, name| %>
         <dt><%= term(label).humanize %></dt>
         <dd><%= name %></dd>
         <p/>

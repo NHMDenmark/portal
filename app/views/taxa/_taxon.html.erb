@@ -1,6 +1,6 @@
 <div id="taxon-details">
 	<ul>
-		<% tidy_up(@taxon.attributes).each do |rank, name| %>
+		<% strip(@taxon.attributes).each do |rank, name| %>
 			<li><%= rank %>: <%= name %></li>
 		<% end %>
 	</ul>

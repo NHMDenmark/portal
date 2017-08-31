@@ -57,12 +57,17 @@ class CollectionObjectsController < ApplicationController
 			        .to_h
   end
 
+  def trim_date(value)
+    return value unless value.is_a? Time
+    value.to_date
+  end
+
   def prepare_terms(hash)
 		hash.keys
 			  .map { |k| k.split('_') }
 			  .map { |k| namespace(k.shift)[k.join('_').camelize(:lower)] } # generate the predicate
         .zip(hash.values)
-        .map { |a| RDF::Statement.new(@subj, a[0], a[1]) }
+        .map { |a| RDF::Statement.new(@subj, a[0], trim_date(a[1])) }
   end
 
   def rdf

@@ -14,13 +14,13 @@
     </a>
   <% end %>
   <dl class="section-content">
-    <% tidy_up(record_details).each do |label, name| %>
+    <% strip(record_details).each do |label, name| %>
       <dt><%= term(label).humanize %></dt>
       <dd>
         <% if italicize?(label, record_details[:dwc_genus]) %>
           <%= tag.i name %>
         <% else %>
-          <%= name %>
+          <%= name.is_a?(Time) ? name.to_date : name %>
         <% end %>
       </dd>
       <p/>

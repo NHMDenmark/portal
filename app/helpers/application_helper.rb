@@ -13,7 +13,7 @@ module ApplicationHelper
   end
 
   # returns hash with mongoid IDs and blank keys removed
-  def tidy_up(hash)
+  def strip(hash)
     hash.reject { |_k, v| v.is_a?(BSON::ObjectId) || v.is_a?(Hash) || v.is_a?(Array) }
 				.delete_if { |_k, v| v.blank? }
 				.map { |k, v| [k, v] }
