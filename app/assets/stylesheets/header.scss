@@ -91,7 +91,7 @@ header.page-header{
 
       .quicksearch {
         $dropdown-inner-border: 1px solid silver;                               // change me, maybe $navigation-search-border
-        $dropdown-height: $navigation-height - 2px;
+        $dropdown-height: $navigation-height - 12px;
         $dropdown-padding: 1em;
         $dropdown-distance-from-menu: 45px;
         $dropdown-background: transparentize($navigation-search-background-focus, 0.1);
@@ -100,35 +100,41 @@ header.page-header{
         display: block;
         position: relative;
         width: 100%;
+        margin-top: 6px;
 
 //         padding: 7px 0 7px 0; // hmmmmmm
 
         .awesomplete {
-          display: block;
+          display: inline-block;
           float: left;
-          width: 100%;
+          width: 90%;
+          height: $dropdown-height;
 
           > input[type=search] {
             background: $navigation-search-background;
             border: $navigation-search-border;
-            border-radius: $base-border-radius * 2;
+            border-right: 0;
+            border-top-left-radius: $base-border-radius * 2;
+            border-bottom-left-radius: $base-border-radius * 2;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
             box-sizing: border-box;
             color: $navigation-color;
             font-size: 0.9em;
             font-style: italic;
             margin: 0;
             padding: 0 ($dropdown-padding / 2) 0 $dropdown-padding;
-
             line-height: $dropdown-height;
 
             &:focus {
               background-color: $navigation-search-background-focus;
               color: $navigation-search-color-focus;
+              outline-style: none;
             }
 
             &::placeholder {
               font-size: 0.7em;
-              color: $navigation-color;
+              color: inherit;
             }
           }
 
@@ -217,17 +223,15 @@ header.page-header{
         }
 
         input[type=image] {
+          width: 10%;
           background: $navigation-search-background;
-          border: 0;
-          bottom: 0.3em;
-          left: auto;
+          border: $navigation-search-border;
+          border-left: 0;
+          border-top-right-radius: $base-border-radius * 2;
+          border-bottom-right-radius: $base-border-radius * 2;
           outline: none;
-          padding: 0 9px;
-          position: absolute;
-          right: 0.3em;
-          top: 0.3em;
-          height: 25px;
-          opacity: 0.7;
+          padding: 0 6px;
+          height: $dropdown-height + 2;
           margin: 0;
 
           &:hover {
