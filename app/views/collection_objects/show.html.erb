@@ -1,10 +1,10 @@
 <article class="content-box">
-  <header class="content-header">
-    <div class="header-container">
       <%= tag.style do %>
-        .header-container { background-image: url(<%= asset_path background_image(@source_collection.dwc_collection_id) %>); }
+        .content-box { background-image: url(<%= asset_path background_image(@source_collection.dwc_collection_id) %>); background-size: contain; background-repeat: no-repeat; }
       <% end %>
 
+  <header class="content-header">
+    <div class="header-container">
       <div class="header-content">
         <h1><%= @catalog_number %></h1>
 

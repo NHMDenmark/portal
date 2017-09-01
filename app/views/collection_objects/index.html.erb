@@ -1,10 +1,12 @@
 <div class="content-box">
+  <%= tag.style do %>
+    .content-box { background-image: url(<%= asset_path 'nhmd_generic' %>);
+                    background-size: contain;
+                    background-repeat: no-repeat; }
+  <% end %>
+
   <header class="content-header">
     <div class="header-container">
-      <%= tag.style do %>
-        .header-container { background-image: url(<%= asset_path 'nhmd_generic' %>); }
-      <% end %>
-
       <div class="header-content">
         <h1>Collection Objects</h1>
       </div>
