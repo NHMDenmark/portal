@@ -8,6 +8,7 @@ header.page-header{
   $navigation-background: $ku-red;
   $navigation-color: transparentize(white, 0.1);
   $navigation-color-hover: white;
+  $header-height: 64px;
   $navigation-height: 40px;
   $navigation-nav-button-background: $action-color;
   $navigation-nav-button-background-hover: lighten($navigation-background, 10%);
@@ -18,29 +19,35 @@ header.page-header{
   $navigation-search-border: 1px solid darken($navigation-background, 5);
 
   background-color: $navigation-background;
+  background-image: url('ku_logo_m');
+  background-repeat: no-repeat;
+  background-size: 32px;
+  background-position: 20px 10px;
   border-bottom: 1px solid darken($navigation-background, 10);
-  min-height: $navigation-height;
+  min-height: $header-height;
   z-index: 999;
 
   .container {
+
+    border-bottom: .5px solid white;
+    min-height: $navigation-height;
+
+    nav {
     @include grid-column(10, $master-grid);
     @include grid-shift(1);
-
     z-index: 9999;
 
     .header-column {
       @include grid-column(1, $header-grid);
     }
 
-    nav {
-      min-height: $navigation-height;
-      z-index: 9999999;
+//       z-index: 9999999;
 
       ul.navigation-menu {
         overflow: visible;
 
         li.nav-link {
-          background: $navigation-background;
+          background: inherit;
           display: block;
           line-height: $navigation-height;
           overflow: hidden;
