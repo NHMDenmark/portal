@@ -37,40 +37,43 @@ $footer-grid: (
     padding-bottom: 246px;  // required to keep footer at the bottom
 
     header.content-header {
-      @include grid-column(3, $content-grid);
       height: 94px;
       background-image: url('ku_logo_outline');
-      background-color: transparentize($ku-gray, 0.5);
+      background-color: transparentize($ku-gray, 0.4);
       background-repeat: no-repeat;
-      background-position: left bottom;
+      background-position: $base-gutter 7px;
 
       .header-container {
         background-repeat: no-repeat;
         background-position: right;
         height: 89px;
         border-top: 0;
-        border-bottom: solid white 1px;
+//         border-bottom: solid white .5px;
 
         .header-content {
           border-top: 0;
-          padding: 12px 0 12px 90px;
+          padding: 12px 0 12px 128px;
           color: white;
         }
       }
     }
 
-    .main-content {
-      @include grid-column(3, $content-grid);
+    table {
       margin-top: 0;
-      padding-top: 1em;
+      margin-bottom: 0;
+    }
+
+    .main-content {
+      margin-top: 0;
+      padding: $base-spacing $base-gutter $base-spacing $base-gutter;
       background-color: transparentize(white, 0.1);
     }
 
     footer.content-footer {
-      @include grid-column(3, $content-grid);
       $light-gray: #DDD !default;
-
+      background-color: transparentize(white, 0.1);
       border-top: 1px solid $light-gray;
+      padding: 0 $base-gutter 0 $base-gutter;
 
       .metadata {
         font-size: .8em;
