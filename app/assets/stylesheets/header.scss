@@ -9,6 +9,8 @@ header.page-header{
   $navigation-color: transparentize(white, 0.1);
   $navigation-color-hover: white;
   $header-height: 64px;
+  $inner-border-weight: .5px;
+  $header-inner-border: $inner-border-weight solid white;
   $navigation-height: 40px;
   $navigation-nav-button-background: $action-color;
   $navigation-nav-button-background-hover: lighten($navigation-background, 10%);
@@ -36,13 +38,24 @@ header.page-header{
 
   .container {
 
-    border-bottom: .5px solid white;
+    border-bottom: $header-inner-border;
     min-height: $navigation-height;
 
+    a {
+      color: $navigation-color;
+      display: inline-block;
+      text-decoration: none;
+
+      &:focus,
+      &:hover {
+        color: $navigation-color-hover;
+      }
+    }
+
     nav {
-    @include grid-column(10, $master-grid);
-    @include grid-shift(1);
-    z-index: 9999;
+      @include grid-column(10, $master-grid);
+      @include grid-shift(1);
+      z-index: 9999;
 
       .header-column {
         @include grid-column(1, $header-grid);
@@ -56,17 +69,6 @@ header.page-header{
           display: block;
           line-height: $navigation-height;
           overflow: hidden;
-
-          a {
-            color: $navigation-color;
-            display: inline-block;
-            text-decoration: none;
-
-            &:focus,
-            &:hover {
-              color: $navigation-color-hover;
-            }
-          }
         }
 
         li.nav-link.more {
@@ -261,5 +263,71 @@ header.page-header{
         }
       }
     }
+  }
+
+  .breadcrumb {
+    $breadcrumb-border-color: white;
+    $breadcrumb-border: $header-inner-border;
+    $breadcrumb-height: $base-spacing; //* 1.5;
+
+    @include grid-column(10, $master-grid);
+    @include grid-shift(1);
+    display: inline-block;
+    text-align: left;
+
+    a {
+//       border: $breadcrumb-border;
+      border-left: 0;
+      display: inline-block;
+      font-size: .8em;
+      font-weight: lighter;
+      line-height: $breadcrumb-height;
+//       margin-bottom: 2px;
+      margin-right: -5px;
+      padding: 0 ($breadcrumb-height / 4) 0 ($breadcrumb-height / 2);
+      position: relative;
+
+      &:first-child {
+//         border-left: $breadcrumb-border;
+        padding-left: $breadcrumb-height / 2;
+      }
+
+      &:last-child {
+  //       background-color: $breadcrumb-background;
+        border-bottom-right-radius: $base-border-radius;
+        border-top-right-radius: $base-border-radius;
+  //       color: $breadcrumb-color-active;
+        padding-right: $breadcrumb-height / 2;
+      }
+
+      &::after,
+      &::before {
+        @include position(absolute, 0 auto 0 100%);
+        border-bottom: $breadcrumb-height / 2 solid transparent;
+        border-left: $breadcrumb-height / 4 solid transparent;
+        border-top: $breadcrumb-height / 2 solid transparent;
+        content: "";
+        display: block;
+        margin: auto;
+        z-index: 2;
+      }
+
+      &:last-child::after,
+      &:last-child::before {
+        border: 0;
+      }
+
+      &::before {
+        border-left-color: $breadcrumb-border-color;
+        margin-left: $inner-border-weight;
+        z-index: 1;
+      }
+
+      &::after {
+        border-left-color: $navigation-background;
+      }
+
+    }
+
   }
 }
