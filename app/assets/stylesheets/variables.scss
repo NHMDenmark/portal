@@ -35,7 +35,8 @@ $navigation-nav-button-background-hover: lighten($navigation-background, 10%);
 
 
 // Layout
-$page-header-height: 64px;
+$page-header-height: 48px;
+$page-header-height-focus: $page-header-height + 16;
 $navigation-height: 40px;
 
 
