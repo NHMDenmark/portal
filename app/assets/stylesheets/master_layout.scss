@@ -19,22 +19,14 @@
       background-repeat: no-repeat;
       background-position: $base-gutter 7px;
 
-      .header-container {
-        background-repeat: no-repeat;
-        background-position: right;
-        height: 89px;
+      .header-content {
         border-top: 0;
-//         border-bottom: solid white .5px;
+        padding: 12px 0 12px 128px;
+        color: white;
 
-        .header-content {
-          border-top: 0;
-          padding: 12px 0 12px 128px;
+        a {
           color: white;
-
-          a {
-            color: white;
-            text-decoration: none;
-          }
+          text-decoration: none;
         }
       }
     }

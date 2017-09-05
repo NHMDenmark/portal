@@ -6,12 +6,9 @@
       <% end %>
 
   <header class="content-header">
-    <div class="header-container">
-      <div class="header-content">
-        <h1><%= @catalog_number %></h1>
-
-        <%= link_to @source_collection.dwc_collection_id, @source_collection %>
-      </div>
+    <div class="header-content">
+      <h1><%= @catalog_number %></h1>
+      <%= link_to @source_collection.dwc_collection_id, @source_collection %>
     </div>
   </header>
 

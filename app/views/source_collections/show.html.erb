@@ -1,2 +1,20 @@
-<h1><%= @collection.dwc_collection_id %></h1>
-<p><%= @collection.collection_objects.count %> specimens cataloged.</p>
+<article class="content-box">
+  <%= tag.style do %>
+    .content-box { background-image: url(<%= asset_path background_image(@collection.dwc_collection_id) %>);
+                   background-size: cover;
+                   background-repeat: no-repeat; }
+  <% end %>
+
+  <header class="content-header">
+    <div class="header-content">
+      <h1><%= @collection.dwc_collection_id %></h1>
+    </div>
+  </header>
+
+	<div class="main-content">
+    <p><%= @collection.collection_objects.count %> specimens cataloged.</p>
+  </div>
+
+  <footer class="content-footer">
+  </footer>
+</article>
