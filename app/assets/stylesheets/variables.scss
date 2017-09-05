@@ -1,0 +1,25 @@
+$ku-red: #901A1E;
+$ku-gray: #666666;
+$header-height: 64px;
+
+$base-gutter: 26px;
+
+$master-grid: (
+  columns: 12,
+  gutter: $base-gutter
+);
+
+$header-grid: (
+  columns: 3,
+  gutter: $base-gutter
+);
+
+$content-grid: (
+  columns: 3,
+  gutter:$base-gutter
+);
+
+$footer-grid: (
+  columns: 4,
+  gutter: $base-gutter
+);
