@@ -1,7 +1,7 @@
 <article class="content-box">
   <%= tag.style do %>
     .content-box { background-image: url(<%= asset_path background_image(@source_collection.dwc_collection_id) %>);
-                   background-size: cover;
+                   background-size: contain;
                    background-repeat: no-repeat; }
   <% end %>
 
