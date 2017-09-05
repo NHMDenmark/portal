@@ -25,6 +25,9 @@
       <%= link_to 'Collections Data', root_path %>
       <!-- current collection -->
       <!-- specimen -->
+      <% breadcrumbs.each do |path| %>
+        <%= link_to *path %>
+      <% end %>
     </div>
 	</div>
 </header>

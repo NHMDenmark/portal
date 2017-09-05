@@ -7,9 +7,9 @@
   .content-box {
     @include grid-column(10, $master-grid);
     @include grid-push(1);
-    margin-top: $header-height;
 
     background-color: white;
+    margin-top: $page-header-height;
     padding-bottom: 246px;  // required to keep footer at the bottom
 
     header.content-header {
@@ -46,7 +46,6 @@
     }
 
     footer.content-footer {
-      $light-gray: #DDD !default;
       background-color: transparentize(white, 0.1);
       border-top: 1px solid $light-gray;
       padding: 0 $base-gutter 0 $base-gutter;

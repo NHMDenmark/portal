@@ -5,5 +5,10 @@ class ApplicationController < ActionController::Base
     SourceCollection.all.to_a
   end
 
+  def breadcrumbs
+    [["implement #{controller_name}#breadcrumbs", '#']] # this wants integration testing
+  end
+
   helper_method :all_collections
+  helper_method :breadcrumbs
 end

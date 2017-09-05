@@ -36,6 +36,20 @@ class CollectionObjectsController < ApplicationController
     render :show
   end
 
+  def breadcrumbs
+    case action_name
+    when 'object', 'show'
+      [
+        [@source_collection[:dwc_collection_id], @collection_object.source_collection],
+        [@catalog_number, object_path(dwc_catalog_number: @catalog_number)]
+      ]
+    when 'index'
+      []
+    else
+      ["define #{controller_name}#{action_name} breadcrumbs", '#']
+    end
+  end
+
   def namespace(ns)
     case ns
     when 'dc'

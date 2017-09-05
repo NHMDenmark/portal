@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     	get :autocomplete
     end
   end
-  get 'object/:dwc_catalog_number', to: 'collection_objects#object'
+  get 'object/:dwc_catalog_number', to: 'collection_objects#object', as: :object
   get 'data/rdf/:dwc_catalog_number', to: 'collection_objects#rdf', defaults: { format: 'xml' }
   root 'collection_objects#index'
 end

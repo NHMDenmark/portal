@@ -1,7 +1,4 @@
-$ku-red: #901A1E;
-$ku-gray: #666666;
-$header-height: 64px;
-
+// Grid
 $base-gutter: 26px;
 
 $master-grid: (
@@ -23,3 +20,25 @@ $footer-grid: (
   columns: 4,
   gutter: $base-gutter
 );
+
+// Colors
+$ku-red: #901A1E;
+$ku-gray: #666666;
+
+$navigation-background: $ku-red;
+$navigation-color: transparentize(white, 0.1);
+$navigation-color-hover: white;
+
+$navigation-search-background: lighten($navigation-background, 5);
+$navigation-search-background-focus: white;
+$navigation-nav-button-background-hover: lighten($navigation-background, 10%);
+
+
+// Layout
+$page-header-height: 64px;
+$navigation-height: 40px;
+
+
+// Borders
+$inner-border-weight: 1px;
+$header-inner-border: $inner-border-weight solid transparentize(white, 0.3);
