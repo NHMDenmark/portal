@@ -21,6 +21,7 @@ $footer-grid: (
   gutter: $base-gutter
 );
 
+
 // Colors
 $ku-red: #901A1E;
 $ku-gray: #666666;
@@ -32,14 +33,25 @@ $navigation-color-hover: white;
 $navigation-search-background: lighten($navigation-background, 5);
 $navigation-search-background-focus: white;
 $navigation-nav-button-background-hover: lighten($navigation-background, 10%);
+$navigation-search-color-focus: black;
+$navigation-search-border: 1px solid darken($navigation-background, 5);
 
 
 // Layout
 $page-header-height: 48px;
 $page-header-height-focus: $page-header-height + 16;
 $navigation-height: 40px;
+$quicksearch-hight: $navigation-height - 12px;
 
 
 // Borders
 $inner-border-weight: 1px;
 $header-inner-border: $inner-border-weight solid transparentize(white, 0.3);
+
+
+// Widgets
+$dropdown-inner-border: none;
+$dropdown-padding: 1em;
+$dropdown-distance-from-menu: 38px;
+$dropdown-background: transparentize($navigation-search-background-focus, 0.1);
+$dropdown-background-hover: transparentize($navigation-background, 0.4);

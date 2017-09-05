@@ -1,14 +1,4 @@
 header.page-header{
-  $navigation-search-color-focus: black;
-  $navigation-search-border: 1px solid darken($navigation-background, 5);
-
-  $dropdown-inner-border: none;
-  $dropdown-height: $navigation-height - 12px;
-  $dropdown-padding: 1em;
-  $dropdown-distance-from-menu: 45px;
-  $dropdown-background: transparentize($navigation-search-background-focus, 0.1);
-  $dropdown-background-hover: transparentize($navigation-background, 0.4);
-
   position: fixed;
   min-width: 100%;
   background-color: $navigation-background;
@@ -19,7 +9,6 @@ header.page-header{
   border-bottom: 1px solid darken($navigation-background, 10);
   height: $page-header-height;
   z-index: 999;
-
   transition: height .1s;
 
   &:hover {
@@ -92,7 +81,6 @@ header.page-header{
   }
 
   .container {
-
     border-bottom: $header-inner-border;
     min-height: $navigation-height;
 
@@ -163,7 +151,8 @@ header.page-header{
             border-bottom: $dropdown-inner-border;
 //             color: inherit;
 //             display: block;
-            padding: $dropdown-padding / 2;
+            padding-left: $dropdown-padding / 2;
+            padding-right: $dropdown-padding / 2;
 
             a {
 //               background-color: $navigation-background;
@@ -186,7 +175,7 @@ header.page-header{
           display: inline-block;
           float: left;
           width: 90%;
-          height: $dropdown-height;
+          height: $quicksearch-hight;
 
           > input[type=search] {
             background: $navigation-search-background;
@@ -202,7 +191,7 @@ header.page-header{
             font-style: italic;
             margin: 0;
             padding: 0 ($dropdown-padding / 2) 0 $dropdown-padding;
-            line-height: $dropdown-height;
+            line-height: $quicksearch-hight;
 
             &:focus {
               background-color: $navigation-search-background-focus;
@@ -235,17 +224,16 @@ header.page-header{
             box-shadow: 0 2px 2px transparentize(black, 0.8);
             color: $navigation-search-color-focus;
             cursor: pointer;
-
             margin: 0;
             padding: 0;
             overflow: visible;
             top: $dropdown-distance-from-menu;   // candidate for removal
             transition: all 0.2s ease-in-out;
-            min-width: 100%;
+            min-width: 90%;
             z-index: 99999;
 
             &::before {
-              @include position(absolute, 0 1em 0 0);
+              position: absolute;
               color: $dropdown-background;
               content: "\25b2";
               font-size: 1.4em;
@@ -261,7 +249,8 @@ header.page-header{
             > li {
               border-bottom: $dropdown-inner-border;
               color: inherit;
-              padding: $dropdown-padding / 2;
+              padding-left: $dropdown-padding / 2;
+              padding-right: $dropdown-padding / 2;
 
               &:hover {
                 background: $dropdown-background-hover;
@@ -307,7 +296,7 @@ header.page-header{
           border-bottom-right-radius: $base-border-radius * 2;
           outline: none;
           padding: 0 6px;
-          height: $dropdown-height + 2;
+          height: $quicksearch-hight + 2;
           margin: 0;
 
           &:hover {
