@@ -10,10 +10,10 @@
 
     background-color: white;
     margin-top: $page-header-height;
-    padding-bottom: 246px;  // required to keep footer at the bottom
+    padding-bottom: $page-footer-height;  // required to keep footer at the bottom
 
     header.content-header {
-      height: 94px;
+      height: $content-header-height;
       background-image: url('ku_logo_outline');
       background-color: transparentize($ku-gray, 0.4);
       background-repeat: no-repeat;
@@ -37,15 +37,17 @@
     }
 
     .main-content {
+      min-height: 448px;
       margin-top: 0;
       padding: $base-spacing $base-gutter $base-spacing $base-gutter;
-      background-color: transparentize(white, 0.1);
+      background: linear-gradient(to bottom, transparentize(white, 0.1) 0px, white 188px);
     }
 
     footer.content-footer {
-      background-color: transparentize(white, 0.1);
+      background-color: white;
       border-top: 1px solid $light-gray;
       padding: 0 $base-gutter 0 $base-gutter;
+      height: $content-footer-height; // fix padding in metadata, currently 1px taller
 
       .metadata {
         font-size: .8em;
