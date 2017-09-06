@@ -18,7 +18,7 @@ header.page-header{
 
     &:focus,
     &:hover {
-      color: $header-color-hover;
+      color: $header-color-active;
     }
   }
 
@@ -55,13 +55,15 @@ header.page-header{
         li.more {
           &:focus > .submenu,
           &:hover > .submenu {
+            visibility: visible;
+            transition: visibility 0.1s 0.1s;
             display: block;
           }
         }
 
         ul.submenu {
           box-sizing: border-box;
-          display: none;
+          visibility: collapse;
           position: absolute;
           background-color: $navigation-background;
           border: $navigation-search-border;
@@ -185,7 +187,7 @@ header.page-header{
 
               &:hover {
                 background: $dropdown-background-hover;
-                color: $header-color-hover;
+                color: $header-color-active;
               }
 
               &:first-child {
@@ -201,7 +203,7 @@ header.page-header{
 
               &[aria-selected="true"] {
                 background: $dropdown-background-hover;
-                color: $header-color-hover;
+                color: $header-color-active;
               }
             }
           }
@@ -245,27 +247,22 @@ header.page-header{
     text-align: left;
 
     a {
-//       border: $breadcrumb-border;
       border-left: 0;
       display: inline-block;
       font-size: .8em;
       font-weight: lighter;
       line-height: $breadcrumb-height;
-//       margin-bottom: 2px;
       margin-right: -5px;
       padding: 0 ($breadcrumb-height / 4) 0 ($breadcrumb-height / 2);
       position: relative;
 
       &:first-child {
-//         border-left: $breadcrumb-border;
         padding-left: $breadcrumb-height / 2;
       }
 
       &:last-child {
-  //       background-color: $breadcrumb-background;
-//           border-bottom-right-radius: $base-border-radius;
         border-top-right-radius: $base-border-radius;
-  //       color: $breadcrumb-color-active;
+        color: $header-color-active;
         padding-right: $breadcrumb-height / 2;
       }
 
