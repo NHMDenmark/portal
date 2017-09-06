@@ -22,8 +22,8 @@ module ApplicationHelper
 
   def background_image(coll = nil)
     name = coll&.tr(' ', '_')&.downcase
-    path = Rails.application.assets.find_asset(name) ? name : 'nhmd_generic'
-    asset = asset_path path
-    tag.style ".content-box {background-image: url(#{asset}); background-size: contain; background-repeat: no-repeat;}"
+    asset = Rails.application.assets.find_asset(name) ? name : 'nhmd_generic'
+    path = asset_path asset
+    tag.style ".content-box {background-image: url(#{path}); background-size: contain; background-repeat: no-repeat;}"
   end
 end
