@@ -1,9 +1,5 @@
 <article class="content-box">
-  <%= tag.style do %>
-    .content-box { background-image: url(<%= asset_path background_image(@collection.dwc_collection_id) %>);
-                   background-size: contain;
-                   background-repeat: no-repeat; }
-  <% end %>
+  <%= background_image(@collection.dwc_collection_id) %>
 
   <header class="content-header">
     <div class="header-content">

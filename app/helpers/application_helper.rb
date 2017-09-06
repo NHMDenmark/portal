@@ -19,4 +19,11 @@ module ApplicationHelper
 				.map { |k, v| [k, v] }
 				.to_h
   end
+
+  def background_image(coll = nil)
+    name = coll&.tr(' ', '_')&.downcase
+    path = Rails.application.assets.find_asset(name) ? name : 'nhmd_generic'
+    asset = asset_path path
+    tag.style ".content-box {background-image: url(#{asset}); background-size: contain; background-repeat: no-repeat;}"
+  end
 end

@@ -1,9 +1,4 @@
 module CollectionObjectsHelper
-  def background_image(name)
-    path = name.tr(' ', '_').downcase
-    Rails.application.assets.find_asset(path) ? path : 'nhmd_generic'
-  end
-
   def display_order(record_details)
     order = %w(identification taxon geological_context location event organism)
     record_details.sort do |a, b|
