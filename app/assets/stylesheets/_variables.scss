@@ -36,6 +36,7 @@ $navigation-nav-button-background-hover: lighten($navigation-background, 10%);
 $navigation-search-color-focus: black;
 $navigation-search-border: 1px solid darken($navigation-background, 5);
 
+$main-content-background: linear-gradient(to bottom, transparentize(white, 0.1) 0px, white 188px);
 
 // Layout
 $page-header-height: 48px;

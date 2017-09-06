@@ -40,7 +40,7 @@
       min-height: 448px;
       margin-top: 0;
       padding: $base-spacing $base-gutter $base-spacing $base-gutter;
-      background: linear-gradient(to bottom, transparentize(white, 0.1) 0px, white 188px);
+      background: $main-content-background;
     }
 
     footer.content-footer {
