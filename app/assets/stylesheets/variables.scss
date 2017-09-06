@@ -27,8 +27,8 @@ $ku-red: #901A1E;
 $ku-gray: #666666;
 
 $navigation-background: $ku-red;
-$navigation-color: transparentize(white, 0.1);
-$navigation-color-hover: white;
+$header-color: transparentize(white, 0.1);
+$header-color-hover: white;
 
 $navigation-search-background: lighten($navigation-background, 5);
 $navigation-search-background-focus: white;
@@ -55,3 +55,7 @@ $dropdown-padding: 1em;
 $dropdown-distance-from-menu: 38px;
 $dropdown-background: transparentize($navigation-search-background-focus, 0.1);
 $dropdown-background-hover: transparentize($navigation-background, 0.4);
+
+$breadcrumb-border-color: white;
+$breadcrumb-border: $header-inner-border;
+$breadcrumb-height: $base-spacing; //* 1.5;
