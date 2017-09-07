@@ -1,0 +1,9 @@
+// Transitions
+// from: https://coderwall.com/p/11z75g/iterating-over-nth-children-w-sass
+@mixin wipe {
+  @for $i from 1 through 10 {
+    &:nth-child(#{$i}) {
+      transition: opacity .05s #{$i * .05}s;
+    }
+  }
+}
