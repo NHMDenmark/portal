@@ -55,20 +55,17 @@ header.page-header{
         li.more {
           .show {
             visibility: visible;
-            transition: visibility 0.1s 0.1s;
+            opacity: 1;
+            transition: opacity 0.2s;
             display: block;
           }
-//           &:focus > .submenu,
-//           &:hover > .submenu {
-//             visibility: visible;
-//             transition: visibility 0.1s 0.1s;
-//             display: block;
-//           }
         }
 
         ul.submenu {
           box-sizing: border-box;
           visibility: collapse;
+          opacity: 0;
+          transition: opacity 0.2s;
           position: absolute;
           background-color: $navigation-background;
           border: $navigation-search-border;
@@ -245,7 +242,7 @@ header.page-header{
     }
   }
 
-  .breadcrumb {
+  .breadcrumbs {
     @include grid-column(10, $master-grid);
     @include grid-shift(1);
     display: inline-block;
@@ -304,7 +301,7 @@ header.page-header{
   &:hover {
     height: $page-header-height-focus;
 
-    .breadcrumb {
+    .breadcrumbs {
       visibility: visible;
       transition: visibility 0.1s 0.1s;
     }
