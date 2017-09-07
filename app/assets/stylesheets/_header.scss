@@ -53,12 +53,17 @@ header.page-header{
         }
 
         li.more {
-          &:focus > .submenu,
-          &:hover > .submenu {
+          .show {
             visibility: visible;
             transition: visibility 0.1s 0.1s;
             display: block;
           }
+//           &:focus > .submenu,
+//           &:hover > .submenu {
+//             visibility: visible;
+//             transition: visibility 0.1s 0.1s;
+//             display: block;
+//           }
         }
 
         ul.submenu {

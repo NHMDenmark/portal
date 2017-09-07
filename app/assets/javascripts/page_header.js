@@ -1,7 +1,18 @@
+// Navigation Submenu
 document.addEventListener("turbolinks:load", function(event) {
+  var menuToggle = document.getElementById("submenu-toggle");
+  menuToggle.addEventListener("click", function toggleSubmenu(){
+  var submenu = document.getElementById("submenu-content");
+    if (submenu.classList.contains('show')) {
+      submenu.classList.remove('show');
+    } else {
+      submenu.classList.add('show');
+    }
+  });
+});
 
-  var more = document.getElementById("js-navigation-more");
-
+// Quick-search Widget
+document.addEventListener("turbolinks:load", function(event) {
   var awe = new Awesomplete(document.querySelector("#query"),{})
   var req = new XMLHttpRequest();
   var qry = document.getElementById("query");
