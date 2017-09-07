@@ -1,6 +1,6 @@
 <dl>
 	<% strip(other_catalog_number).each do |label, name| %>
-		<dt><%= term(label).humanize %></dt><dd><%= name %></dd>
+		<dt><%= term(label).singularize.humanize %></dt><dd><%= name %></dd>
 		<p/>
 	<% end %>
 </dl>

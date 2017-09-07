@@ -97,15 +97,9 @@ class CollectionObjectsController < ApplicationController
   	@collection_object = CollectionObject.find_by(dwc_catalog_number: params[:dwc_catalog_number])
     @co_graph = RDF::Graph.new
 
-#   	occ_oids = @collection_object.other_catalog_numbers
-#   	                             .map { |oid| prepare_terms(trim(oid.attributes)) }
-#   	                             .flatten
-#   	                             .each { |oid| oid[:term] = oid[:term].pluralize }  # refactor
-
-
-#     occ_oids.each do |field|
-# 			@co_graph << [@subj, namespace(field[:ns])[field[:term]], field[:value]]
-#     end
+  	@co_graph << @collection_object.other_catalog_numbers
+    	                             .map { |oid| prepare_terms(trim(oid.attributes)) }
+    	                             .flatten
 
   	all_terms = [@collection_object.attributes,
   	             @collection_object.dwc_event&.attributes,
