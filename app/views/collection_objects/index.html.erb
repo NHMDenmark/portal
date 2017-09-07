@@ -33,9 +33,9 @@
             <%= '</i>'.html_safe if co.dwc_taxon.dwc_genus %>
             </td>
             <td>
-              <%= co.dwc_location.dwc_locality %>
-              <%= ", " if co.dwc_location.dwc_locality && co.dwc_location.dwc_higher_geography %>
-              <%= co.dwc_location.dwc_higher_geography %>
+              <%= co.dwc_location.dwc_locality if co.dwc_location %>
+              <%= ", " if co.dwc_location&.dwc_locality && co.dwc_location&.dwc_higher_geography %>
+              <%= co.dwc_location.dwc_higher_geography if co.dwc_location %>
             </td>
           </tr>
         <% end %>
