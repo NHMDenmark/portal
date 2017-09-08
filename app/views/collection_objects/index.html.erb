@@ -32,7 +32,10 @@
               <% end %>
             <%= '</i>'.html_safe if co.dwc_taxon&.dwc_genus %>
             </td>
-            <td>
+            <td class="location">
+            	<% if co.dwc_location&.dwc_decimal_latitude %>
+            		<%= tag.style "td.location {background-image: url(#{asset_path('georef')}); background-repeat: no-repeat; background-position: 0 12px; padding-left: 32px;}" %>
+            	<% end %>
               <%= co.dwc_location.dwc_locality if co.dwc_location %>
               <%= ", " if co.dwc_location&.dwc_locality && co.dwc_location&.dwc_higher_geography %>
               <%= co.dwc_location.dwc_higher_geography if co.dwc_location %>

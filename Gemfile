@@ -26,7 +26,7 @@ gem 'uglifier', '>= 1.3.0'
 # gem 'therubyracer', platforms: :ruby
 
 # temp workaround for fs-event error
-gem 'rb-fsevent', '~> 0.9.8'
+gem 'rb-fsevent', '~> 0.10.2'
 
 # RDF library
 gem 'linkeddata', '~> 2.2.0'
@@ -52,7 +52,7 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '~> 2.14.0'
+  gem 'capybara', '~> 2.15.1'
   gem 'selenium-webdriver'
   # Add full stack trace, source code inspection,local and instance variable inspection, REPL to error pages
   gem 'better_errors'
