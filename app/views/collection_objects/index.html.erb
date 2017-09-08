@@ -16,7 +16,7 @@
           <th>Catalog Number</th>
           <th>Type Status</th>
           <th>Scientific Name</th>
-          <th>Higher Geography</th>
+          <th>Location</th>
         </tr>
       </thead>
       <tbody>
@@ -32,9 +32,11 @@
               <% end %>
             <%= '</i>'.html_safe if co.dwc_taxon&.dwc_genus %>
             </td>
-            <td class="location">
             	<% if co.dwc_location&.dwc_decimal_latitude %>
-            		<%= tag.style "td.location {background-image: url(#{asset_path('georef')}); background-repeat: no-repeat; background-position: 0 12px; padding-left: 32px;}" %>
+            		<td class="georef">
+            		<%= tag.style "td.georef {background-image: url(#{asset_path('georef')}); background-repeat: no-repeat; background-position: 0 12px; padding-left: 32px;}" %>
+            	<% else %>
+            		<td>
             	<% end %>
               <%= co.dwc_location.dwc_locality if co.dwc_location %>
               <%= ", " if co.dwc_location&.dwc_locality && co.dwc_location&.dwc_higher_geography %>
