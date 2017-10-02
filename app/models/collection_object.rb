@@ -13,7 +13,7 @@ class CollectionObject
   embeds_one :dwc_location
   embeds_one :dwc_organism
   embeds_one :dwc_taxon
-  embeds_one :record_metadata
+  embeds_one :record_level_terms
 
   field :mapping_id, type: Integer # created by the Specify Exporter
 

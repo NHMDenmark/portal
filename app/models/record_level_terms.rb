@@ -1,4 +1,4 @@
-class RecordMetadata
+class RecordLevelTerms
   include Mongoid::Document
 
   embedded_in :collection_object

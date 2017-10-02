@@ -8,7 +8,7 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
 #   inflect.singular /^(ox)en/i, '\1'
 #   inflect.irregular 'person', 'people'
   inflect.irregular 'taxon', 'taxa'
-  inflect.uncountable %w( associated_media record_metadata )
+  inflect.uncountable %w( associated_media record_level_terms )
 end
 
 # These inflection rules are supported but not enabled by default:

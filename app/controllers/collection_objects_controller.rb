@@ -18,7 +18,7 @@ class CollectionObjectsController < ApplicationController
     @co.delete_if { |_k, v| v.is_a?(BSON::ObjectId) }
     @catalog_number = @co.delete :dwc_catalog_number
     @other_catalog_numbers = @co.delete :other_catalog_numbers
-    @metadata = @co.delete :record_metadata
+    @metadata = @co.delete :record_level_terms
     @record_details = []
     @co.keys.each do |key|
       if @co[key].is_a?(BSON::Document)
@@ -108,7 +108,7 @@ class CollectionObjectsController < ApplicationController
                  @collection_object.dwc_location&.attributes,
                  @collection_object.dwc_organism&.attributes,
                  @collection_object.dwc_taxon&.attributes,
-                 @collection_object.record_metadata&.attributes
+                 @collection_object.record_level_terms&.attributes
   	            ].compact
   	             .reduce({}, :merge)
 
