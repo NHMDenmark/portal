@@ -1,4 +1,4 @@
-class AssociatedTaxon
+class DwcAssociatedTaxon
   include Mongoid::Document
 
   embedded_in :collection_object

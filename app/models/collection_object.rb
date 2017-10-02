@@ -2,10 +2,10 @@ class CollectionObject
   include Mongoid::Document
 
   belongs_to :source_collection
-  embeds_many :associated_media
-  embeds_many :associated_references
-  embeds_many :associated_sequences
-  embeds_many :associated_taxa
+  embeds_many :dwc_associated_media
+  embeds_many :dwc_associated_references
+  embeds_many :dwc_associated_sequences
+  embeds_many :dwc_associated_taxa
   embeds_many :other_catalog_numbers
   embeds_one :dwc_event
   embeds_one :dwc_geological_context

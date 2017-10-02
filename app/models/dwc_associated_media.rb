@@ -1,7 +1,7 @@
-class AssociatedSequence
+class DwcAssociatedMedia
   include Mongoid::Document
 
   embedded_in :collection_object
 
-  field :identifier, type: String
+  field :uri, type: String
 end

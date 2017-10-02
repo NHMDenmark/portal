@@ -1,4 +1,4 @@
-class AssociatedReference
+class DwcAssociatedReference
   include Mongoid::Document
 
   embedded_in :collection_object
