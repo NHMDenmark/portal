@@ -6,7 +6,7 @@ class CollectionObject
   embeds_many :dwc_associated_references
   embeds_many :dwc_associated_sequences
   embeds_many :dwc_associated_taxa
-  embeds_many :other_catalog_numbers
+  embeds_many :dwc_other_catalog_numbers
   embeds_one :dwc_event
   embeds_one :dwc_geological_context
   embeds_one :dwc_identification

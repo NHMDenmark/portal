@@ -17,7 +17,7 @@ class CollectionObjectsController < ApplicationController
     @source_collection = @collection_object.source_collection
     @co.delete_if { |_k, v| v.is_a?(BSON::ObjectId) }
     @catalog_number = @co.delete :dwc_catalog_number
-    @other_catalog_numbers = @co.delete :other_catalog_numbers
+    @other_catalog_numbers = @co.delete :dwc_other_catalog_numbers
     @metadata = @co.delete :record_level_terms
     @record_details = []
     @co.keys.each do |key|
@@ -97,7 +97,7 @@ class CollectionObjectsController < ApplicationController
   	@collection_object = CollectionObject.find_by(dwc_catalog_number: params[:dwc_catalog_number])
     @co_graph = RDF::Graph.new
 
-  	@co_graph << @collection_object.other_catalog_numbers
+  	@co_graph << @collection_object.dwc_other_catalog_numbers
     	                             .map { |oid| prepare_terms(trim(oid.attributes)) }
     	                             .flatten
 

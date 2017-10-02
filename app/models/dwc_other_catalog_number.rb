@@ -1,4 +1,4 @@
-class OtherCatalogNumber
+class DwcOtherCatalogNumber
   include Mongoid::Document
 
   embedded_in :collection_object
