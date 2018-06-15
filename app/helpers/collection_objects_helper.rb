@@ -1,8 +1,8 @@
 module CollectionObjectsHelper
-  def display_order(record_details)
+  def display_order(section)
     order = %w(identification taxon geological_context location event organism)
-    record_details.sort do |a, b|
-      order.index(a[:section]) <=> order.index(b[:section])
+    section.sort do |a, b|
+      order.index(a[:header]) <=> order.index(b[:header])
     end
   end
 
@@ -14,7 +14,7 @@ module CollectionObjectsHelper
     italics.include?(term)
   end
 
-  def section_header(section, record_details)
+  def section_header(header, record_details)
     header_strings = {
       'taxon' => "#{record_details[:dwc_scientific_name]}",
       'identification' => "#{record_details[:dwc_type_status]}",
@@ -23,6 +23,6 @@ module CollectionObjectsHelper
       'event' => "#{record_details[:dwc_event_date]}",
       'organism' => "Organism",
     }
-    header_strings[section]
+    header_strings[header]
   end
 end

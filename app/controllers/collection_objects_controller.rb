@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Controller for CollectionObject
 class CollectionObjectsController < ApplicationController
   include RDFRenderable
 
@@ -11,34 +14,52 @@ class CollectionObjectsController < ApplicationController
     end
   end
 
+  # Detail page
+
   def show
-    @collection_object = CollectionObject.find(params[:id])
-    record_details
+    @source_collection = collection_object.source_collection
+    prepare(collection_object.attributes)
   end
 
-  def record_details
-    @co = @collection_object.attributes
-    @source_collection = @collection_object.source_collection
-    @co.delete_if { |_k, v| v.is_a?(BSON::ObjectId) }
-    @catalog_number = @co.delete :dwc_catalog_number
-    @other_catalog_numbers = @co.delete :other_catalog_numbers
-    @metadata = @co.delete :metadata
-    @record_details = []
-    @co.keys.each do |key|
-      if @co[key].is_a?(BSON::Document)
-        section = key.split('_')[1..-1].join('_')
-        value = @co.delete(key)
-        leaflet = value[:dwc_decimal_latitude] && value[:dwc_decimal_longitude] ? true : false
-        @record_details << { section: section, record_details: value, leaflet: leaflet }
-      end
+  def prepare(document)
+    @document = document
+    @document.delete('_id')
+    @catalog_number = @document.delete :dwc_catalog_number
+    @other_catalog_numbers = @document.delete :other_catalog_numbers
+    @metadata = @document.delete :metadata
+    @sections = []
+    filter_sections! @document
+  end
+
+  # Removes embedded documents from _document_, adds them to @record_details.
+  # To be displayed as HTML <section> elements.
+  def filter_sections!(document)
+    document.delete_if do |key, value|
+      next unless document[key].is_a?(BSON::Document)
+      @sections << { header: section_header(key),
+                     section: value,
+                     leaflet: coordinates?(value) }
     end
   end
+
+  # Returns true if _document_ has coordinate fields.
+  def coordinates?(document)
+    !document[:dwc_decimal_latitude].blank? &&
+      !document[:dwc_decimal_longitude].blank?
+  end
+
+  # Returns a section header for an embedded document from <em>field_name</em>.
+  def section_header(field_name)
+    field_name.split('_')[1..-1].join('_')
+  end
+
+  # Navigation
 
   def breadcrumbs
     case action_name
     when 'object', 'show'
       [
-        [@source_collection[:dwc_collection_id], @collection_object.source_collection],
+        [@source_collection[:dwc_collection_id], @source_collection],
         [@catalog_number, object_path(dwc_catalog_number: @catalog_number)]
       ]
     when 'index'
@@ -56,16 +77,16 @@ class CollectionObjectsController < ApplicationController
               'dwc_taxon.dwc_scientific_name',
               'dwc_location.dwc_country',
               'dwc_location.dwc_locality']
-    results = CollectionObject.search(params[:query], {
-      fields: fields,
-      match: :word_start,
-      limit: 10,
-      load: false,
-      misspellings: {below: 5}
-    }).map do |rs|
+    results = CollectionObject.search(params[:query],
+                                      fields: fields,
+                                      match: :word_start,
+                                      limit: 10,
+                                      load: false,
+                                      misspellings: { below: 5 })
+                              .map do |rs|
       fields.map { |f| f.split('.').last.gsub(/^[a-z0-9]+_/, '').humanize }
-            .zip( fields.map { |f| eval("rs&.#{f.split('.').join('&.')}") } )
-            .select { |e| e[1]}
+            .zip(fields.map { |f| eval("rs&.#{f.split('.').join('&.')}") })
+            .select { |e| e[1] }
             .sort { |a, b| white.similarity(b[1], params[:query]) <=> white.similarity(a[1], params[:query]) }
             .take(1).flatten
     end
@@ -74,9 +95,14 @@ class CollectionObjectsController < ApplicationController
 
   # Renders the RDF in the requested format.
   def rdf
-    @collection_object = CollectionObject.find(params[:id])
     co_graph = load_graph subject(params[:dwc_catalog_number]),
-                          all_attributes(@collection_object)
+                          all_attributes(collection_object)
     render doc_type(params[:format]) => rdf_document(co_graph, params[:format])
+  end
+
+  private
+
+  def collection_object
+    CollectionObject.find(params[:id])
   end
 end

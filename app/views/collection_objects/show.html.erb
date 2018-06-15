@@ -14,14 +14,14 @@
     </div>
 
 	  <dl>
-	    <% strip(@co).each do |label, name| %>
+	    <% strip(@document).each do |label, name| %>
 		    <dt><%= term(label).humanize %></dt><dd><%= name %></dd>
 		    <p/>
 	    <% end %>
     </dl>
 
-    <% display_order(@record_details).each do |rd| %>
-      <%= render partial: 'record_details', locals: rd %>
+    <% display_order(@sections).each do |section| %>
+      <%= render partial: 'sections', locals: section %>
     <% end %>
 	</div>
 

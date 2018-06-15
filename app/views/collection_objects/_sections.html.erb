@@ -1,23 +1,23 @@
-<%= tag.section id: section, class: 'detail-section' do %>
-  <% if record_details.length > 2 %>
+<%= tag.section id: header, class: 'detail-section' do %>
+  <% if section.length > 2 %>
     <a href="javascript:void(0)" class="section-expander section-hidden">
       <span class="section-name">
-        <%= section.humanize %>
+        <%= header.humanize %>
       </span>
       <span class="section-value">
-        <% if record_details[:dwc_genus] %>
-          <%= tag.i section_header(section, record_details) %>
+        <% if section[:dwc_genus] %>
+          <%= tag.i section_header(header, section) %>
         <% else %>
-          <%= section_header(section, record_details) %>
+          <%= section_header(header, section) %>
         <% end %>
       </span>
     </a>
   <% end %>
   <dl class="section-content">
-    <% strip(record_details).each do |label, name| %>
+    <% strip(section).each do |label, name| %>
       <dt><%= term(label).humanize %></dt>
       <dd>
-        <% if italicize?(label, record_details[:dwc_genus]) %>
+        <% if italicize?(label, section[:dwc_genus]) %>
           <%= tag.i name %>
         <% else %>
           <%= name.is_a?(Time) ? name.to_date : name %>
@@ -30,10 +30,10 @@
   <% if leaflet == true %>
     <div id="map">
       <%= map(center: {
-        latlng: [record_details[:dwc_decimal_latitude], record_details[:dwc_decimal_longitude]],
+        latlng: [section[:dwc_decimal_latitude], section[:dwc_decimal_longitude]],
         zoom: 12 },
         markers: [
-        { latlng: [record_details[:dwc_decimal_latitude], record_details[:dwc_decimal_longitude]] }
+        { latlng: [section[:dwc_decimal_latitude], section[:dwc_decimal_longitude]] }
       ]) %>
     </div>
     </p>
