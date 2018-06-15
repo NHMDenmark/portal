@@ -1,4 +1,7 @@
-class RecordLevelTerms
+# frozen_string_literal: true
+
+# Embedded model for record metadata.
+class Metadata
   include Mongoid::Document
 
   embedded_in :collection_object

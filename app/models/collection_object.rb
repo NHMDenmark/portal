@@ -2,24 +2,27 @@ class CollectionObject
   include Mongoid::Document
 
   belongs_to :source_collection
-  embeds_many :dwc_associated_media
-  embeds_many :dwc_associated_references
-  embeds_many :dwc_associated_sequences
-  embeds_many :dwc_associated_taxa
-  embeds_many :dwc_other_catalog_numbers
+  embeds_many :associated_media
+  embeds_many :associated_references
+  embeds_many :associated_sequences
+  embeds_many :associated_taxa
+  embeds_many :other_catalog_numbers
   embeds_one :dwc_event
   embeds_one :dwc_geological_context
   embeds_one :dwc_identification
   embeds_one :dwc_location
   embeds_one :dwc_organism
   embeds_one :dwc_taxon
-  embeds_one :record_level_terms
+  embeds_one :metadata
 
   field :mapping_id, type: Integer # created by the Specify Exporter
 
   field :dwc_occurrence_id, type: String                    # persistent identifier
   field :dwc_material_sample_id, type: String               # is normally part of DwC class of its own
+
   field :dwc_catalog_number, type: String
+  field :_id, type: String, overwrite: true, default: ->{ dwc_catalog_number } # maybe use the occurrence_id;  overwrite => true suppresses the mongo overwrite warning
+
   field :dwc_record_number, type: String
   field :dwc_recorded_by, type: String
   field :dwc_individual_count, type: Integer
@@ -34,6 +37,8 @@ class CollectionObject
   field :dwc_preparations, type: String                     # should be embeds_many
   field :dwc_disposition, type: String
   field :dwc_occurrence_remarks, type: String
+
+  index({dwc_catalog_number: 1}, {unique: true})
 
   # Organism class terms
 

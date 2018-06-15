@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Embedded model for taxonomic information associated with a specimen.
 class DwcTaxon
   include Mongoid::Document
 

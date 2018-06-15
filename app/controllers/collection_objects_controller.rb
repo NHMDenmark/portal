@@ -17,8 +17,8 @@ class CollectionObjectsController < ApplicationController
     @source_collection = @collection_object.source_collection
     @co.delete_if { |_k, v| v.is_a?(BSON::ObjectId) }
     @catalog_number = @co.delete :dwc_catalog_number
-    @other_catalog_numbers = @co.delete :dwc_other_catalog_numbers
-    @metadata = @co.delete :record_level_terms
+    @other_catalog_numbers = @co.delete :other_catalog_numbers
+    @metadata = @co.delete :metadata
     @record_details = []
     @co.keys.each do |key|
       if @co[key].is_a?(BSON::Document)
@@ -50,8 +50,15 @@ class CollectionObjectsController < ApplicationController
     end
   end
 
-  def namespace(ns)
-    case ns
+  # Returns a formatted date if the valus is a date.
+  def format_dates(value)
+    return value unless value.is_a? Time
+    value.to_date
+  end
+
+  # Returns the namespace for the attribute prefix.
+  def namespace(attr_prefix)
+    case attr_prefix
     when 'dc'
       RDF::Vocab::DC
     when 'dwc'
@@ -61,27 +68,50 @@ class CollectionObjectsController < ApplicationController
     when 'dwcc'
       RDF::Vocabulary.new('http://rs.tdwg.org/dwc/curatorial/')
     else
-      raise 'unknown namespace'
+      nil
     end
   end
 
-  def trim(attributes)
-    attributes.reject { |_k, v| v.is_a?(BSON::ObjectId) || v.is_a?(Hash) || v.is_a?(Array) }
-			        .delete_if { |_k, v| v.blank? }
-			        .to_h
+  # Returns the RDF predicate.
+  def predicate_from_field(field)
+      words = field.split('_')
+      prefix = words.shift
+      ns = namespace(prefix)
+      return unless ns
+      ns[words.join('_').camelize(:lower)]
   end
 
-  def trim_date(value)
-    return value unless value.is_a? Time
-    value.to_date
+  # Appends all _atributes_ as RDF::Statement instances to _graph_.
+  def load_statements(graph, attributes)
+    attributes.each do |field, val|
+      next if val.blank?
+      next if val.is_a?(BSON::ObjectId) || val.is_a?(Hash) || val.is_a?(Array)
+      predicate = predicate_from_field field
+      next unless predicate
+      graph << RDF::Statement.new(@subj, predicate, format_dates(val))
+    end
   end
 
-  def prepare_terms(hash)
-		hash.keys
-			  .map { |k| k.split('_') }
-			  .map { |k| namespace(k.shift)[k.join('_').camelize(:lower)] } # generate the predicate
-        .zip(hash.values)
-        .map { |a| RDF::Statement.new(@subj, a[0], trim_date(a[1])) }
+  # Returns all attributes for a document, including attributes from related
+  # documents.
+  def all_attributes
+    related_attributes.prepend(@collection_object.attributes)
+                      .flatten
+                      .compact
+                      .reduce({}, :merge)
+  end
+
+  # Returns an Array with all related attributes for a document.
+  def related_attributes
+    @collection_object.relations.keys.map do |rel|
+      rel_attrs = @collection_object.public_send(rel)
+      next unless rel_attrs
+      if rel_attrs.is_a? Array
+        rel_attrs.map(&:attributes)
+      else
+        rel_attrs.attributes
+      end
+    end
   end
 
   def rdf
@@ -90,44 +120,29 @@ class CollectionObjectsController < ApplicationController
       rdf: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
       xsi: 'http://www.w3.org/2001/XMLSchema-instance',
       xs: 'http://www.w3.org/2001/XMLSchema',
-      dwc: 'http://rs.tdwg.org/dwc/terms/',
+      dwc: 'http://rs.tdwg.org/dwc/terms/', # RDF::Vocab::DWC.to_s
       dc: 'http://purl.org/dc/terms/',
       geo: 'http://www.w3.org/2003/01/geo/wgs84_pos#'
     }
   	@collection_object = CollectionObject.find_by(dwc_catalog_number: params[:dwc_catalog_number])
-    @co_graph = RDF::Graph.new
+    co_graph = RDF::Graph.new
 
-  	@co_graph << @collection_object.dwc_other_catalog_numbers
-    	                             .map { |oid| prepare_terms(trim(oid.attributes)) }
-    	                             .flatten
-
-  	all_terms = [@collection_object.attributes,
-  	             @collection_object.dwc_event&.attributes,
-                 @collection_object.dwc_geological_context&.attributes,
-                 @collection_object.dwc_identification&.attributes,
-                 @collection_object.dwc_location&.attributes,
-                 @collection_object.dwc_organism&.attributes,
-                 @collection_object.dwc_taxon&.attributes,
-                 @collection_object.record_level_terms&.attributes
-  	            ].compact
-  	             .reduce({}, :merge)
-
-    attrs = prepare_terms(trim(all_terms)).each { |f| @co_graph << f }
+    load_statements(co_graph, all_attributes)
 
     case params[:format]
     when 'json'
     	json = RDF::JSON::Writer.buffer(prefixes: @prefixes) do |writer|
-		    @co_graph.each_statement { |statement| writer << statement }
+		    co_graph.each_statement { |statement| writer << statement }
 		  end
 		  render json: json
 		when 'ttl'
 		  ttl = RDF::Turtle::Writer.buffer(prefixes: @prefixes) do |writer|
-		    @co_graph.each_statement { |statement| writer << statement }
+		    co_graph.each_statement { |statement| writer << statement }
 		  end
 		  render plain: ttl
     else
       xml = RDF::RDFXML::Writer.buffer(prefixes: @prefixes) do |writer|
-		    @co_graph.each_statement { |statement| writer << statement }
+		    co_graph.each_statement { |statement| writer << statement }
 	    end
       render xml: xml
     end

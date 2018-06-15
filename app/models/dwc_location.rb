@@ -37,9 +37,9 @@ class DwcLocation
   field :dwc_verbatim_latitude, type: String
   field :dwc_verbatim_longitude, type: String
   field :dwc_verbatim_coordinate_system, type: String
-  field :dwc_verbatim_srs, type: String
-  field :dwc_footprint_wkt, type: String
-  field :dwc_footprint_srs, type: String
+  field :dwc_verbatim_s_r_s, type: String
+  field :dwc_footprint_w_k_t, type: String
+  field :dwc_footprint_s_r_s, type: String
   field :dwc_footprint_spatial_fit, type: Float
   field :dwc_georeferenced_by, type: String
   field :dwc_georeferenced_date, type: String
