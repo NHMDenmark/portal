@@ -1,10 +1,14 @@
 class CollectionObjectsController < ApplicationController
+  include RDFRenderable
+
   def index
     if params[:query].present?
-      @collection_objects = CollectionObject.search(params[:query], page: params[:page], per_page: 10)
+      @collection_objects = CollectionObject.search(params[:query],
+                                                    page: params[:page],
+                                                    per_page: 10)
     else
-  	  @collection_objects = CollectionObject.page(params[:page]).per(10)
-  	end
+      @collection_objects = CollectionObject.page(params[:page]).per(10)
+    end
   end
 
   def show
@@ -30,12 +34,6 @@ class CollectionObjectsController < ApplicationController
     end
   end
 
-  def object
-    @collection_object = CollectionObject.find_by(dwc_catalog_number: params[:dwc_catalog_number])
-    record_details
-    render :show
-  end
-
   def breadcrumbs
     case action_name
     when 'object', 'show'
@@ -47,104 +45,6 @@ class CollectionObjectsController < ApplicationController
       []
     else
       ["define #{controller_name}#{action_name} breadcrumbs", '#']
-    end
-  end
-
-  # Returns a formatted date if the valus is a date.
-  def format_dates(value)
-    return value unless value.is_a? Time
-    value.to_date
-  end
-
-  # Returns the namespace for the attribute prefix.
-  def namespace(attr_prefix)
-    case attr_prefix
-    when 'dc'
-      RDF::Vocab::DC
-    when 'dwc'
-    	RDF::Vocab::DWC
-    when 'geo'
-      RDF::Vocab::GEO
-    when 'dwcc'
-      RDF::Vocabulary.new('http://rs.tdwg.org/dwc/curatorial/')
-    else
-      nil
-    end
-  end
-
-  # Returns the RDF predicate.
-  def predicate_from_field(field)
-      words = field.split('_')
-      prefix = words.shift
-      ns = namespace(prefix)
-      return unless ns
-      ns[words.join('_').camelize(:lower)]
-  end
-
-  # Appends all _atributes_ as RDF::Statement instances to _graph_.
-  def load_statements(graph, attributes)
-    attributes.each do |field, val|
-      next if val.blank?
-      next if val.is_a?(BSON::ObjectId) || val.is_a?(Hash) || val.is_a?(Array)
-      predicate = predicate_from_field field
-      next unless predicate
-      graph << RDF::Statement.new(@subj, predicate, format_dates(val))
-    end
-  end
-
-  # Returns all attributes for a document, including attributes from related
-  # documents.
-  def all_attributes
-    related_attributes.prepend(@collection_object.attributes)
-                      .flatten
-                      .compact
-                      .reduce({}, :merge)
-  end
-
-  # Returns an Array with all related attributes for a document.
-  def related_attributes
-    @collection_object.relations.keys.map do |rel|
-      rel_attrs = @collection_object.public_send(rel)
-      next unless rel_attrs
-      if rel_attrs.is_a? Array
-        rel_attrs.map(&:attributes)
-      else
-        rel_attrs.attributes
-      end
-    end
-  end
-
-  def rdf
-    @subj = RDF::URI.new("http://localhost:3000/data/rdf/#{params[:dwc_catalog_number]}")
-    @prefixes = {
-      rdf: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
-      xsi: 'http://www.w3.org/2001/XMLSchema-instance',
-      xs: 'http://www.w3.org/2001/XMLSchema',
-      dwc: 'http://rs.tdwg.org/dwc/terms/', # RDF::Vocab::DWC.to_s
-      dc: 'http://purl.org/dc/terms/',
-      geo: 'http://www.w3.org/2003/01/geo/wgs84_pos#'
-    }
-  	@collection_object = CollectionObject.find_by(dwc_catalog_number: params[:dwc_catalog_number])
-    co_graph = RDF::Graph.new
-
-    load_statements(co_graph, all_attributes)
-
-    case params[:format]
-    when 'json'
-    	json = RDF::JSON::Writer.buffer(prefixes: @prefixes) do |writer|
-		    co_graph.each_statement { |statement| writer << statement }
-		  end
-		  render json: json
-		when 'ttl'
-		  ttl = RDF::Turtle::Writer.buffer(prefixes: @prefixes) do |writer|
-		    co_graph.each_statement { |statement| writer << statement }
-		  end
-		  render plain: ttl
-    else
-      xml = RDF::RDFXML::Writer.buffer(prefixes: @prefixes) do |writer|
-		    co_graph.each_statement { |statement| writer << statement }
-	    end
-      render xml: xml
     end
   end
 
@@ -170,5 +70,13 @@ class CollectionObjectsController < ApplicationController
             .take(1).flatten
     end
     render json: results.uniq
+  end
+
+  # Renders the RDF in the requested format.
+  def rdf
+    @collection_object = CollectionObject.find(params[:id])
+    co_graph = load_graph subject(params[:dwc_catalog_number]),
+                          all_attributes(@collection_object)
+    render doc_type(params[:format]) => rdf_document(co_graph, params[:format])
   end
 end
