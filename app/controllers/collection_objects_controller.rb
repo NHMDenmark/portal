@@ -70,27 +70,55 @@ class CollectionObjectsController < ApplicationController
   end
 
   def autocomplete
+    results = quick_search(params[:query],
+                           'dwc_recorded_by',
+                           'dwc_identification.dwc_type_status',
+                           'dwc_taxon.dwc_family',
+                           'dwc_taxon.dwc_scientific_name',
+                           'dwc_location.dwc_country',
+                           'dwc_location.dwc_locality')
+    render json: results.uniq
+  end
+
+  # Returns two dimensional array
+  def search_elastic(str, *fields)
+    CollectionObject.search(params[:query],
+                            fields: fields,
+                            match: :word_start,
+                            limit: 10,
+                            load: false,
+                            misspellings: { below: 5 }).to_a
+  end
+
+  def field_value(field_path, hash_wrapper)
+    current_field = field_path.shift
+    val = hash_wrapper[current_field]
+    return val unless val.respond_to? :key?
+    field_value(field_path, val)
+  end
+
+  def field_label(field)
+    field.split('.').last.gsub(/^[a-z0-9]+_/, '').humanize
+  end
+
+  # returns two dimensional array of results with pretty printed labels,
+  # nil values removed
+  def results(fields, hash_wrapper)
+    vals = fields.map { |f| field_value f.split('.'), hash_wrapper }
+    fields.map { |f| field_label f }.zip(vals).select { |e| e[1] }
+  end
+
+  def white_compare(str)
+
+  end
+
+  #
+  def quick_search(str, *fields)
     white = Text::WhiteSimilarity.new
-    fields = ['dwc_recorded_by',
-              'dwc_identification.dwc_type_status',
-              'dwc_taxon.dwc_family',
-              'dwc_taxon.dwc_scientific_name',
-              'dwc_location.dwc_country',
-              'dwc_location.dwc_locality']
-    results = CollectionObject.search(params[:query],
-                                      fields: fields,
-                                      match: :word_start,
-                                      limit: 10,
-                                      load: false,
-                                      misspellings: { below: 5 })
-                              .map do |rs|
-      fields.map { |f| f.split('.').last.gsub(/^[a-z0-9]+_/, '').humanize }
-            .zip(fields.map { |f| eval("rs&.#{f.split('.').join('&.')}") })
-            .select { |e| e[1] }
-            .sort { |a, b| white.similarity(b[1], params[:query]) <=> white.similarity(a[1], params[:query]) }
+    search_elastic(params[:query], *fields).map do |rs|
+      results(fields, rs).sort { |a, b| white.similarity(b[1], params[:query]) <=> white.similarity(a[1], params[:query]) }
             .take(1).flatten
     end
-    render json: results.uniq
   end
 
   # Renders the RDF in the requested format.

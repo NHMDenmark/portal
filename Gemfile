@@ -7,12 +7,12 @@ end
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.1.0'
-gem 'mongoid', '~> 6.2.0'
-gem 'searchkick', '~> 2.3'
-gem 'kaminari', '~> 1.0.1'
+gem 'rails', '~> 5.2.0'
+gem 'mongoid', '~> 7.0'
+gem 'searchkick', '~> 3.1'
+gem 'kaminari', '~> 1.1'
 gem 'kaminari-mongoid', '~>1.0.1'
-gem 'kaminari-actionview', '~>1.0.1'
+gem 'kaminari-actionview', '~>1.1'
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
 # Use SCSS for stylesheets
@@ -29,7 +29,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'rb-fsevent', '~> 0.10.2'
 
 # RDF library
-gem 'linkeddata', '~> 2.2.0'
+gem 'linkeddata', '~> 3.0'
 
 # tools
 gem 'text', '~> 1.3.1'
