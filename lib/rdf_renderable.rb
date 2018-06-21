@@ -1,11 +1,14 @@
+# frozen_string_literal: true
+
+# Mixin for RDF generation from a controller.
 module RDFRenderable
   # Returns all attributes for a document, including attributes from related
   # documents.
   def all_attributes(document)
     related_attributes(document).prepend(document.attributes)
-                      .flatten
-                      .compact
-                      .reduce({}, :merge)
+                                .flatten
+                                .compact
+                                .reduce({}, :merge)
   end
 
   # Returns an Array with all related attributes for a document.
@@ -65,23 +68,21 @@ module RDFRenderable
     when 'dc'
       RDF::Vocab::DC
     when 'dwc'
-    	RDF::Vocab::DWC
+      RDF::Vocab::DWC
     when 'geo'
       RDF::Vocab::GEO
     when 'dwcc'
       RDF::Vocabulary.new('http://rs.tdwg.org/dwc/curatorial/')
-    else
-      nil
     end
   end
 
   # Returns the RDF predicate.
   def predicate_from_field(field)
-      words = field.split('_')
-      field_prefix = words.shift
-      ns = namespace(field_prefix)
-      return unless ns
-      ns[words.join('_').camelize(:lower)]
+    words = field.split('_')
+    field_prefix = words.shift
+    ns = namespace(field_prefix)
+    return unless ns
+    ns[words.join('_').camelize(:lower)]
   end
 
   # Returns a Hash of prefixes and URIs, to be used by RDF::JSON::Writer,
