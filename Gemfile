@@ -57,6 +57,7 @@ group :development, :test do
   # Add full stack trace, source code inspection,local and instance variable inspection, REPL to error pages
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem "rspec-rails"
 end
 
 group :development do
