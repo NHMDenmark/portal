@@ -82,12 +82,9 @@ class CollectionObjectsController < ApplicationController
 
   # Returns two dimensional array
   def search_elastic(str, *fields)
-    CollectionObject.search(params[:query],
-                            fields: fields,
-                            match: :word_start,
-                            limit: 10,
-                            load: false,
-                            misspellings: { below: 5 }).to_a
+    CollectionObject.search(str, fields: fields,
+                                 match: :word_start, limit: 10,
+                                 load: false, misspellings: { below: 5 })
   end
 
   def field_value(field_path, hash_wrapper)
@@ -101,6 +98,14 @@ class CollectionObjectsController < ApplicationController
     field.split('.').last.gsub(/^[a-z0-9]+_/, '').humanize
   end
 
+  #
+  def quick_search(str, *fields)
+    search_elastic(str, *fields).map do |rs|
+      results(fields, rs).sort { |a, b| white_compare(a[1], b[1], str) }
+                         .take(1).flatten
+    end
+  end
+
   # returns two dimensional array of results with pretty printed labels,
   # nil values removed
   def results(fields, hash_wrapper)
@@ -108,17 +113,9 @@ class CollectionObjectsController < ApplicationController
     fields.map { |f| field_label f }.zip(vals).select { |e| e[1] }
   end
 
-  def white_compare(str)
-
-  end
-
-  #
-  def quick_search(str, *fields)
-    white = Text::WhiteSimilarity.new
-    search_elastic(params[:query], *fields).map do |rs|
-      results(fields, rs).sort { |a, b| white.similarity(b[1], params[:query]) <=> white.similarity(a[1], params[:query]) }
-            .take(1).flatten
-    end
+  def white_compare(str1, str2, ref_str)
+    w = Text::WhiteSimilarity.new
+    w.similarity(str2, ref_str) <=> w.similarity(str1, ref_str)
   end
 
   # Renders the RDF in the requested format.
