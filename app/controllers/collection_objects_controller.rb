@@ -2,6 +2,7 @@
 
 # Controller for CollectionObject
 class CollectionObjectsController < ApplicationController
+  include Autocompletable
   include RDFRenderable
 
   def index
@@ -69,54 +70,18 @@ class CollectionObjectsController < ApplicationController
     end
   end
 
+  # Autocomplete for quick search
   def autocomplete
-    results = suggest(params[:query],
-                      'dwc_recorded_by',
-                      'dwc_identification.dwc_type_status',
-                      'dwc_taxon.dwc_family',
-                      'dwc_taxon.dwc_scientific_name',
-                      'dwc_location.dwc_country',
-                      'dwc_location.dwc_locality')
-    render json: results.uniq
-  end
-
-  # Returns two dimensional array
-  def search_elastic(str, *fields)
-    CollectionObject.search(str, fields: fields,
-                                 match: :word_start,
-                                 limit: 10,
-                                 load: false, # remove when suggest works
-                                 misspellings: { below: 5 },
-                                 suggest: true)
-  end
-
-  # extracts the value for (nested) fields from the results returned by
-  # searchkick
-  def field_value(field_path, hash_wrapper)
-    current_field = field_path.shift
-    val = hash_wrapper[current_field]
-    return val unless val.respond_to? :key?
-    field_value(field_path, val)
-  end
-
-  # performs elastic search search, returns suggestions
-  def suggest(str, *fields)
-    # search_elastic(str, *fields).suggestions
-    search_elastic(str, *fields).inject([]) do |arr, rs|
-      arr << results(fields, rs).min { |a, b| white_compare(a, b, str) }
-    end
-  end
-
-  # returns two dimensional array of results for all fields in record
-  # not only those with match
-  def results(fields, hash_wrapper)
-    fields.map { |f| field_value f.split('.'), hash_wrapper }.compact
-  end
-
-  # compares text by White similarity
-  def white_compare(str1, str2, ref_str)
-    w = Text::WhiteSimilarity.new
-    w.similarity(str2, ref_str) <=> w.similarity(str1, ref_str)
+    results = typeahead(params[:query],
+                        *CollectionObject.quicksearch_fields) do |str, fields|
+                          CollectionObject.search(str,
+                                                  fields: fields,
+                                                  match: :word_start,
+                                                  limit: 10,
+                                                  load: false,
+                                                  misspellings: { below: 5 })
+                        end
+    render json: results
   end
 
   # Renders the RDF in the requested format.

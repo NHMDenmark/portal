@@ -38,23 +38,17 @@ class CollectionObject
   field :dwc_disposition, type: String
   field :dwc_occurrence_remarks, type: String
 
-  index({dwc_catalog_number: 1}, {unique: true})
+  index({ dwc_catalog_number: 1 }, { unique: true })
 
   # Organism class terms
 
   # MaterialSample/LivingSpecimen/PreservedSpecimen/FossilSpecimen class terms
 
-  searchkick word_start: [:dwc_recorded_by,
-                          'dwc_identification.dwc_type_status',
-                          'dwc_taxon.dwc_family',
-                          'dwc_taxon.dwc_scientific_name',
-                          'dwc_location.dwc_country',
-                          'dwc_location.dwc_locality'],
-             suggest: [:dwc_recorded_by,
-                       'dwc_identification.dwc_type_status',
-                       'dwc_taxon.dwc_family',
-                       'dwc_taxon.dwc_scientific_name',
-                       'dwc_location.dwc_country',
-                       'dwc_location.dwc_locality']
+  def self.quicksearch_fields
+    ['dwc_recorded_by', 'dwc_identification.dwc_type_status',
+     'dwc_taxon.dwc_family', 'dwc_taxon.dwc_scientific_name',
+     'dwc_location.dwc_country', 'dwc_location.dwc_locality']
+  end
 
+  searchkick word_start: quicksearch_fields
 end
