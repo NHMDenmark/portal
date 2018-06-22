@@ -70,13 +70,13 @@ class CollectionObjectsController < ApplicationController
   end
 
   def autocomplete
-    results = quick_search(params[:query],
-                           'dwc_recorded_by',
-                           'dwc_identification.dwc_type_status',
-                           'dwc_taxon.dwc_family',
-                           'dwc_taxon.dwc_scientific_name',
-                           'dwc_location.dwc_country',
-                           'dwc_location.dwc_locality')
+    results = suggest(params[:query],
+                      'dwc_recorded_by',
+                      'dwc_identification.dwc_type_status',
+                      'dwc_taxon.dwc_family',
+                      'dwc_taxon.dwc_scientific_name',
+                      'dwc_location.dwc_country',
+                      'dwc_location.dwc_locality')
     render json: results.uniq
   end
 
@@ -85,11 +85,13 @@ class CollectionObjectsController < ApplicationController
     CollectionObject.search(str, fields: fields,
                                  match: :word_start,
                                  limit: 10,
-                                 load: false,
+                                 load: false, # remove when suggest works
                                  misspellings: { below: 5 },
                                  suggest: true)
   end
 
+  # extracts the value for (nested) fields from the results returned by
+  # searchkick
   def field_value(field_path, hash_wrapper)
     current_field = field_path.shift
     val = hash_wrapper[current_field]
@@ -97,23 +99,21 @@ class CollectionObjectsController < ApplicationController
     field_value(field_path, val)
   end
 
-  #
-  def quick_search(str, *fields)
-#     p search_elastic(str, *fields).suggestions
-    r = []
-    search_elastic(str, *fields).each do |rs|
-      x = results(fields, rs).sort { |a, b| white_compare(a, b, str) }
-      r << x[0]
+  # performs elastic search search, returns suggestions
+  def suggest(str, *fields)
+    # search_elastic(str, *fields).suggestions
+    search_elastic(str, *fields).inject([]) do |arr, rs|
+      arr << results(fields, rs).min { |a, b| white_compare(a, b, str) }
     end
-    r
   end
 
-  # returns two dimensional array of results with pretty printed labels,
-  # nil values removed
+  # returns two dimensional array of results for all fields in record
+  # not only those with match
   def results(fields, hash_wrapper)
     fields.map { |f| field_value f.split('.'), hash_wrapper }.compact
   end
 
+  # compares text by White similarity
   def white_compare(str1, str2, ref_str)
     w = Text::WhiteSimilarity.new
     w.similarity(str2, ref_str) <=> w.similarity(str1, ref_str)

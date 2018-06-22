@@ -50,11 +50,11 @@ class CollectionObject
                           'dwc_taxon.dwc_scientific_name',
                           'dwc_location.dwc_country',
                           'dwc_location.dwc_locality'],
-            suggest: [:dwc_recorded_by,
-                          'dwc_identification.dwc_type_status',
-                          'dwc_taxon.dwc_family',
-                          'dwc_taxon.dwc_scientific_name',
-                          'dwc_location.dwc_country',
-                          'dwc_location.dwc_locality']
+             suggest: [:dwc_recorded_by,
+                       'dwc_identification.dwc_type_status',
+                       'dwc_taxon.dwc_family',
+                       'dwc_taxon.dwc_scientific_name',
+                       'dwc_location.dwc_country',
+                       'dwc_location.dwc_locality']
 
 end
