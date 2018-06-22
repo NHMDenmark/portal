@@ -55,7 +55,6 @@ class CollectionObjectsController < ApplicationController
   end
 
   # Navigation
-
   def breadcrumbs
     case action_name
     when 'object', 'show'

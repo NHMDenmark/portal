@@ -47,7 +47,10 @@ class CollectionObject
   def self.quicksearch_fields
     ['dwc_recorded_by', 'dwc_identification.dwc_type_status',
      'dwc_taxon.dwc_family', 'dwc_taxon.dwc_scientific_name',
-     'dwc_location.dwc_country', 'dwc_location.dwc_locality']
+     'dwc_location.dwc_country', 'dwc_location.dwc_state_province',
+     'dwc_location.dwc_county', 'dwc_location.dwc_water_body',
+     'dwc_location.dwc_island_group', 'dwc_location.dwc_island',
+     'dwc_location.dwc_locality']
   end
 
   searchkick word_start: quicksearch_fields
