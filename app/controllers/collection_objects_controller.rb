@@ -83,8 +83,11 @@ class CollectionObjectsController < ApplicationController
   # Returns two dimensional array
   def search_elastic(str, *fields)
     CollectionObject.search(str, fields: fields,
-                                 match: :word_start, limit: 10,
-                                 load: false, misspellings: { below: 5 })
+                                 match: :word_start,
+                                 limit: 10,
+                                 load: false,
+                                 misspellings: { below: 5 },
+                                 suggest: true)
   end
 
   def field_value(field_path, hash_wrapper)
@@ -94,23 +97,21 @@ class CollectionObjectsController < ApplicationController
     field_value(field_path, val)
   end
 
-  def field_label(field)
-    field.split('.').last.gsub(/^[a-z0-9]+_/, '').humanize
-  end
-
   #
   def quick_search(str, *fields)
-    search_elastic(str, *fields).map do |rs|
-      results(fields, rs).sort { |a, b| white_compare(a[1], b[1], str) }
-                         .take(1).flatten
+#     p search_elastic(str, *fields).suggestions
+    r = []
+    search_elastic(str, *fields).each do |rs|
+      x = results(fields, rs).sort { |a, b| white_compare(a, b, str) }
+      r << x[0]
     end
+    r
   end
 
   # returns two dimensional array of results with pretty printed labels,
   # nil values removed
   def results(fields, hash_wrapper)
-    vals = fields.map { |f| field_value f.split('.'), hash_wrapper }
-    fields.map { |f| field_label f }.zip(vals).select { |e| e[1] }
+    fields.map { |f| field_value f.split('.'), hash_wrapper }.compact
   end
 
   def white_compare(str1, str2, ref_str)

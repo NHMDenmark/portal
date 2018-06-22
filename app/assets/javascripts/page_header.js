@@ -23,7 +23,7 @@ document.addEventListener("turbolinks:load", function(event) {
       var rsp = JSON.parse(this.response);
 
       var list = rsp.map(function(item) {
-        return [item[1]];
+        return [item];
       });
       awe.list = list;
       };
