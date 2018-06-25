@@ -22,17 +22,17 @@ class CollectionObject
   # An identifier for the Occurrence (as opposed to a particular digital record
   # of the occurrence).
   # The PURL.
-  field :dwc_occurrence_id, type: String
+  field :dwc_occurrence_id, as: :stable_identifier, type: String
 
   # An identifier (preferably unique) for the record within the data set or
   # collection.
-  field :dwc_catalog_number, type: String
+  field :dwc_catalog_number, as: :catalog_number, type: String
   field :_id, type: String, overwrite: true, default: -> { dwc_catalog_number }
 
   # An identifier given to the Occurrence at the time it was recorded.
   # Often serves as a link between field notes and an Occurrence record,
   # such as a specimen collector's number.
-  field :dwc_record_number, type: String
+  field :dwc_record_number, as: :field_number, type: String
 
   # A list (concatenated and separated) of names of people, groups, or
   # organizations responsible for recording the original Occurrence.
@@ -42,47 +42,47 @@ class CollectionObject
   field :dwc_recorded_by, as: :collector_name, type: String
 
   # The number of individuals represented present at the time of the Occurrence.
-  field :dwc_individual_count, type: Integer
+  field :dwc_individual_count, as: :individual_count, type: Integer
 
   # A number or enumeration value for the quantity of organisms.
-  field :dwc_organism_quantity, type: Float
+  field :dwc_organism_quantity, as: :organism_quantity, type: Float
 
   # The type of quantification system used for the quantity of organisms.
-  field :dwc_organism_quantity_type, type: String
+  field :dwc_organism_quantity_type, as: :organism_quantity_type, type: String
 
   # The sex of the biological individual(s) represented in the Occurrence.
-  field :dwc_sex, type: String
+  field :dwc_sex, as: :sex, type: String
 
   # The age class or life stage of the biological individual(s) at the time the
   # Occurrence was recorded.
-  field :dwc_life_stage, type: String
+  field :dwc_life_stage, as: :life_stage, type: String
 
   # The reproductive condition of the biological individual(s) represented in
   # the Occurrence.
-  field :dwc_reproductive_condition, type: String
+  field :dwc_reproductive_condition, as: :reproductive_condition, type: String
 
   # A description of the behavior shown by the subject at the time the
   # Occurrence was recorded.
-  field :dwc_behavior, type: String
+  field :dwc_behavior, as: :behavior, type: String
 
   # The process by which the biological individual(s) represented in the
   # Occurrence became established at the location.
-  field :dwc_establishment_means, type: String
+  field :dwc_establishment_means, as: :establishment_means, type: String
 
   # A statement about the presence or absence of a Taxon at a Location.
-  field :dwc_occurrence_status, type: String
+  field :dwc_occurrence_status, as: :occurrence_status, type: String
 
   # A list (concatenated and separated) of preparations and preservation methods
   # for a specimen.
   # TODO: move to embedded model (embeds_many).
-  field :dwc_preparations, type: String
+  field :dwc_preparations, as: :preparations, type: String
 
   # The current state of a specimen with respect to the collection identified in
   # collectionCode or collectionID.
-  field :dwc_disposition, type: String
+  field :dwc_disposition, as: :disposition, type: String
 
   # Comments or notes about the Occurrence.
-  field :dwc_occurrence_remarks, type: String
+  field :dwc_occurrence_remarks, as: :occurrence_remakrs, type: String
 
   index({ dwc_catalog_number: 1 }, unique: true)
 
