@@ -25,7 +25,7 @@ class CollectionObjectsController < ApplicationController
   def prepare(document)
     @document = document
     @document.delete('_id')
-    @catalog_number = @document.delete :dwc_catalog_number
+    @catalog_number = @document.delete :catalog_number
     @other_catalog_numbers = @document.delete :other_catalog_numbers
     @metadata = @document.delete :metadata
     @sections = []
@@ -45,8 +45,8 @@ class CollectionObjectsController < ApplicationController
 
   # Returns true if _document_ has coordinate fields.
   def coordinates?(document)
-    !document[:dwc_decimal_latitude].blank? &&
-      !document[:dwc_decimal_longitude].blank?
+    !document[:latitude].blank? &&
+      !document[:longitude].blank?
   end
 
   # Returns a section header for an embedded document from <em>field_name</em>.

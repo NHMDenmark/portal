@@ -8,18 +8,18 @@ module CollectionObjectsHelper
 
   def italicize?(term, genus = nil )
     # italicize cientific name if determined to genus ore below
-    return true if term == 'dwc_scientific_name' && genus
+    return true if term == 'scientific_name' && genus
 
-    italics = %w(dwc_genus dwc_subgenus dwc_specific_epithet dwc_infraspecific_epithet)
+    italics = %w(genus subgenus specific_epithet infraspecific_epithet)
     italics.include?(term)
   end
 
   def section_header(header, record_details)
     header_strings = {
-      'taxon' => "#{record_details[:dwc_scientific_name]}",
+      'taxon' => "#{record_details[:scientific_name]}",
       'identification' => "#{record_details[:dwc_type_status]}",
       'geological_context' => "Geological Context",
-      'location' => "#{record_details[:dwc_locality]}, #{record_details[:dwc_higher_geography]}",
+      'location' => "#{record_details[:locality]}, #{record_details[:higher_geography]}",
       'event' => "#{record_details[:dwc_event_date]}",
       'organism' => "Organism",
     }

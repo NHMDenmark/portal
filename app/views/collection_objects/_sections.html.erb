@@ -5,7 +5,7 @@
         <%= header.humanize %>
       </span>
       <span class="section-value">
-        <% if section[:dwc_genus] %>
+        <% if section[:genus] %>
           <%= tag.i section_header(header, section) %>
         <% else %>
           <%= section_header(header, section) %>
@@ -15,9 +15,9 @@
   <% end %>
   <dl class="section-content">
     <% strip(section).each do |label, name| %>
-      <dt><%= term(label).humanize %></dt>
+      <dt><%= label.humanize %></dt>
       <dd>
-        <% if italicize?(label, section[:dwc_genus]) %>
+        <% if italicize?(label, section[:genus]) %>
           <%= tag.i name %>
         <% else %>
           <%= name.is_a?(Time) ? name.to_date : name %>
@@ -30,10 +30,10 @@
   <% if leaflet == true %>
     <div id="map">
       <%= map(center: {
-        latlng: [section[:dwc_decimal_latitude], section[:dwc_decimal_longitude]],
+        latlng: [section[:latitude], section[:longitude]],
         zoom: 12 },
         markers: [
-        { latlng: [section[:dwc_decimal_latitude], section[:dwc_decimal_longitude]] }
+        { latlng: [section[:latitude], section[:longitude]] }
       ]) %>
     </div>
     </p>

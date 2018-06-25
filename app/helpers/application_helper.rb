@@ -1,4 +1,5 @@
 module ApplicationHelper
+  # FIXME: obsolete after aliasing
   def de_namespace(field_name)
     namespace, *term = field_name.split('_')
     [namespace, term.join('_')]
@@ -8,6 +9,7 @@ module ApplicationHelper
     de_namespace(field_name).first
   end
 
+  # FIXME: obsolete after aliasing
   def term(field_name)
     de_namespace(field_name).last
   end

@@ -15,7 +15,7 @@
 
 	  <dl>
 	    <% strip(@document).each do |label, name| %>
-		    <dt><%= term(label).humanize %></dt><dd><%= name %></dd>
+		    <dt><%= label.humanize %></dt><dd><%= name %></dd>
 		    <p/>
 	    <% end %>
     </dl>
@@ -28,7 +28,7 @@
   <footer class="content-footer">
     <dl class="footer-content metadata">
       <% strip(@metadata).each do |label, name| %>
-        <dt><%= term(label).humanize %></dt>
+        <dt><%= label.humanize %></dt>
         <dd><%= name %></dd>
         <p/>
       <% end %>
