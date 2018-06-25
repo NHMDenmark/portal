@@ -388,7 +388,7 @@ PLATFORMS
 DEPENDENCIES
   better_errors
   binding_of_caller
-  bourbon (~> 5.0.0.beta.7)
+  bourbon (~> 5.0)
   byebug
   capybara (~> 2.15.1)
   coffee-rails (~> 4.2)
