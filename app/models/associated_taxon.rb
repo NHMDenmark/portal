@@ -8,18 +8,10 @@ class AssociatedTaxon
 
   embedded_in :collection_object
 
-  # CUSTOM
-  # An identifier or name of a taxon.
-  field :name, type: String
-
-  # CUSTOM
-  # The association with the Occurrence.
-  field :relationship, type: String
-
-  # http://rs.tdwg.org/dwc/terms/associatedTaxa
   # A list (concatenated and separated) of identifiers or names of taxa and
   # their associations with the Occurrence.
-  def dwc_associated_taxa
-    "#{name}, #{relationship}"
-  end
+  field :associated_taxon,
+        as: :dwc_associated_taxa,
+        label: RDF::Vocab::DWC['associatedTaxa'],
+        type: String
 end

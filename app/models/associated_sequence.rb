@@ -8,9 +8,11 @@ class AssociatedSequence
 
   embedded_in :collection_object
 
-  # http://rs.tdwg.org/dwc/terms/associatedSequences
   # A list (concatenated and separated) of identifiers (publication, global
   # unique identifier, URI) of genetic sequence information associated with the
   # Occurrence.
-  field :identifier, type: String
+  field :sequence,
+        as: :dwc_associated_sequences,
+        label: RDF::Vocab::DWC['associatedSequences'],
+        type: String
 end

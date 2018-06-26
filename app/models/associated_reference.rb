@@ -12,5 +12,8 @@ class AssociatedReference
   # A list (concatenated and separated) of identifiers (publication,
   # bibliographic reference, global unique identifier, URI) of literature
   # associated with the Occurrence.
-  field :reference, type: String
+  field :reference,
+        as: :dwc_associated_references,
+        label: RDF::Vocab::DWC['associatedReferences'],
+        type: String
 end

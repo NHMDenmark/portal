@@ -8,9 +8,11 @@ class OtherCatalogNumber
 
   embedded_in :collection_object
 
-  # http://rs.tdwg.org/dwc/terms/otherCatalogNumbers
   # A previous or alternate fully qualified catalog number or other human-used
   # identifier for the same Occurrence, whether in the current or any other data
   # set or collection.
-  field :other_catalog_number, as: :dwc_other_catalog_numbers, type: String
+  field :other_catalog_number,
+        as: :dwc_other_catalog_numbers,
+        label: RDF::Vocab::DWC['otherCatalogNumbers'],
+        type: String
 end
