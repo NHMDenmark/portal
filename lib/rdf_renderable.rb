@@ -54,8 +54,8 @@ module RDFRenderable
       rdf: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
       xsi: 'http://www.w3.org/2001/XMLSchema-instance',
       xs: 'http://www.w3.org/2001/XMLSchema',
-      dwc: 'http://rs.tdwg.org/dwc/terms/', # RDF::Vocab::DWC.to_s
-      dc: 'http://purl.org/dc/terms/',
+      RDF::Vocab::DWC.__prefix__ => RDF::Vocab::DWC.to_s,
+      RDF::Vocab::DC.__prefix__ => RDF::Vocab::DC.to_s,
       geo: 'http://www.w3.org/2003/01/geo/wgs84_pos#'
     }
   end

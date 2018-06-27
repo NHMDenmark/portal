@@ -4,7 +4,7 @@ require 'rdf'
 require 'mongoid'
 require_relative '../lib/mappable'
 
-TEST_VOCAB = RDF::Vocabulary.new 'http://example.org/spec'
+TEST_VOCAB = RDF::Vocabulary.new 'http://example.org/spec/'
 
 # Dummy Model to test the mixin.
 class TestModel
@@ -17,7 +17,7 @@ end
 
 RSpec.describe Mappable do
   describe '.field_for_term' do
-    context 'when passed a mapped a RDF Vocabulary term' do
+    context 'when passed a mapped RDF Vocabulary term' do
       it 'returns the Mongoid::Field::Standard instance' do
         element = TEST_VOCAB['aTerm']
         expect(TestModel.field_for_term(element))
@@ -30,6 +30,23 @@ RSpec.describe Mappable do
         element = TEST_VOCAB['notMapped']
         expect(TestModel.field_for_term(element)).to be_nil
       end
+    end
+  end
+
+  describe '.field_for_uri' do
+    context 'when passed a mapped URI' do
+      it 'returns the Mongoid::Field::Standard instance' do
+        element = 'http://example.org/spec/aTerm'
+        expect(TestModel.field_for_uri(element))
+          .to be_a(Mongoid::Fields::Standard) & have_attributes(name: 'a_field')
+      end
+    end
+
+    context 'when passes a URI that is not mapped' do
+    	it 'returns nil' do
+    		element = 'http://example.org/spec/notMapped'
+    		expect(TestModel.field_for_term(element)).to be_nil
+    	end
     end
   end
 
