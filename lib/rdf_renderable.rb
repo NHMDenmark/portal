@@ -2,26 +2,13 @@
 
 # Mixin for RDF generation from a controller.
 module RDFRenderable
-  # Returns all attributes for a document, including attributes from related
+  # Returns all RDF attributes for a document, including attributes from related
   # documents.
   def all_attributes(document)
     related_attributes(document).prepend(document.rdf_attributes)
                                 .flatten
                                 .compact
                                 .reduce({}, :merge)
-  end
-
-  # Returns an Array with all related attributes for a document.
-  def related_attributes(document)
-    document.relations.keys.map do |relation|
-      related_document = document.public_send(relation)
-      next unless related_document
-      if related_document.is_a? Array
-        related_document.map(&:rdf_attributes)
-      else
-        related_document.rdf_attributes
-      end
-    end
   end
 
   # Returns a symbol for the format to be rendered.
@@ -78,6 +65,19 @@ module RDFRenderable
   def rdf_document(graph, rdf_format)
     doc_writer(rdf_format).buffer(prefixes: prefixes) do |writer|
       graph.each_statement { |statement| writer << statement }
+    end
+  end
+
+  # Returns an Array with all related RDF attributes for a document.
+  def related_attributes(document)
+    document.relations.keys.map do |relation|
+      related_document = document.public_send(relation)
+      next unless related_document
+      if related_document.is_a? Array
+        related_document.map(&:rdf_attributes)
+      else
+        related_document.rdf_attributes
+      end
     end
   end
 
