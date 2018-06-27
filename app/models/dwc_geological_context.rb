@@ -11,6 +11,8 @@ class DwcGeologicalContext
 
   embedded_in :collection_object
 
+  self.rdf_class_term = RDF::Vocab::DWC['GeologicalContext']
+
   # An identifier for the set of information associated with a GeologicalContext
   # (the location within a geological context, such as stratigraphy). May be a
   # global unique identifier or an identifier specific to the data set.

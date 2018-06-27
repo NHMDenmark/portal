@@ -1,13 +1,15 @@
 # frozen_string_literal: true
 
 # Embedded model for DwC Taxon.
-# http://rs.tdwg.org/dwc/terms/Taxon
 class DwcTaxon
   include Mongoid::Document
   include RDFTransformable
   extend Mappable
 
   embedded_in :collection_object
+
+  # http://rs.tdwg.org/dwc/terms/Taxon
+  self.rdf_class_term = RDF::Vocab::DWC['Taxon']
 
   # An identifier for the set of taxon information (data associated with the
   # Taxon class). May be a global unique identifier or an identifier specific to

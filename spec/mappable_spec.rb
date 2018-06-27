@@ -63,4 +63,11 @@ RSpec.describe Mappable do
       end
     end
   end
+
+  describe '@rdf_class_term' do
+  	it 'provides an accessor to the RDF class term' do
+  	  TestModel.rdf_class_term = TEST_VOCAB['AnOntologicalClass']
+  	  expect(TestModel.rdf_class_term).to be TEST_VOCAB['AnOntologicalClass']
+  	end
+  end
 end

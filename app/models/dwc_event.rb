@@ -10,6 +10,8 @@ class DwcEvent
 
   embedded_in :collection_object
 
+  self.rdf_class_term = RDF::Vocab::DWC['Event']
+
   # An identifier for the set of information associated with an Event (something
   # that occurs at a place and time). May be a global unique identifier or an
   # identifier specific to the data set.

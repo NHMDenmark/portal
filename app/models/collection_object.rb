@@ -25,6 +25,8 @@ class CollectionObject
   embeds_one :dwc_taxon
   embeds_one :metadata
 
+  self.rdf_class_term = RDF::Vocab::DWC['Occurrence']
+
   # An identifier for the Occurrence (as opposed to a particular digital record
   # of the occurrence).
   # The PURL.

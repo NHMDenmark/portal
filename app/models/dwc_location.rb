@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 # Embedded model for DwC Location.
-# http://purl.org/dc/terms/Location
 # A spatial region or named place.
 class DwcLocation
   include Mongoid::Document
@@ -9,6 +8,9 @@ class DwcLocation
   extend Mappable
 
   embedded_in :collection_object
+
+  # http://purl.org/dc/terms/Location
+  self.rdf_class_term = RDF::Vocab::DC['Location']
 
   # An identifier for the set of location information (data associated with
   # dcterms:Location). May be a global unique identifier or an identifier

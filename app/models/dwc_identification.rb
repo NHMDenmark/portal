@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 # Embedded model for DwC Identification.
-# http://rs.tdwg.org/dwc/terms/Identification
 # A taxonomic determination.
 class DwcIdentification
   include Mongoid::Document
@@ -9,6 +8,9 @@ class DwcIdentification
   extend Mappable
 
   embedded_in :collection_object
+
+  # http://rs.tdwg.org/dwc/terms/Identification
+  self.rdf_class_term = RDF::Vocab::DWC['Identification']
 
   # An identifier for the Identification (the body of information associated
   # with the assignment of a scientific name). May be a global unique identifier

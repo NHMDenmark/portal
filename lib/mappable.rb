@@ -16,4 +16,15 @@ module Mappable
   def term_for_field(field_name)
     fields[field_name.to_s]&.label
   end
+
+  # Returns the onotological class term for the model class.
+  # Returns nil if the model class name can not be mapped.
+  def rdf_class_term
+    @rdf_class_term
+  end
+
+  #
+  def rdf_class_term=(rdf_vocab_term)
+    @rdf_class_term = rdf_vocab_term
+  end
 end

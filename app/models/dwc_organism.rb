@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 # Embedded model for DwC Organism.
-# http://rs.tdwg.org/dwc/terms/Organism
 # A particular organism or defined group of organisms considered to be
 # taxonomically homogeneous.
 class DwcOrganism
@@ -10,6 +9,9 @@ class DwcOrganism
   extend Mappable
 
   embedded_in :collection_object
+
+  # http://rs.tdwg.org/dwc/terms/Organism
+  self.rdf_class_term = RDF::Vocab::DWC['Organism']
 
   # An identifier for the Organism instance (as opposed to a particular digital
   # record of the Organism). May be a globally unique identifier or an
