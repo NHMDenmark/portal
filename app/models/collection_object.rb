@@ -4,6 +4,7 @@
 # at a particular place at a particular time.
 class CollectionObject
   include Mongoid::Document
+  include RDFTransformable
   extend Mappable
 
   belongs_to :source_collection

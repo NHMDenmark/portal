@@ -6,6 +6,8 @@
 # taxonomically homogeneous.
 class DwcOrganism
   include Mongoid::Document
+  include RDFTransformable
+  extend Mappable
 
   embedded_in :collection_object
 

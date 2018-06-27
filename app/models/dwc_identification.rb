@@ -5,6 +5,8 @@
 # A taxonomic determination.
 class DwcIdentification
   include Mongoid::Document
+  include RDFTransformable
+  extend Mappable
 
   embedded_in :collection_object
 

@@ -6,6 +6,8 @@
 # place.
 class DwcGeologicalContext
   include Mongoid::Document
+  include RDFTransformable
+  extend Mappable
 
   embedded_in :collection_object
 

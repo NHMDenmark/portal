@@ -4,6 +4,8 @@
 # http://rs.tdwg.org/dwc/terms/Taxon
 class DwcTaxon
   include Mongoid::Document
+  include RDFTransformable
+  extend Mappable
 
   embedded_in :collection_object
 

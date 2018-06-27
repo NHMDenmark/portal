@@ -3,6 +3,8 @@
 # Model for a biological collection
 class SourceCollection
   include Mongoid::Document
+  include RDFTransformable
+  extend Mappable
 
   has_many :collection_objects
 

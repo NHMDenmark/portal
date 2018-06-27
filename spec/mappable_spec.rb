@@ -34,16 +34,16 @@ RSpec.describe Mappable do
   end
 
   describe '.term_for_field' do
-  	context 'when passed a labeled field name' do
+    context 'when passed a labeled field name' do
       it 'returns the RDF Vocabulary term' do
-      	expect(TestModel.term_for_field(:a_field)).to eq TEST_VOCAB['aTerm']
+        expect(TestModel.term_for_field(:a_field)).to eq TEST_VOCAB['aTerm']
       end
-  	end
+    end
 
-  	context 'when passed a non-labeled field name' do
-  		it 'returns nil' do
-  			expect(TestModel.term_for_field(:no_field)).to be_nil
-  		end
-  	end
+    context 'when passed a non-labeled field name' do
+      it 'returns nil' do
+        expect(TestModel.term_for_field(:no_field)).to be_nil
+      end
+    end
   end
 end

@@ -3,6 +3,8 @@
 # Embedded model for record metadata.
 class Metadata
   include Mongoid::Document
+  include RDFTransformable
+  extend Mappable
 
   embedded_in :collection_object
 

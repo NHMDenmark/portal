@@ -5,6 +5,8 @@
 # An action that occurs at some location during some time.
 class AssociatedMedia
   include Mongoid::Document
+  include RDFTransformable
+  extend Mappable
   # include Mongoid::Attributes::Dynamic
 
   embedded_in :collection_object

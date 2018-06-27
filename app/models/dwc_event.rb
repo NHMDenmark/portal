@@ -5,6 +5,8 @@
 # An action that occurs at some location during some time.
 class DwcEvent
   include Mongoid::Document
+  include RDFTransformable
+  extend Mappable
 
   embedded_in :collection_object
 

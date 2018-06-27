@@ -5,6 +5,8 @@
 # A spatial region or named place.
 class DwcLocation
   include Mongoid::Document
+  include RDFTransformable
+  extend Mappable
 
   embedded_in :collection_object
 

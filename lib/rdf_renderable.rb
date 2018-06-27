@@ -5,7 +5,7 @@ module RDFRenderable
   # Returns all attributes for a document, including attributes from related
   # documents.
   def all_attributes(document)
-    related_attributes(document).prepend(document.attributes)
+    related_attributes(document).prepend(document.rdf_attributes)
                                 .flatten
                                 .compact
                                 .reduce({}, :merge)
@@ -13,13 +13,13 @@ module RDFRenderable
 
   # Returns an Array with all related attributes for a document.
   def related_attributes(document)
-    document.relations.keys.map do |rel|
-      rel_attrs = document.public_send(rel)
-      next unless rel_attrs
-      if rel_attrs.is_a? Array
-        rel_attrs.map(&:attributes)
+    document.relations.keys.map do |relation|
+      related_document = document.public_send(relation)
+      next unless related_document
+      if related_document.is_a? Array
+        related_document.map(&:rdf_attributes)
       else
-        rel_attrs.attributes
+        related_document.rdf_attributes
       end
     end
   end
@@ -52,37 +52,12 @@ module RDFRenderable
   # Appends all _atributes_ as RDF::Statement instances to _graph_.
   def load_graph(subject, attributes)
     graph = RDF::Graph.new
-    attributes.each do |field, val|
+    attributes.each do |predicate, val|
       next if val.blank?
       next if val.is_a?(BSON::ObjectId) || val.is_a?(Hash) || val.is_a?(Array)
-      predicate = predicate_from_field field
-      next unless predicate
       graph << RDF::Statement.new(subject, predicate, format_dates(val))
     end
     graph
-  end
-
-  # Returns the namespace for the attribute prefix.
-  def namespace(attr_prefix)
-    case attr_prefix
-    when 'dc'
-      RDF::Vocab::DC
-    when 'dwc'
-      RDF::Vocab::DWC
-    when 'geo'
-      RDF::Vocab::GEO
-    when 'dwcc'
-      RDF::Vocabulary.new('http://rs.tdwg.org/dwc/curatorial/')
-    end
-  end
-
-  # Returns the RDF predicate.
-  def predicate_from_field(field)
-    words = field.split('_')
-    field_prefix = words.shift
-    ns = namespace(field_prefix)
-    return unless ns
-    ns[words.join('_').camelize(:lower)]
   end
 
   # Returns a Hash of prefixes and URIs, to be used by RDF::JSON::Writer,

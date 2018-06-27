@@ -5,6 +5,8 @@
 # field containing a concatanated and separated literal (String).
 class AssociatedSequence
   include Mongoid::Document
+  include RDFTransformable
+  extend Mappable
 
   embedded_in :collection_object
 
