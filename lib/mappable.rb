@@ -12,19 +12,19 @@ module Mappable
     fields.find { |_name_str, field| field.label.to_s == uri.to_s }&.last
   end
 
-  # Returns the RDF Vocabulary term for a Mongoid field.
-  def term_for_field(field_name)
-    fields[field_name.to_s]&.label
-  end
-
   # Returns the onotological class term for the model class.
-  # Returns nil if the model class name can not be mapped.
   def rdf_class_term
     @rdf_class_term
   end
 
-  #
+  # Sets the ontological class term for the model class to the RDF Vocabulary
+  # term passed as argument.
   def rdf_class_term=(rdf_vocab_term)
     @rdf_class_term = rdf_vocab_term
+  end
+
+  # Returns the RDF Vocabulary term for a Mongoid field.
+  def rdf_term(field_name)
+    fields[field_name.to_s]&.label
   end
 end

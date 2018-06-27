@@ -4,6 +4,6 @@
 module RDFTransformable
   # Returns the attributes with RDF Vocabulary terms as keys.
   def rdf_attributes
-    attributes.transform_keys{ |field| identity.first.term_for_field(field) }
+    attributes.transform_keys{ |field| identity.first.rdf_term(field) }
   end
 end
