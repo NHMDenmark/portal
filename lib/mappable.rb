@@ -68,4 +68,31 @@ module Mappable
     index({ field => 1 }, index_type)
     @template_query_field << field
   end
+
+  # Returns an array of all fields in a model that are declared fields to
+  # store data.
+  def data_fields
+    fields.values.reject do |f|
+      f.is_a?(Mongoid::Fields::ForeignKey) ||
+        f.options[:type] == BSON::ObjectId
+    end
+  end
+
+  # Returns a hash of term-field mappings, where keys are the full URLs
+  # for ontological terms, values are the corresponding fields defined on
+  # the Mongoid model.
+  def field_map
+    data_fields.each_with_object({}) do |field, map_hash|
+      term = field.label
+      map_hash[term] = field.name.to_sym if term
+      map_hash
+    end
+  end
+
+  # Returns an array of fields defined on the Mongoid model that could not
+  # be mapped to an ontological term.
+  def unresolved_fields
+    data_fields.select { |field| field.label.nil? }
+               .map { |field| field.name.to_sym }
+  end
 end
