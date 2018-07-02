@@ -369,7 +369,7 @@ GEM
     turbolinks-source (5.1.0)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
-    uglifier (4.1.12)
+    uglifier (4.1.13)
       execjs (>= 0.3.0, < 3)
     web-console (3.6.2)
       actionview (>= 5.0)
@@ -395,11 +395,11 @@ DEPENDENCIES
   jbuilder (~> 2.5)
   kaminari (~> 1.1)
   kaminari-actionview (~> 1.1)
-  kaminari-mongoid (~> 1.0.1)
+  kaminari-mongoid
   leaflet-rails
   linkeddata (~> 3.0)
   listen (>= 3.0.5, < 3.2)
-  mongoid (~> 7.0)
+  mongoid
   neat (~> 2.1.0)
   puma (~> 3.7)
   rails (~> 5.2.0)

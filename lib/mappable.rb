@@ -27,4 +27,45 @@ module Mappable
   def rdf_term(field_name)
     fields[field_name.to_s]&.label
   end
+
+  # Returns the Mongoid::Association::Embedded::EmbeddedIn instance by which
+  # the model is embedded into another model
+  # FIXME: should have optional model arg to define which model
+  def embedded_relation
+    return nil unless embedded?
+    relations.find do |_name, relation|
+      relation.class == Mongoid::Association::Embedded::EmbeddedIn
+    end&.last
+  end
+
+  # Returns the name of the inverse relation
+  def embedded_as
+    embedded_relation&.inverse
+  end
+
+  # Returns the relation type (_:many_ or _:one_) for the association by which
+  # the model is embedded into another model.
+  def embedded_type
+    relation = embedded_relation
+    return unless relation
+    inverse = relation.inverse_association(relation.relation_class)
+    /(Many|One)$/.match(inverse.class.name) { |m| m[0].downcase.to_sym }
+  end
+
+  #
+  def parent_model
+    embedded_relation&.relation_class
+  end
+
+  # query_fields
+  def template_query_fields
+    @template_query_field
+  end
+
+  #
+  def template_query_field(field, index_type)
+    @template_query_field ||= []
+    index({ field => 1 }, index_type)
+    @template_query_field << field
+  end
 end

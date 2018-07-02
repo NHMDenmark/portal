@@ -9,9 +9,9 @@ class DwcGeologicalContext
   include RDFTransformable
   extend Mappable
 
-  embedded_in :collection_object
-
   self.rdf_class_term = RDF::Vocab::DWC['GeologicalContext']
+
+  embedded_in :collection_object
 
   # An identifier for the set of information associated with a GeologicalContext
   # (the location within a geological context, such as stratigraphy). May be a

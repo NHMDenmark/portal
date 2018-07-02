@@ -8,9 +8,9 @@ class DwcEvent
   include RDFTransformable
   extend Mappable
 
-  embedded_in :collection_object
-
   self.rdf_class_term = RDF::Vocab::DWC['Event']
+
+  embedded_in :collection_object
 
   # An identifier for the set of information associated with an Event (something
   # that occurs at a place and time). May be a global unique identifier or an

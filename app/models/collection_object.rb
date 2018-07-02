@@ -7,6 +7,8 @@ class CollectionObject
   include RDFTransformable
   extend Mappable
 
+  self.rdf_class_term = RDF::Vocab::DWC['Occurrence']
+
   belongs_to :source_collection
   embeds_many :associated_media
   embeds_many :associated_references
@@ -24,8 +26,6 @@ class CollectionObject
   embeds_one :dwc_organism
   embeds_one :dwc_taxon
   embeds_one :metadata
-
-  self.rdf_class_term = RDF::Vocab::DWC['Occurrence']
 
   # An identifier for the Occurrence (as opposed to a particular digital record
   # of the occurrence).
@@ -141,7 +141,7 @@ class CollectionObject
         label: RDF::Vocab::DWC['occurrenceRemarks'],
         type: String
 
-  index({ catalog_number: 1 }, unique: true)
+  self.template_query_field(:catalog_number, { unique: true })
 
   def self.quicksearch_fields
     ['collector_name', 'dwc_identification.type_status',

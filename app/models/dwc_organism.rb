@@ -8,10 +8,9 @@ class DwcOrganism
   include RDFTransformable
   extend Mappable
 
-  embedded_in :collection_object
-
-  # http://rs.tdwg.org/dwc/terms/Organism
   self.rdf_class_term = RDF::Vocab::DWC['Organism']
+
+  embedded_in :collection_object
 
   # An identifier for the Organism instance (as opposed to a particular digital
   # record of the Organism). May be a globally unique identifier or an

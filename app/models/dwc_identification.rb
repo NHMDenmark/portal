@@ -7,10 +7,9 @@ class DwcIdentification
   include RDFTransformable
   extend Mappable
 
-  embedded_in :collection_object
-
-  # http://rs.tdwg.org/dwc/terms/Identification
   self.rdf_class_term = RDF::Vocab::DWC['Identification']
+
+  embedded_in :collection_object
 
   # An identifier for the Identification (the body of information associated
   # with the assignment of a scientific name). May be a global unique identifier

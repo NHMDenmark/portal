@@ -43,10 +43,10 @@ RSpec.describe Mappable do
     end
 
     context 'when passes a URI that is not mapped' do
-    	it 'returns nil' do
-    		element = 'http://example.org/spec/notMapped'
-    		expect(TestModel.field_for_term(element)).to be_nil
-    	end
+      it 'returns nil' do
+        element = 'http://example.org/spec/notMapped'
+        expect(TestModel.field_for_term(element)).to be_nil
+      end
     end
   end
 
@@ -65,9 +65,26 @@ RSpec.describe Mappable do
   end
 
   describe '@rdf_class_term' do
-  	it 'provides an accessor to the RDF class term' do
-  	  TestModel.rdf_class_term = TEST_VOCAB['AnOntologicalClass']
-  	  expect(TestModel.rdf_class_term).to be TEST_VOCAB['AnOntologicalClass']
+    it 'provides an accessor to the RDF class term' do
+      TestModel.rdf_class_term = TEST_VOCAB['AnOntologicalClass']
+      expect(TestModel.rdf_class_term).to be TEST_VOCAB['AnOntologicalClass']
+    end
+  end
+
+  describe '.add_query_field' do
+    before do
+      TestModel.template_query_field(:a_field, { unique: true })
+    end
+
+  	it 'adds field index declarations' do
+  		expect(TestModel.template_query_fields).to include :a_field
   	end
+
+#   	it 'adds indices to the model' do
+#   	  p TestModel.index_specifications
+#   	  expect(TestModel.index_specifications)
+#   	    .to include(an_instance_of Mongoid::Indexable::Specification)
+# #   	    .and have_attributes a_field: { unique: true }
+#   	end
   end
 end

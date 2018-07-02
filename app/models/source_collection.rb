@@ -39,6 +39,6 @@ class SourceCollection
         label: RDF::Vocab::DWC['institutionCode'],
         type: String
 
-  index({ collection_id: 1 }, unique: true)
-  index({ collection_code: 1 }, unique: true)
+  self.template_query_field(:collection_id, { unique: true })
+  self.template_query_field(:collection_code, { unique: true })
 end

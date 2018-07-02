@@ -8,10 +8,10 @@ end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.0'
-gem 'mongoid', '~> 7.0'
+gem 'mongoid'#, '~> 7.0'
 gem 'searchkick', '~> 3.1'
 gem 'kaminari', '~> 1.1'
-gem 'kaminari-mongoid', '~>1.0.1'
+gem 'kaminari-mongoid'#, '~>1.0.1'
 gem 'kaminari-actionview', '~>1.1'
 # Use Puma as the app server
 gem 'puma', '~> 3.7'

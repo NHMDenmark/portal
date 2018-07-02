@@ -6,10 +6,9 @@ class DwcTaxon
   include RDFTransformable
   extend Mappable
 
-  embedded_in :collection_object
-
-  # http://rs.tdwg.org/dwc/terms/Taxon
   self.rdf_class_term = RDF::Vocab::DWC['Taxon']
+
+  embedded_in :collection_object
 
   # An identifier for the set of taxon information (data associated with the
   # Taxon class). May be a global unique identifier or an identifier specific to

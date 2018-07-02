@@ -7,10 +7,9 @@ class DwcLocation
   include RDFTransformable
   extend Mappable
 
-  embedded_in :collection_object
-
-  # http://purl.org/dc/terms/Location
   self.rdf_class_term = RDF::Vocab::DC['Location']
+
+  embedded_in :collection_object
 
   # An identifier for the set of location information (data associated with
   # dcterms:Location). May be a global unique identifier or an identifier
