@@ -95,4 +95,6 @@ module Mappable
     data_fields.select { |field| field.label.nil? }
                .map { |field| field.name.to_sym }
   end
+
+  alias label rdf_class_term
 end
