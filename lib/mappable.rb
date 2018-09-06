@@ -57,6 +57,15 @@ module Mappable
     embedded_relation&.relation_class
   end
 
+  # Returns a Hash of relation names and Mongoid models that the instance's
+  # model references (has _belongs_to_ relations with).
+  def references
+    relations.values.each_with_object({}) do |rel, hash|
+      next unless rel.class == Mongoid::Association::Referenced::BelongsTo
+      hash[rel.name] = Object.const_get(rel.class_name)
+    end
+  end
+
   # query_fields
   def template_query_fields
     @template_query_field

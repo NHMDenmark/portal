@@ -11,6 +11,11 @@ class AssociatedMedia
 
   embedded_in :collection_object
 
+  field :title,
+        as: :dc_title,
+        label: RDF::Vocab::DC['title'],
+        type: String
+
   # CSPP :webscaledImageLink
   # An identifier (publication, global unique identifier, URI) of media
   # associated with the Occurrence.

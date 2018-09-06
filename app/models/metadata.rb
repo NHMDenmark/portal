@@ -13,11 +13,12 @@ class Metadata
   # collection, or individual resource. This field should include the complete
   # title with all the subtitles, if any.
   # TODO: conflicts with associated_media where this also would occur
-  #       needs to be resolved in DwCR Feeder
-  field :title,
-        as: :dc_title,
-        label: RDF::Vocab::DC['title'],
-        type: String
+  #       needs to be resolved in DwCR Feeder; custom CSPP problem, because
+  #       title is not part of DwC
+#   field :title,
+#         as: :dc_title,
+#         label: RDF::Vocab::DC['title'],
+#         type: String
 
   # CSPP :sourceLink
   # An entity responsible for making the resource available.
