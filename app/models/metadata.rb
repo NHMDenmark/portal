@@ -15,15 +15,13 @@ class Metadata
   # TODO: conflicts with associated_media where this also would occur
   #       needs to be resolved in DwCR Feeder; custom CSPP problem, because
   #       title is not part of DwC
-#   field :title,
-#         as: :dc_title,
-#         label: RDF::Vocab::DC['title'],
-#         type: String
+  field :title,
+        as: :dc_title,
+        label: RDF::Vocab::DC['title'],
+        type: String
 
   # CSPP :sourceLink
   # An entity responsible for making the resource available.
-  # TODO: conflicts with associated_media where this also would occur
-  #       needs to be resolved in DwCR Feeder
   field :source_link,
         as: :dc_publisher,
         label: RDF::Vocab::DC['publisher'],

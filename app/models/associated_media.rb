@@ -9,7 +9,7 @@ class AssociatedMedia
   extend Mappable
   # include Mongoid::Attributes::Dynamic
 
-  self.rdf_class_term = RDF::Vocab::DWC['Multimedia']
+  self.rdf_class_term = AUDUBON['Multimedia']
 
   embedded_in :collection_object
 
