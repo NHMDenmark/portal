@@ -16,6 +16,8 @@ gem 'kaminari-actionview', '~>1.1'
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
 # Use SCSS for stylesheets
+# gem 'sassc'
+# gem 'sassc-rails'
 gem 'sass-rails', '~> 5.0'
 gem 'bourbon', '~> 5.0'
 gem 'neat', '~> 2.1.0'
