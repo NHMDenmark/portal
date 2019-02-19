@@ -87,4 +87,8 @@ RSpec.describe Mappable do
 # #   	    .and have_attributes a_field: { unique: true }
 #   	end
   end
+
+  describe '.rdf_term' do
+    subject { TestModel.rdf_term(:a_field) }
+  end
 end

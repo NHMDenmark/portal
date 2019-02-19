@@ -4,11 +4,12 @@
 module RDFRenderable
   # Returns all RDF attributes for a document, including attributes from related
   # documents.
-  def all_attributes(document)
-    related_attributes(document).prepend(document.rdf_attributes)
-                                .flatten
-                                .compact
-                                .reduce({}, :merge)
+  def all_attributes(document, keys: :uri)
+    related_attributes(document,
+                       keys: keys).prepend(document.rdf_attributes(keys: keys))
+                                  .flatten
+                                  .compact
+                                  .reduce({}, :merge)
   end
 
   # Returns a symbol for the format to be rendered.
@@ -69,14 +70,14 @@ module RDFRenderable
   end
 
   # Returns an Array with all related RDF attributes for a document.
-  def related_attributes(document)
+  def related_attributes(document, keys: :uri)
     document.relations.keys.map do |relation|
       related_document = document.public_send(relation)
       next unless related_document
       if related_document.is_a? Array
-        related_document.map(&:rdf_attributes)
+        related_document.map { |doc| doc.rdf_attributes(keys: keys) }
       else
-        related_document.rdf_attributes
+        related_document.rdf_attributes(keys: keys)
       end
     end
   end
