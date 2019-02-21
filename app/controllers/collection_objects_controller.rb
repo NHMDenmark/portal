@@ -131,6 +131,20 @@ class CollectionObjectsController < ApplicationController
     }
   end
 
+  # type specific (NONE in manifest)
+  def iiif_paging_properties
+    {
+    }
+  end
+
+  # type specific (below for manifest)
+  def iiif_structural_properties
+    {
+      sequences: collection_object.associated_media, # required!
+      structures: nil # if there are Ranges, they go here
+    }
+  end
+
   # type specific (below for manifest)
   def iiif_technical_properties
     {
