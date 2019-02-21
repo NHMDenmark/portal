@@ -3,14 +3,14 @@
 # Service objects for iiif
 module IIIF
   # IIIF::PropertySets extract
-  class Manifest < Resource
+  class Sequence < Resource
     # The object for which properties are to be extracted
     attr_reader :object
 
     # FIXME: to remove trainwrecks, pass in a kind of all attributes hash
     # instead of obj
     def initialize(obj, url)
-      @type = 'sc:Manifest'
+      @type = 'sc:Sequence'
       super
     end
 
@@ -19,15 +19,10 @@ module IIIF
       object.metadata.rights_holder
     end
 
-    def description
-     # iiif_description
-     "#{object.dwc_taxon.vernacular_name || object.dwc_taxon.scientific_name_current}"\
-     " from #{object.dwc_location.higher_geography}"
-    end
+    def description; end
 
     def label
-      # FIXME: no trainwrecks!
-      object.metadata.title || raise('label is mandatory')
+      # TODO: should be 'labels' for all labels, 'specimen' for object
     end
 
     def license
@@ -43,21 +38,17 @@ module IIIF
       # TODO: extract metadata
     end
 
-    def nav_date
-      # FIXME: no trainwrecks!
-      object.dwc_event.collection_date.to_time
-    end
-
     def related; end
 
     def rendering; end
 
-    def see_also
-      # FIXME: should use base url
-      "http://localhost:3000/data/rdf/#{object.catalog_number}"
-    end
+    def see_also; end
 
     def service; end
+
+    def start_canvas
+      # TODO: is there a way to automatically designate one?
+    end
 
     def thumbnail
       # TODO: extract first associated media, if present and image
@@ -70,7 +61,7 @@ module IIIF
     end
 
     def within
-      # TODO: relevant once iiif collections are implemented
+      # TODO: the manifest in which the sequence is included
     end
   end
 end
