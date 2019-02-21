@@ -8,7 +8,12 @@ Rails.application.routes.draw do
   end
 #   get 'object/:dwc_catalog_number', to: 'collection_objects#object', as: :object
   get 'object/:id', to: 'collection_objects#show', as: :object
-  get 'object/iiif/:id/manifest', to: 'collection_objects#manifest'
+
+  # iiif
+  get 'object/iiif/:id/manifest', to: 'manifests#manifest'
+
+  # RDF
   get 'data/rdf/:id', to: 'collection_objects#rdf', defaults: { format: 'xml' }
+
   root 'collection_objects#index'
 end
