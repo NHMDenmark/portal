@@ -3,7 +3,7 @@
 # Service objects for iiif
 module IIIF
   # IIIF::PropertySets extract
-  class PropertySet
+  class Resource
     #
     attr_reader :context
     # The object for which properties are to be extracted

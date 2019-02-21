@@ -3,7 +3,7 @@
 # Service objects for iiif
 module IIIF
   # IIIF::PropertySets extract
-  class Manifest < PropertySet
+  class Manifest < Resource
     # The object for which properties are to be extracted
     attr_reader :object
 
