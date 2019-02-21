@@ -6,13 +6,16 @@ module IIIF
   class Resource
     #
     attr_reader :context
-    # The object for which properties are to be extracted
 
+    # The URI that identifies the resource.
+    # https://iiif.io/api/presentation/2.1/#id
     attr_reader :id
 
+    # The object for which properties are to be extracted
     attr_reader :object
-    # The iiif (manifest, sequence, canvas, content, range...)
 
+    # The type of the resource (manifest, sequence, canvas, content, range...).
+    # https://iiif.io/api/presentation/2.1/#type
     attr_reader :type
 
     def initialize(obj, url)
@@ -32,7 +35,12 @@ module IIIF
         'thumbnail' => thumbnail,
         'attribution' => attribution,
         'license' => license,
-        'logo' => logo
+        'logo' => logo,
+        'format' => mime_format,
+        'height' => height,
+        'width' => width,
+        'viewingDirection' => viewing_direction,
+        'viewingHint' => viewing_hint
       }
     end
 
@@ -71,5 +79,34 @@ module IIIF
     # with the resource it is attached to.
     # https://iiif.io/api/presentation/2.1/#logo
     def logo; end
+
+    # Technical Properties
+
+    # The specific media type (MIME type) of a content resource.
+    # https://iiif.io/api/presentation/2.1/#format
+    def mime_format; end
+
+    # The height of a canvas or image resource.
+    # https://iiif.io/api/presentation/2.1/#height
+    def height; end
+
+    # The width of a canvas or image resource.
+    # https://iiif.io/api/presentation/2.1/#width
+    def width; end
+
+    # The direction that a sequence of canvases should be displayed to the user.
+    # https://iiif.io/api/presentation/2.1/#viewingdirection
+    def viewing_direction; end
+
+    # A hint to the client as to the most appropriate method of displaying the
+    # resource.
+    # https://iiif.io/api/presentation/2.1/#viewinghint
+    def viewing_hint; end
+
+    # A date that the client can use for navigation purposes when presenting the
+    # resource to the user in a time-based user interface, such as a calendar or
+    # timeline.
+    # https://iiif.io/api/presentation/2.1/#navdate
+    def nav_date; end
   end
 end
