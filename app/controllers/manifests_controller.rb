@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ManifestsController < ApplicationController
   include RDFRenderable
 
@@ -6,28 +8,10 @@ class ManifestsController < ApplicationController
   # TODO: given that all iiif types (manifest, sequence, etc) have the same
   # properties, this should be a generic method that could go into a helper
   def iiif_properties(iiif_type = 'sc:Manifest')
-    prps = {
-      '@context' => 'http://iiif.io/api/presentation/2/context.json',
-      '@type' => iiif_type,
-      '@id' => request.original_url
-    }
-    prps.merge(iiif_descriptive_and_rights_properties)
-        .merge(iiif_technical_properties)
-        .merge(iiif_linking_properties)
-        .compact
-  end
-
-  # non @type specific; all fields present in manifest, sequence, canvas, etc.
-  def iiif_descriptive_and_rights_properties
-    {
-      label: collection_object.metadata.title,
-      metadata: iiif_metadata,
-      description: iiif_description,
-      thumbnail: iiif_thumbnail,
-      attribution: collection_object.metadata.rights_holder,
-      license: collection_object.metadata.license,
-      logo: iiif_logo
-    }
+    mnfst = IIIF::Manifest.new(collection_object, request.original_url)
+    mnfst.properties.merge(iiif_technical_properties)
+                    .merge(iiif_linking_properties)
+                    .compact
   end
 
   # type specific (below for manifest)
@@ -65,28 +49,17 @@ class ManifestsController < ApplicationController
     }
   end
 
-  # Returns a string with a description of the manifest
-  def iiif_description
-    # FIXME: should really be a human readable description
-    "#{collection_object.metadata.kind_of_material}"
-  end
-
-  #
+  # TODO: moved to service; delete
   def iiif_logo
     'https://cms.ku.dk/grafik/images/topgrafik/faelles.svg'
   end
 
-  # TODO: move to helper
+  # TODO: move to service
   def iiif_metadata
     mdt = all_attributes(collection_object, keys: :element)
     mdt.delete(nil) # FIXME: required because all_attributes leaves an id at a
                     # nil key
     mdt.map { |key, value| { key: key, value: value } }
-  end
-
-  def iiif_thumbnail
-    # should generate thumbnail from first associated media
-    nil
   end
 
   def manifest
