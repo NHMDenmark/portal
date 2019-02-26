@@ -54,7 +54,7 @@ class Metadata
         as: :dc_license,
         label: RDF::Vocab::DC['license'],
         type: String,
-        default: -> { 'http://creativecommons.org/licenses/by/4.0/legalcode' }
+        default: -> { 'https://creativecommons.org/licenses/by/4.0/legalcode' }
 
   # A person or organization owning or managing rights over the resource.
   field :rights_holder,

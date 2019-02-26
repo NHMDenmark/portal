@@ -13,5 +13,17 @@ module IIIF
       @type = 'sc:Canvas'
       super
     end
+
+    def label
+      object.title
+    end
+
+    def metadata; end
+
+    def description; end
+
+    def thumbnail
+      object.webscaled_image_link
+    end
   end
 end
