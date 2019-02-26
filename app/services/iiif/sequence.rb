@@ -22,7 +22,7 @@ module IIIF
     def description; end
 
     def label
-      # TODO: should be 'labels' for all labels, 'specimen' for object
+      "All Images for #{object}"
     end
 
     def license

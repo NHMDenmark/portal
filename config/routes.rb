@@ -12,8 +12,8 @@ Rails.application.routes.draw do
   # iiif
   get 'object/iiif/:id/manifest', to: 'manifests#show'
 
-  # where :name can be +all+, +specimen+, +labels+
-#   get 'object/iiif/:id/sequence/:name', to: 'sequences#show'
+  # where :name can be +normal+
+  get 'object/iiif/:id/sequence/:name', to: 'sequences#show'
 
   # RDF
   get 'data/rdf/:id', to: 'collection_objects#rdf', defaults: { format: 'xml' }
