@@ -19,10 +19,19 @@ module IIIF
       object.metadata.rights_holder
     end
 
+    def canvases
+      # FIXME: should use base url
+      cv_url = "http://localhost:3000/object/iiif/#{object.catalog_number}"\
+               "/canvas/"
+      object.associated_media.map do |media|
+        IIIF::Canvas.new(media, cv_url + media.identifier).properties.compact
+      end
+    end
+
     def description; end
 
     def label
-      "All Images for #{object}"
+      "All Images for #{object.catalog_number}"
     end
 
     def license
@@ -34,8 +43,12 @@ module IIIF
       'https://cms.ku.dk/grafik/images/topgrafik/faelles.svg'
     end
 
-    def metadata
-      # TODO: extract metadata
+    def metadata; end
+
+    def properties
+      props = super
+      props['canvases'] = canvases
+      props
     end
 
     def related; end
@@ -61,7 +74,8 @@ module IIIF
     end
 
     def within
-      # TODO: the manifest in which the sequence is included
+      # FIXME: should use base url
+      "http://localhost:3000/object/iiif/#{object.catalog_number}/manifest"
     end
   end
 end

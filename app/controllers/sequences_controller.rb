@@ -1,8 +1,9 @@
 class SequencesController < ApplicationController
 
   def show
-    manifest_object = CollectionObject.find(params[:id])
+    sq = IIIF::Sequence.new(CollectionObject.find(params[:id]),
+                            request.original_url)
     hsh = { id: params[:id], name: params[:name] }
-    render json: hsh
+    render json: sq.properties.compact
   end
 end

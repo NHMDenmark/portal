@@ -48,6 +48,12 @@ module IIIF
       object.dwc_event.collection_date.to_time
     end
 
+    def properties
+      props = super
+      props['sequences'] = sequences
+      props
+    end
+
     def related; end
 
     def rendering; end
@@ -57,7 +63,17 @@ module IIIF
       "http://localhost:3000/data/rdf/#{object.catalog_number}"
     end
 
+    def sequences
+      # FIXME: should use base url
+      normal_seq = "http://localhost:3000/object/iiif/#{object.catalog_number}"\
+                   "/sequence/normal"
+      [IIIF::Sequence.new(object, normal_seq).properties.compact]
+    end
+
     def service; end
+
+    # JSON for embedded resources (e.g. Ranges)
+    def structures; end
 
     def thumbnail
       # TODO: extract first associated media, if present and image

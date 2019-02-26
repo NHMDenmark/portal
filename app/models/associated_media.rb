@@ -26,6 +26,11 @@ class AssociatedMedia
          label: RDF::Vocab::DWC['associatedMedia'],
          type: String
 
+  field :access_uri,
+        as: :ac_access_uri,
+        label: AUDUBON['accessURI'],
+        type: String
+
   # An arbitrary code that is unique for the resource, with the resource being
   # either a provider, collection, or media item.
   field :identifier,

@@ -9,10 +9,3 @@ class ManifestsController < ApplicationController
     render json: mnfst.properties.compact
   end
 end
-
-#   def iiif_structural_properties
-#     {
-#       sequences: collection_object.associated_media, # required!
-#       structures: nil # if there are Ranges, they go here
-#     }
-#   end
