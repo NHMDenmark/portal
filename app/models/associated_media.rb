@@ -109,7 +109,8 @@ class AssociatedMedia
   field :metadata_language,
         as: :ac_metadata_language,
         label: AUDUBON['metadataLanguage'],
-        type: String
+        type: String,
+        default: -> { "#{IDLOC}#{metadata_language_literal}.html" }
 
   # A free-form identifier (a simple number, an alphanumeric code, a URL, etc.)
   # that is unique and meaningful primarily for the data provider.
@@ -358,7 +359,7 @@ class AssociatedMedia
         as: :dc_language,
         label: RDF::Vocab::DC['language'],
         type: String,
-        default: -> { "http://id.loc.gov/vocabulary/iso639-2/#{language}.html" }
+        default: -> { "#{IDLOC}#{language}.html" }
 
   # The setting of the content represented in media such as images, sounds, and
   # movies if the provider deems them relevant. Constrained vocabulary of:
