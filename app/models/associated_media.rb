@@ -14,6 +14,7 @@ class AssociatedMedia
   embedded_in :collection_object
   # An arbitrary code that is unique for the resource, with the resource being
   # either a provider, collection, or media item.
+  # The iiif @id property
   field :identifier,
         as: :dc_identifier,
         label: RDF::Vocab::DC['identifier'],
@@ -22,6 +23,8 @@ class AssociatedMedia
   # CSPP :webscaledImageLink
   # An identifier (publication, global unique identifier, URI) of media
   # associated with the Occurrence.
+  # This is the endpoint of an actual viewable image, viewable without a IIIF
+  # or other viewer.
   field :webscaled_image_link,
         as: :dwc_associated_media,
         label: RDF::Vocab::DWC['associatedMedia'],
@@ -55,21 +58,10 @@ class AssociatedMedia
         label: RDF::Vocab::DC['type'],
         type: String
 
-  # The subtype should provide more specialization than the type. Possible
-  # values are community-defined. For examples see the non-normative page
-  # https://terms.tdwg.org/wiki/AC_Subtype_Examples.
-  field :subtype_literal,
-        as: :ac_subtype_literal,
-        label: AUDUBON['subtypeLiteral'],
-        type: String
-
-  # Any URI may be used that provides for more specialization than the type.
-  # Possible values are community-defined. For exmamples see the non-normative
-  # page https://terms.tdwg.org/wiki/AC_Subtype_Examples.
-  field :subtype,
-        as: :ac_subtype,
-        label: AUDUBON['subtype'],
-        type: String
+  # Skipping
+  # - http://rs.tdwg.org/ac/terms/subtypeLiteral
+  # - http://rs.tdwg.org/ac/terms/subtype
+  # neither may be applied to collection objects
 
   # Concise title, name, or brief descriptive label of institution, resource
   # collection, or individual resource. This field should include the complete
@@ -88,22 +80,16 @@ class AssociatedMedia
         label: RDF::Vocab::DC['modified'],
         type: DateTime
 
-  # Point in time recording when the last modification to metadata (not
-  # necessarily the media object itself) occurred. The date and time must comply
-  # with the World Wide Web Consortium (W3C) datetime practice, which requires
-  # that date and time representation correspond to ISO 8601:1998, but with year
-  # fields always comprising 4 digits.
-  field :metadata_date,
-        as: :xmp_metadata_date,
-        label: XMP['MetadataDate'],
-        type: DateTime
+  # Skipping http://ns.adobe.com/xap/1.0/MetadataDate
+  # is collection_object.metadata.modified
 
   # Language of description and other metadata (but not necessarily of the image
   # itself) represented as an ISO639-2 three letter language code.
   field :metadata_language_literal,
         as: :ac_metadata_language_literal,
         label: AUDUBON['metadataLanguageLiteral'],
-        type: String
+        type: String,
+        default: -> { 'eng' }
 
   # URI from http://id.loc.gov/vocabulary/iso639-2
   field :metadata_language,
@@ -118,6 +104,7 @@ class AssociatedMedia
         as: :ac_provider_managed_id,
         label: AUDUBON['providerManagedID'],
         type: String
+  # FIXME: clarify iiif @id or Stable Identifier
 
   # A rating of the media resources, provided by record originators or editors,
   # with -1 defining 'rejected', '0' defining 'unrated', and '1' (worst) to '5'
@@ -132,12 +119,16 @@ class AssociatedMedia
         as: :ac_commenter_literal,
         label: AUDUBON['commenterLiteral'],
         type: String
+  # FIXME: repeatable; should be embedded doc `Annotation`. -> IIIF annotations
+  # Should have type (reviewer yes/no)
 
   # A URI denoting a person, using some controlled vocabulary such as FOAF.
   field :commenter,
         as: :ac_commenter,
         label: AUDUBON['commenter'],
         type: String
+  # FIXME: repeatable; should be embedded doc `Annotation`. -> IIIF annotations
+  # Should have type (reviewer yes/no)
 
   # Any comment provided on the media resource, as free-form text. Best practice
   # would also identify the commenter.
@@ -145,6 +136,8 @@ class AssociatedMedia
         as: :ac_comments,
         label: AUDUBON['comments'],
         type: String
+  # FIXME: repeatable; should be embedded doc `Annotation`. -> IIIF annotations
+  # Should have type (reviewer yes/no)
 
   # String providing the name of a reviewer. If present, then resource is peer-
   # reviewed, even if Reviewer Comments is absent or empty. Its presence tells
@@ -155,6 +148,8 @@ class AssociatedMedia
         as: :ac_reviewer_literal,
         label: AUDUBON['reviewerLiteral'],
         type: String
+  # FIXME: repeatable; should be embedded doc `Annotation`. -> IIIF annotations
+  # Should have type (reviewer yes/no)
 
   # URI for a reviewer. If present, then resource is peer-reviewed, even if
   # there are Reviewer Comments is absent or empty. Its presence tells whether
@@ -165,6 +160,8 @@ class AssociatedMedia
         as: :ac_reviewer,
         label: AUDUBON['reviewer'],
         type: String
+  # FIXME: repeatable; should be embedded doc `Annotation`. -> IIIF annotations
+  # Should have type (reviewer yes/no)
 
   # Any comment provided by a reviewer with expertise in the subject, as free-
   # form text.
@@ -172,6 +169,8 @@ class AssociatedMedia
         as: :ac_reviewer_comments,
         label: AUDUBON['reviewerComments'],
         type: String
+  # FIXME: repeatable; should be embedded doc `Annotation`. -> IIIF annotations
+  # Should have type (reviewer yes/no)
 
   # The date (often a range) that the resource became or will become available.
   field :available,
@@ -281,6 +280,7 @@ class AssociatedMedia
         as: :dce_source,
         label: RDF::Vocab::DC11['source'],
         type: String
+  # FIXME: questionable relevance
 
   # URI for an identifiable source from which the described resources was
   # derived.
@@ -288,6 +288,7 @@ class AssociatedMedia
         as: :dc_source,
         label: RDF::Vocab::DC['source'],
         type: String
+  # FIXME: questionable relevance
 
   # The person or organization responsible for creating the media resource.
   field :creator,
@@ -372,30 +373,18 @@ class AssociatedMedia
         label: AUDUBON['physicalSetting'],
         type: String
 
-  # Controlled vocabulary of subjects to support broad classification of media
-  # items. Terms from various controlled vocabularies may be used.
-  field :subject_category,
-        as: :iptc_c_v_term,
-        label: IPTC['CVterm'],
-        type: String
-
-  # Any vocabulary or formal classification from which terms in the Subject
-  # Category have been drawn.
-  # AC-recommended vocabularies are the NASA Global Change Master Directory
-  # (GCMD), K2N, the BioComplexity Thesaurus, the Description Type GBIF
-  # Vocabulary, the TDWG Species Profile Model, the Plinian Core, the European
-  # Environmental Agency GEneral Multilingual Environmental Thesaurus(GEMET)
-  # and the LTER Controlled Vocabulary.
-  field :subject_category_vocabulary,
-        as: :ac_subject_category_vocabulary,
-        label: AUDUBON['subjectCategoryVocabulary'],
-        type: String
+  # Skipping:
+  # - +subject_category+ (http://iptc.org/std/Iptc4xmpExt/2008-02-29/CVterm)
+  # - +subject_category_vocabulary+
+  #   (http://rs.tdwg.org/ac/terms/subjectCategoryVocabulary)
+  # should be derived from other metadata
 
   # General keywords or tags.
   field :tag,
         as: :ac_tag,
         label: AUDUBON['tag'],
         type: String
+  # FIXME: should be repeatable (embeds many)
 
   # skipping Geography Vocabulary
   # should be inferred from parent CollectionObject document.
@@ -413,7 +402,17 @@ class AssociatedMedia
 
   # skipping Taxonomic Coverage Vocabulary
   # should be inferred from parent CollectionObject document.
-  # except: http://rs.tdwg.org/ac/terms/subjectOrientation (below)
+  # except:
+  # - http://rs.tdwg.org/ac/terms/subjectOrientation (below)
+  # - http://rs.tdwg.org/ac/terms/subjectPart (below)
+
+  # The portion or product of organism morphology, behaviour, environment, etc.
+  # that is either predominantly shown or particularly well exemplified by the
+  # media resource.
+  field :subject_part,
+        as: :ac_subject_part,
+        label: AUDUBON['subjectPart'],
+        type: String
 
   # Specific orientation (= direction, view angle) of the subject represented in
   # the media resource with respect to the acquisition device.
@@ -462,11 +461,16 @@ class AssociatedMedia
   # relatedResourceID is repeatable, should be embeds_many
   # could be useful for iiif features
 
+  # FIXME: All of the below refers to variants (different resolutions) and
+  # shold be inserted as a nested doc if used and inserted into
+  # +has_service_access_point+
+  # is handled by IIIF
+
   # A URI that uniquely identifies a service that provides a representation of
   # the underlying resource. If this resource can be acquired by an http
   # request, its http URL should be given. If not, but it has some URI in
   # another URI scheme, that may be given here.
-  # TODO: Corresponds to should be IIIF @id, or actual image?
+  # Same as +identifier+?
   field :access_uri,
         as: :ac_access_uri,
         label: AUDUBON['accessURI'],
