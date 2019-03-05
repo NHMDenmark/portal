@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   # where :name can be +normal+
   get 'object/iiif/:id/sequence/:name', to: 'sequences#show'
 
+  get 'object/iiif/:id/canvas/:name', to: 'canvases#show'
+
   # RDF
   get 'data/rdf/:id', to: 'collection_objects#rdf', defaults: { format: 'xml' }
 

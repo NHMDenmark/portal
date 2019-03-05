@@ -106,7 +106,7 @@ class AssociatedMedia
         as: :ac_provider_managed_id,
         label: AUDUBON['providerManagedID'],
         type: String
-  # FIXME: clarify iiif @id or Stable Identifier
+  # FIXME: This should be the individual image name (suffix to CO catnum)
 
   # A rating of the media resources, provided by record originators or editors,
   # with -1 defining 'rejected', '0' defining 'unrated', and '1' (worst) to '5'
