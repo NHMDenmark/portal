@@ -78,9 +78,15 @@ module IIIF
 
     def service; end
 
+#     "@id" : "http://example.org/iiif/book1/canvas/p1/thumb.jpg",
     def thumbnail
-      variants.find_by('variant' => AUDUBON['Thumbnail'])
-              &.access_uri
+      tn = variants.find_by('variant' => AUDUBON['Thumbnail'])
+      {
+        '@id' => tn&.access_uri,
+        '@type' => 'dctypes:Image',
+        'width': tn.width,
+        'height': tn.height,
+      }
     end
 
     def viewing_hint; end

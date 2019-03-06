@@ -53,6 +53,23 @@ module IIIF
 
     def metadata; end
 
+    def properties
+      props = super
+      props['resource'] = {
+        '@id' => base&.access_uri,
+        '@type' => 'dctypes:Image',
+        'format' => base&.format,
+        'service' => {
+          '@context' => 'http://iiif.io/api/image/2/context.json',
+          '@id' => base&.access_uri,
+          'profile' => 'http://iiif.io/api/image/2/level2.json'
+        },
+        'width' => base.width,
+        'height' => base.height
+      }
+      props
+    end
+
     def related; end
 
     def rendering; end
@@ -63,8 +80,13 @@ module IIIF
 
     # FIXME: duplication, occurs also in canvas.rb
     def thumbnail
-      variants.find_by('variant' => AUDUBON['Thumbnail'])
-              &.access_uri
+      tn = variants.find_by('variant' => AUDUBON['Thumbnail'])
+      {
+        '@id' => tn&.access_uri,
+        '@type' => 'dctypes:Image',
+        'width': tn.width,
+        'height': tn.height,
+      }
     end
 
     # FIXME: duplication, occurs also in canvas.rb
