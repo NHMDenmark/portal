@@ -5,7 +5,6 @@ module IIIF
   # IIIF::PropertySets extract
   class Canvas < Resource
     # The object for which properties are to be extracted
-    attr_reader :object
     attr_reader :variants
     attr_reader :base
 
@@ -14,6 +13,8 @@ module IIIF
     def initialize(obj, url)
       @type = 'sc:Canvas'
       super
+
+      # FIXME: duplication, occurs also in content.rb
       @variants = object.ac_service_access_points
       @base = variants.find_by!(variant_description: 'iiif_image_api_2.1')
     end
@@ -32,9 +33,16 @@ module IIIF
     end
 
     def images
-      #
+      [
+        IIIF::Content.new(object,
+                          "http://localhost:3000/object/iiif/"\
+                          "#{object.collection_object.catalog_number}/"\
+                          "annotation/#{object.identifier}",
+                          :image).properties.compact
+      ]
     end
 
+    # Required
     def label
       object.title
     end

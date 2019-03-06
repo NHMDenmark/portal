@@ -24,7 +24,8 @@ module IIIF
       cv_url = "http://localhost:3000/object/iiif/#{object.catalog_number}"\
                "/canvas/"
       object.associated_media.map do |media|
-        IIIF::Canvas.new(media, cv_url + media.identifier).properties.compact
+        IIIF::Canvas.new(media,
+                         cv_url + media.provider_managed_id).properties.compact
       end
     end
 
