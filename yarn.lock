@@ -2,3 +2,17 @@
 # yarn lockfile v1
 
 
+jquery@^3.3.1:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"
+  integrity sha512-Ubldcmxp5np52/ENotGxlLe6aGMvmF4R8S6tZjsP6Knsaxd/xp3Zrh50cG93lR6nPXyUFwzN3ZSOQI0wRJNdGg==
+
+leaflet-iiif@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/leaflet-iiif/-/leaflet-iiif-2.0.1.tgz#b25b79b86051d8051be3efba658ec9ef6e762a57"
+  integrity sha512-+5WsgcZQM02cxM/FSMryMzOeQ6rXgIrp6jjuaZM9jKa6KmKpY6QJ+X6/x1LYW+aRHqg8iz+CJ+a/BS94n/pmqQ==
+
+leaflet@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.4.0.tgz#d5f56eeb2aa32787c24011e8be4c77e362ae171b"
+  integrity sha512-x9j9tGY1+PDLN9pcWTx9/y6C5nezoTMB8BLK5jTakx+H7bPlnbCHfi9Hjg+Qt36sgDz/cb9lrSpNQXmk45Tvhw==

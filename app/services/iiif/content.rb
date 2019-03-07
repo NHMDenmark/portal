@@ -57,6 +57,7 @@ module IIIF
       props = super
 
       # FIXME: should be passed in to Resource initializer as params to create ad hoc resource
+      # The service will be available under https://a00796.science.ku.dk/iipsrv?IIIF=c4af2eaf-7d1d-4c9f-bec8-6eb7b8dbb455.tiff/info.json
       props['resource'] = {
         '@id' => base&.access_uri,
         '@type' => 'dctypes:Image',

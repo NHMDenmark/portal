@@ -1,5 +1,9 @@
 {
   "name": "portal",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "jquery": "^3.3.1",
+    "leaflet": "^1.4.0",
+    "leaflet-iiif": "^2.0.1"
+  }
 }
