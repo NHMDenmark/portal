@@ -55,6 +55,8 @@ module IIIF
 
     def properties
       props = super
+
+      # FIXME: should be passed in to Resource initializer as params to create ad hoc resource
       props['resource'] = {
         '@id' => base&.access_uri,
         '@type' => 'dctypes:Image',

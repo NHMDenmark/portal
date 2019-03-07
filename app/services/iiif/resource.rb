@@ -18,7 +18,7 @@ module IIIF
     # https://iiif.io/api/presentation/2.1/#type
     attr_reader :type
 
-    def initialize(obj, url)
+    def initialize(obj, url, params = {})
       @context = 'http://iiif.io/api/presentation/2/context.json'
       @id = url
       @object = obj
