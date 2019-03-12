@@ -27,7 +27,7 @@ module IIIF
 
     def label
       # FIXME: no trainwrecks!
-      object.metadata.title || raise('label is mandatory')
+      object.metadata.title || object.catalog_number
     end
 
     def license
