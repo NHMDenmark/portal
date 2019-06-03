@@ -26,6 +26,7 @@ class CollectionObjectsController < ApplicationController
     @document = document
     @document.delete('_id')
     @catalog_number = @document.delete :catalog_number
+    @manifest = "http://localhost:3000/object/iiif/#{@catalog_number}/manifest"
     @other_catalog_numbers = @document.delete :other_catalog_numbers
     @metadata = @document.delete :metadata
     @sections = []

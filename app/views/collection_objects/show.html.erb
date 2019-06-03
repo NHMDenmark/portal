@@ -35,7 +35,7 @@
           zoom: 0
         });
 
-        var manifestUrl = 'http://localhost:3000/object/iiif/NHMD-117453/manifest';
+        var manifestUrl = '<%=@manifest%>';
 
         // Grab a IIIF manifest
         $.getJSON(manifestUrl, function(data) {
